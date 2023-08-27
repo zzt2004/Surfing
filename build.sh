@@ -1,3 +1,5 @@
 #!/bin/sh
 
-zip -r -o -X -ll box4_$(cat module.prop | grep 'version=' | awk -F '=' '{print $2}').zip ./ -x '.git/*' -x 'build.sh' -x '.github/*' -x 'box4.json'
+version=$(cat module.prop | grep 'version=' | awk -F '=' '{print $2}')
+filename="Surfing_${version}_release.zip"
+zip -r -o -X -ll "$filename" ./ -x '.git/*' -x '.github/*' -x 'folder/*' -x 'build.sh' -x 'Surfing.json'
