@@ -1,7 +1,7 @@
-id=box4
-name=box4magisk
-version=v4.7
-versionCode=2023081113
-author=CHIZI-0618
-description=Use sing-box, clash, v2ray, xray tunnel proxy on Android devices.
-updateJson=https://raw.githubusercontent.com/CHIZI-0618/box4magisk/main/box4.json
+id=Surfing
+name=Surfing
+version=v6.7.5
+versionCode=1539
+author=MoGuangYu
+description=支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。此模块开关就是实时 启用/关闭 无须重启。Wbe后端地址: 127.0.0.1:9090/ui
+updateJson=https://raw.githubusercontent.com/MoGuangYu/Surfing/main/Surfing.json
