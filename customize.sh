@@ -20,45 +20,50 @@ if [ ! -d "$service_dir" ] ; then
 fi
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d $MODPATH
-
-if [ -d /data/adb/box ] ; then
-  cp /data/adb/box/scripts/box.config /data/adb/box/scripts/box.config.bak
-  ui_print "- User configuration box.config has been backed up to box.config.bak"
-
-  cat /data/adb/box/scripts/box.config >> $MODPATH/box/scripts/box.config
-  cp -f $MODPATH/box/scripts/* /data/adb/box/scripts/
-  ui_print "- User configuration box.config has been"
-  ui_print "- attached to the module box.config,"
-  ui_print "- please re-edit box.config"
-  ui_print "- after the update is complete."
-
-  awk '!x[$0]++' $MODPATH/box/scripts/box.config > /data/adb/box/scripts/box.config
-
-  rm -rf $MODPATH/box
+if [ -d /data/adb/box_bll ] ; then
+  mv /data/adb/box_bll/clash/cache.db /data/adb/box_bll/clash/cache_tmp.db
+  mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
+  cp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak
+  rm -rf /data/adb/box_bll/clash/dashboard/Yacd
+  cp -rf $MODPATH/box_bll/* /data/adb/box_bll/
+  rm -rf $MODPATH/box_bll
+  mv /data/adb/box_bll/clash/cache_tmp.db /data/adb/box_bll/clash/cache.db
+  mv /data/adb/box_bll/clash/config_tmp.yaml /data/adb/box_bll/clash/config.yaml
+  ui_print "- 正在更新..."
+  ui_print "- 更新完成，无需重启..."
+  ui_print "- 用户配置 box.config  文件已原地备份."
+  ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
+#  ui_print "- 配置文件 config.yaml 已更新，请重新前往添加订阅信息！"
 else
-  mv $MODPATH/box /data/adb/
+  mv $MODPATH/box_bll /data/adb/
+  ui_print "- 正在安装..."
+  ui_print "- 安装完成..."
+  ui_print "- 首次安装完成后，先不要重启"
+  ui_print "- 请至 data/adb/box_bll/clash/config.yaml 添加订阅信息"
+  ui_print "- 此模块开关就是实时 启用/关闭 首次安装使用需重启一次！"
 fi
 
 if [ "$KSU" = true ] ; then
-  sed -i 's/name=box4magisk/name=box4KernelSU/g' $MODPATH/module.prop
+  sed -i 's/name=Surfing/name=Surfing/g' $MODPATH/module.prop
 fi
 
-mkdir -p /data/adb/box/bin/
-mkdir -p /data/adb/box/run/
+mkdir -p /data/adb/box_bll/bin/
+mkdir -p /data/adb/box_bll/run/
 
-mv -f $MODPATH/box4_service.sh $service_dir/
+mv -f $MODPATH/Surfing_service.sh $service_dir/
 
 rm -f customize.sh
 
 set_perm_recursive $MODPATH 0 0 0755 0644
-set_perm_recursive /data/adb/box/ 0 0 0755 0644
-set_perm_recursive /data/adb/box/scripts/ 0 0 0755 0700
-set_perm_recursive /data/adb/box/bin/ 0 0 0755 0700
+set_perm_recursive /data/adb/box_bll/ 0 0 0755 0644
+set_perm_recursive /data/adb/box_bll/clash/proxy_providers/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/clash/rule/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/scripts/ 0 0 0755 0700
+set_perm_recursive /data/adb/box_bll/bin/ 0 0 0755 0700
 
-set_perm $service_dir/box4_service.sh 0 0 0700
+set_perm $service_dir/Surfing_service.sh 0 0 0700
 
-# fix "set_perm_recursive /data/adb/box/scripts" not working on some phones.
-chmod ugo+x /data/adb/box/scripts/*
+chmod ugo+x /data/adb/box_bll/scripts/*
 
 for pid in $(pidof inotifyd) ; do
   if grep -q box.inotify /proc/${pid}/cmdline ; then
@@ -66,4 +71,4 @@ for pid in $(pidof inotifyd) ; do
   fi
 done
 
-inotifyd "/data/adb/box/scripts/box.inotify" "/data/adb/modules/box4" > /dev/null 2>&1 &
+inotifyd "/data/adb/box_bll/scripts/box.inotify" "/data/adb/modules/Surfing" > /dev/null 2>&1 &
