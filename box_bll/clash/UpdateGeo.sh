@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# 此脚本需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并且root权限执行
+# 可以使用以下命令在 Termux 中安装
+# 依次执行以下命令
+# --------------------------
+# pkg update
+# pkg install curl
+# --------------------------  
+# 安装过程如有选择性提示都是选择 y 即可.
+# Termux下载地址：https://f-droid.org/repo/com.termux_118.apk
+
+
+# 检查是否已经具有 root 权限
+if [ "$(id -u)" -eq 0 ]; then
+    echo "已经具有 root 权限"
+else
+    echo "请求获取 root 权限..."
+    su -c "$0 $@"
+    exit
+fi
+
+# 定义数据库文件的下载链接
+geoip_url="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
+geosite_url="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+#mmdb_url="https://github.com/Loyalsoldier/geoip/releases/latest/download/Country.mmdb"
+
+# 定义数据库文件的存放路径
+database_dir="/data/adb/box_bll/clash/"
+
+# 下载数据库文件并覆盖旧文件
+download_and_replace() {
+    local url="$1"
+    local file_name="$2"
+    
+    echo "正在下载 $file_name ..."
+    curl -L "$url" -o "$database_dir/$file_name"
+    
+    if [ $? -eq 0 ]; then
+        echo "$file_name 下载成功！"
+        return 0
+    else
+        echo "$file_name 下载失败！"
+        return 1
+    fi
+}
+
+# 执行数据库文件更新操作
+update_database() {
+    # 下载数据库文件并覆盖旧文件
+    download_and_replace "$geoip_url" "geoip.dat"
+    download_and_replace "$geosite_url" "geosite.dat"
+    #download_and_replace "$mmdb_url" "country.mmdb"
+}
+
+# 主程序入口
+main() {
+    echo "正在自动更新Geo数据库文件..."
+    
+    # 切换到数据库文件目录
+    cd "$database_dir"
+    
+    # 更新数据库文件
+    update_database
+    
+    echo "自动下载完成！"
+}
+
+# 执行主程序
+main
