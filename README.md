@@ -54,9 +54,9 @@
 
 ## UpdateGeo.sh
 
-- 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并且root权限执行
+- 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并以root权限执行
   - 可以使用以下命令在 Termux App 中安装
-  - 依次执行以下命令  
+  - 终端依次执行以下命令  
 `pkg update`  
 `pkg install curl`
 - 安装过程如有选择性提示都是选择 Y 回车即可.
