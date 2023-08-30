@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# 此脚本需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并且root权限执行
+# 注意！！！
+# 此脚本需要 curl 命令，请确保在运行脚本之前已经安装了 curl 命令，并以root权限执行
 # 可以使用以下命令在 Termux App 中安装
 # 终端依次执行以下命令
 # --------------------------
@@ -8,7 +9,7 @@
 # pkg install curl
 # --------------------------  
 # 安装过程如有选择性提示都是选择 y 回车即可.
-# Termux App下载地址：https://f-droid.org/repo/com.termux_118.apk
+# Termux App 官方下载地址：https://f-droid.org/repo/com.termux_118.apk
 
 # 检查是否已经具有 root 权限
 if [ "$(id -u)" -eq 0 ]; then
