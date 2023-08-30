@@ -2,11 +2,16 @@
 
 ![Logo](./folder/Logo.png)
 
-  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。<br>为集成式一体服务<br>适用以下人群：<br>
+  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
+  
+  为集成式一体服务  
+  适用以下人群：
   - 懒癌
   - 小白
   
-  本模块默认配置仅支持 Clash.Meta  [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)<br>本模块需在 Magisk/KernelSU 环境进行使用。<br>如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
+  本模块默认配置仅支持 Clash.Meta  [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
+  本模块需在 Magisk/KernelSU 环境进行使用。  
+  如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
 
 # Surfing用户声明及免责
 
@@ -43,9 +48,19 @@
 - 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 安装
 - 支持后续在 Magisk Manager 中在线更新模块
 - 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
-- 更新时如 Clash.Meta 配置文件无更新，则保留原始配置文件，如有更新时则模块会输出相应提示，再进行下一步相应操作。
-- 更新模块时会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak` 
+- 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时则模块会输出相应提示，再进行下一步相应操作。
+- 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
 - 各版本变化 [📲日志.log](changelog.md)
+
+## UpdateGeo.sh
+
+- 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并且root权限执行
+  - 可以使用以下命令在 Termux App 中安装
+  - 依次执行以下命令  
+`pkg update`  
+`pkg install curl`
+- 安装过程如有选择性提示都是选择 Y 回车即可.
+- Termux官网地址：[Download](https://f-droid.org/repo/com.termux_118.apk)
 
 ## 卸载
 
