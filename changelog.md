@@ -1,6 +1,7 @@
 ## v6.7.6
 以下更新内容
 - 动态更新配置文件
+- 模块不再包含 Geo 数据库文件更新
 - 新增一键更新 Geo 数据库脚本
   - /data/adb/box_bll/clash/
   - UpdateGeo.sh
