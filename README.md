@@ -50,18 +50,18 @@
 - 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
 - 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件 至原始目录`config.yaml.bak`
 - 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
-- 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置页选项 进行手动更新即可
+- 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可
 - 各版本变化 [📲日志.log](changelog.md)
 
 ## UpdateGeo.sh
 
-- 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl 并以root权限执行
+- 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，并以root权限执行
   - 可以使用以下命令在 Termux App 中安装
   - 终端依次执行以下命令  
 `pkg update`  
 `pkg install curl`
 - 安装过程如有选择性提示都是选择 Y 回车即可.
-- Termux官网地址：[Download](https://f-droid.org/repo/com.termux_118.apk)
+- Termux App official：[Download](https://f-droid.org/repo/com.termux_118.apk)
 
 ## 卸载
 
