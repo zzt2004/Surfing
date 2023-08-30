@@ -8,7 +8,7 @@
 # pkg update
 # pkg install curl
 # --------------------------  
-# 安装过程如有选择性提示都是选择 y 回车即可.
+# 安装过程如有选择性提示都是选择 Y 回车即可.
 # Termux App 官方下载地址：https://f-droid.org/repo/com.termux_118.apk
 
 # 检查是否已经具有 root 权限
