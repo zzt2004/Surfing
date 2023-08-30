@@ -50,6 +50,7 @@
 - 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
 - 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件 至原始目录`config.yaml.bak`
 - 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
+- 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置页选项 进行手动更新即可
 - 各版本变化 [📲日志.log](changelog.md)
 
 ## UpdateGeo.sh
