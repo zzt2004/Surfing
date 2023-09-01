@@ -64,14 +64,9 @@
 - 安装过程如有选择性提示都是选择 Y 回车即可.
 - Termux App official：[Download](https://f-droid.org/repo/com.termux_118.apk)
 
-关于 Geo 数据库：  
+> 关于 Geo 数据库：  
 GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/Loyalsoldier/v2ray-rules-dat#%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F)  
-
-用于进行路由规则匹配 
-- 大陆/国外 
-- 域名/IP
-
-实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次即可。
+用于路由规则匹配，实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次更新即可。
 
 ## 卸载
 
