@@ -4,14 +4,15 @@
 
   本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
   
-  为集成式一体服务、即刷即用  
-  适用以下人群：
+  基于 [Box4Magisk](https://github.com/CHIZI-0618/box4magisk) 为集成式一体服务、即刷即用，使用前请仔细阅读此文档与原项目的区别 [README.md](https://github.com/CHIZI-0618/box4magisk/blob/main/README.md)   
+  此适用以下人群：
   - 懒癌
   - 小白
   
-  本模块默认配置仅支持 Clash.Meta  [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
-  本模块需在 Magisk/KernelSU 环境进行使用。  
-  如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
+  1.本模块的主题及配置仅围绕 Clash.Meta  
+  2.当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
+  3.本模块需在 Magisk/KernelSU 环境进行使用。  
+  4.如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
 
 # Surfing用户声明及免责
 
@@ -62,6 +63,15 @@
 `pkg install curl`
 - 安装过程如有选择性提示都是选择 Y 回车即可.
 - Termux App official：[Download](https://f-droid.org/repo/com.termux_118.apk)
+
+关于 Geo 数据库：  
+GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/Loyalsoldier/v2ray-rules-dat#%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F)  
+
+用于进行路由规则匹配 
+- 大陆/国外 
+- 域名/IP
+
+实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次即可。
 
 ## 卸载
 
