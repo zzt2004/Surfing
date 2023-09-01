@@ -54,6 +54,8 @@
 - 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可
 - 各版本变化 [📲日志.log](changelog.md)
 
+> If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader.
+
 ## UpdateGeo.sh
 
 - 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，并以root权限执行
