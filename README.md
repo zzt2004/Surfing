@@ -14,7 +14,7 @@
   本模块需在 Magisk/KernelSU 环境进行使用。  
   如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
 
-> "嘿，似乎发现了一扇通往全球互联网的秘密大门，就像Narnia的衣橱一样。现在，我们可以随时穿越到世界各地，比如说 'Narnia Online'。"
+> "似乎发现了一扇通往全球互联网的秘密大门，就像Narnia的衣橱一样。现在，我们可以随时穿越到世界各地，比如说 'Narnia Online'。"
 
 # Surfing用户声明及免责
 
