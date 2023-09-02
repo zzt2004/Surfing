@@ -4,15 +4,17 @@
 
   本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
   
-  基于 [Box4Magisk](https://github.com/CHIZI-0618/box4magisk) 为集成式一体服务、即刷即用，使用前请仔细阅读此文档与原项目的区别 [README.md](https://github.com/CHIZI-0618/box4magisk/blob/main/README.md)   
+  基于 [Box4Magisk](https://github.com/CHIZI-0618/box4magisk) 为集成式一体服务、即刷即用   
   此适用以下人群：
   - 懒癌
   - 小白
-  
-  1.本模块的主题及配置仅围绕 Clash.Meta  
-  2.当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
-  3.本模块需在 Magisk/KernelSU 环境进行使用。  
-  4.如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
+
+  本模块的主题及配置仅围绕 Clash.Meta  
+  当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
+  本模块需在 Magisk/KernelSU 环境进行使用。  
+  如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
+
+> "嘿，似乎发现了一扇通往全球互联网的秘密大门，就像Narnia的衣橱一样。现在，我们可以随时穿越到世界各地，比如说 'Narnia Online'。"
 
 # Surfing用户声明及免责
 
@@ -54,7 +56,7 @@
 - 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可
 - 各版本变化 [📲日志.log](changelog.md)
 
-> If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader.
+> "If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader."
 
 ## UpdateGeo.sh
 
