@@ -9,7 +9,7 @@
   - 懒癌
   - 小白
 
-  本模块的主题及配置仅围绕 Clash.Meta  
+  本模块的主题及配置仅围绕 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)  
   当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
   本模块需在 Magisk/KernelSU 环境进行使用。  
   如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
@@ -87,7 +87,14 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
     <strong>CHIZI-0618</strong>
   </p>
 </a>
+
 <div align="center">
-  <p>感谢为本项目的实现提供了宝贵的基础。</p>
+  <a href="https://github.com/MetaCubeX"><strong>MetaCubeX</strong></a>
 </div>
 
+<div align="center">
+  <a href="https://github.com/Loyalsoldier"><strong>Loyalsoldier</strong></a>
+</div>
+<div align="center">
+  <p> > 感谢为本项目的实现提供了宝贵的基础 < </p>
+</div>
