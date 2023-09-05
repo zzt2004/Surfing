@@ -53,6 +53,10 @@
 
 > "If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader."
 
+## 卸载
+
+ - 从 Magisk Manager 或 KernelSU Manager 应用卸载本模块，会完全删除所有数据。
+
 ## FAQ
 1. UpdateGeo.sh
 - 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，并以root权限执行
@@ -75,10 +79,6 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 - 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件至原始路径`/config.yaml.bak`
 - 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
 - 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
-
-## 卸载
-
- - 从 Magisk Manager 或 KernelSU Manager 应用卸载本模块，会完全删除所有数据。
 
 ---
 
