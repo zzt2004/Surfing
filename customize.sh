@@ -22,12 +22,12 @@ fi
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d $MODPATH
 if [ -d /data/adb/box_bll ] ; then
   mv /data/adb/box_bll/clash/cache.db /data/adb/box_bll/clash/cache_tmp.db
-  mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
+  #mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
   mv /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box_tmp.config
   mv /data/adb/box_bll/clash/geoip.dat /data/adb/box_bll/clash/geoip_tmp.dat
   mv /data/adb/box_bll/clash/geosite.dat /data/adb/box_bll/clash/geosite_tmp.dat
   
-  #cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
+  cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
   #cp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak
   
   rm -rf /data/adb/box_bll/clash/dashboard/Yacd
@@ -35,7 +35,7 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf $MODPATH/box_bll
   mv /data/adb/box_bll/clash/cache_tmp.db /data/adb/box_bll/clash/cache.db
   
-  mv /data/adb/box_bll/clash/config_tmp.yaml /data/adb/box_bll/clash/config.yaml
+  #mv /data/adb/box_bll/clash/config_tmp.yaml /data/adb/box_bll/clash/config.yaml
   mv /data/adb/box_bll/scripts/box_tmp.config /data/adb/box_bll/scripts/box.config
   
   mv /data/adb/box_bll/clash/geoip_tmp.dat /data/adb/box_bll/clash/geoip.dat
@@ -43,8 +43,8 @@ if [ -d /data/adb/box_bll ] ; then
   ui_print "- 正在更新..."
   ui_print "- 更新完成，无需重启..."
   ui_print "- 用户配置 box.config  无更新已保留原始文件."
-  ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
-  #ui_print "- 配置文件 config.yaml 已更新，旧文件已备份请重新前往添加订阅信息！"
+  #ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
+  ui_print "- 配置文件 config.yaml 已更新，旧文件已备份请重新前往添加订阅信息！"
   #ui_print "- 用户配置 box.config  已更新，旧文件已备份请重新前往进行配置！"
 else
   mv $MODPATH/box_bll /data/adb/
