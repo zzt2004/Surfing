@@ -49,11 +49,6 @@
 ## 安装
 
 - 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 安装
-- 支持后续在 Magisk Manager 中在线更新模块
-- 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
-- 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件 至原始目录`config.yaml.bak`
-- 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
-- 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可
 - 各版本变化 [📲日志.log](changelog.md)
 
 > "If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader."
@@ -75,6 +70,16 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 2.默认使用 MIXED 模式，如有设备不兼容及网络行为异常
 - 请至`/data/adb/box_bll/scripts/box.config`
 - 修改 `proxy_method= ` 的值为 "TPROXY"
+
+3.支持后续在 Magisk Manager 中在线更新模块
+
+4.更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
+
+5.更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件 至原始目录`config.yaml.bak`
+
+6.更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
+
+7.更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可,亦或者脚本
 
 ## 卸载
 
