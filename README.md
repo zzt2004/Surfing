@@ -58,7 +58,7 @@
  - 从 Magisk Manager 或 KernelSU Manager 应用卸载本模块，会完全删除所有数据。
 
 ## FAQ
-1. UpdateGeo.sh
+1. **UpdateGeo.sh**
 - 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，并以root权限执行
   - 可以使用以下命令在 Termux App 中安装
   - 终端依次执行以下命令  
@@ -73,7 +73,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 #
 
-2. 更新
+2. **更新**
 - 支持后续在 Magisk Manager 中在线更新模块
 - 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
 - 更新时如 Clash.Meta 配置文件无更新，则保留原始配置文件，如有更新会备份旧配置文件至原始路径
