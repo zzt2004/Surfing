@@ -67,16 +67,14 @@
 GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/Loyalsoldier/v2ray-rules-dat#%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F)  
 用于路由规则匹配，实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次更新即可。
 
-2. 支持后续在 Magisk Manager 中在线更新模块
+#
 
-3. 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
-
-4. 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件至
-- 原始路径`/config.yaml.bak`
-
-5. 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
-
-6. 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
+2. Update module
+- 支持后续在 Magisk Manager 中在线更新模块
+- 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
+- 更新时如 Clash.Meta 配置与用户配置文件无更新，则保留原始配置文件，如有更新时会备份旧配置文件至原始路径`/config.yaml.bak`
+- 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
+- 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
 
 ## 卸载
 
