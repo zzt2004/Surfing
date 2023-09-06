@@ -4,7 +4,7 @@
 
   本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
   
-  基于 [Box4Magisk](https://github.com/CHIZI-0618/box4magisk) 为集成式一体服务、即刷即用   
+  基于上游为集成式一体服务、即刷即用   
   此适用以下人群：
   - 懒癌
   - 小白
@@ -79,6 +79,13 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 - 更新时如 Clash.Meta 配置文件无更新，则保留原始配置文件，如有更新会备份旧配置文件至原始路径
 - 更新模块时~~会备份旧文件用户配置，至 `/data/adb/box_bll/scripts/box.config.bak`~~ 用户配置文件与 Clash.Meta 配置文件反之亦然
 - 更新模块不再包含 Geo 数据库更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
+
+#
+
+3. **首次使用**
+- 订阅地址添加成功后，重启手机，因 tun 可能致使等网络原因故不会自动下载订阅文件，请手动至 Web App 在代理页的最下方，手动点击刷新图标即可，如网络原因无法正常进入 App 请至浏览器复制打开
+  - `127.0.0.1:9090/ui`  
+  - 如上述失败，请多次尝试模块开关，并确保你的网络环境正常
 
 > 主要跟随上游更新，及下发一些配置
 
