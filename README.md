@@ -57,7 +57,7 @@
 
  - 从 Magisk Manager 或 KernelSU Manager 应用卸载本模块，即删除所有数据！
 
-## FAQ
+## Wiki
 
 <details>
 <summary>1. 首次使用</summary>
