@@ -1,6 +1,6 @@
 ## v6.7.8
 以下更新内容
-- 拒绝本地链路回环，从而导致出现大量连接，引发路由崩溃
+- 拒绝本地链路回环，从而导致出现大量连接引发路由崩溃
 - 移除动态更新，更新时默认备份 config.yaml、box.config 文件可自行选择重新配置合并，至原始路径
   - /data/adb/box_bll/clash/config.yaml.bak
   - /data/adb/box_bll/scripts/box.config.bak
