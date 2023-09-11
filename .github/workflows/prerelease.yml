@@ -1,20 +1,20 @@
 name: prerelease
 
 on:
-  workflow_dispatch:
   push:
-    paths-ignore:
-      - ".github"
-      - "README.md"
-    tags-ignore:
-      - "v*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      isAlpha: true
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Run build.sh
         run: sh build.sh
@@ -23,13 +23,13 @@ jobs:
         uses: andreaswilli/delete-release-assets-action@v3.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: Prerelease
+          tag: Prerelease-Alpha
           deleteOnlyFromDrafts: false
 
       - name: Tag Repo
         uses: richardsimko/update-tag@v1
         with:
-          tag_name: Prerelease
+          tag_name: Prerelease-Alpha
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -37,8 +37,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: ${{ success() }}
         with:
-          tag: Prerelease
-          tag_name: Prerelease
+          tag_name: Prerelease-Alpha
           files: Surfing_v*.zip
           prerelease: true
           generate_release_notes: true
