@@ -106,7 +106,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - 更新时会备份旧文件用户配置，至
    - `/data/adb/box_bll/scripts/box.config.bak`
-- 更新模块并不会更新覆盖 geoip.dat、geosite.dat Geo 数据库文件
+- 更新模块并不会覆盖 geoip.dat、geosite.dat Geo 数据库文件
 - 更新模块不再包含 Geo 数据库文件更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
 
 > Ps：主要跟随上游更新，及下发一些配置
