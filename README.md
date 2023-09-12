@@ -1,20 +1,33 @@
 # Surfing
 
-![Logo](./folder/Logo.png)
+<h1 align="center">
+  <img src="./folder/Logo.png" alt="CLASHMETA" width="200">
+  <br>CLASHMETA<br>
+</h1>
 
-  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [KernelSU](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
+<h3 align="center">Magisk or Kernelsu</h3>
+
+<div align="center">
+    <a href="https://github.com/MoGuangYu/Surfing/releases">
+        <img alt="Android" src="https://img.shields.io/badge/Android Surfingmodule-F05033.svg?logo=android&logoColor=white">
+    </a>
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.7.8">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.7.8/total?label=Download@v6.7.8&labelColor=00b56a&logo=git&logoColor=white">
+    </a>
+</div>
+
+#
+
+  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [Kernelsu](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
   
   基于上游为集成式一体服务、即刷即用   
   此适用以下人群：
   - 懒癌
   - 小白
 
-  本模块的主题及配置仅围绕 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)  
+  项目主题及配置仅围绕 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)  
   当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
-  本模块需在 Magisk/KernelSU 环境进行使用。  
-  如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
-
-> "似乎发现了一扇通往全球互联网的秘密大门，就像Narnia的衣橱一样。现在，我们可以随时穿越到世界各地，比如说 'Narnia Online'。"
+  本模块需在 Magisk/Kernelsu 环境进行使用，如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
 
 # Surfing用户声明及免责
 
@@ -55,7 +68,7 @@
 
 ## 卸载
 
- - 从 Magisk Manager 或 KernelSU Manager 应用卸载本模块，即删除所有数据！
+ - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块，即删除所有数据！
 
 ## Wiki
 
