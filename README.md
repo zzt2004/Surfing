@@ -119,7 +119,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <details>
 <summary>5. 使用问题</summary>
 
-### 代理特定应用程序(黑白名单)
+一、代理特定应用程序(黑白名单)
 - 代理所有应用程序，除了某些特定的应用外，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `blacklist`（默认值），在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**不代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
 
 - 只代理特定的应用程序，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `whitelist`，在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**仅代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
@@ -134,7 +134,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 > 通常你可以在`/data/user/`找到本机所有用户组id及应用包名，使用黑白名单请勿使用fake-ip模式
 
-### Tun模式
+二、Tun模式
 - 默认启用，使用该模式请勿使用(黑白名单)
 
 > 需要值得注意的是，如未使用Tun模式则无法劫持 WIFI网络 下的DNS解析，从而只会导致应用规则分流失效，移动数据网络则不受影响
