@@ -75,7 +75,7 @@
 <details>
 <summary>1. 首次使用</summary>
 
-- 订阅地址添加成功后重启手机，可能有些网络等原因故不会自动下载完全规则，请手动至 Web App 在代理页的最下方，手动点击至规则页右下方刷新图标更新/下载规则文件，如网络原因无法使用 App 请至浏览器复制并打开
+- 订阅地址添加成功后重启手机，可能因网络原因不会自动下载完全部规则，请手动至 Web App 在代理页的最下方，手动点击至规则页右下方刷新图标更新/下载规则文件，如网络原因无法使用 App 请至浏览器复制并打开
   - `127.0.0.1:9090/ui`  
   - 如上述失败，请多次尝试模块开关，并确保你的网络环境正常
 - Web App official：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
