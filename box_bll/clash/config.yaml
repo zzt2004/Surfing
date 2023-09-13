@@ -28,7 +28,7 @@ profile:
   store-fake-ip: true
 
 sniffer:
-  enable: false
+  enable: true
   sniff:
     TLS:
       ports: [443, 8443]
@@ -37,7 +37,7 @@ sniffer:
       override-destination: true
 
 tun:
-  enable: true
+  enable: false
   device: tun0
   stack: system
   dns-hijack:
@@ -58,10 +58,14 @@ dns:
     - '+.lan'
     - 'connect.rom.miui.com'
     - 'localhost.ptlogin2.qq.com'
+  nameserver-policy:
+  "geosite:cn,private":
+    - 202.96.128.86
+    - 202.96.134.133
   nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
-    
+
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
   u: &u
@@ -88,26 +92,19 @@ proxy-groups:
   - {name: ♻️ 手动切换2, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: ♻️ 手动切换3, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 国际抖音, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📲 电报信息, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎬 油管视频, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📹 奈飞视频, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📭 网易服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-#  - {name: 🍃 应用净化, type: select, proxies: [REJECT,🌎 全球直连]}
+  - {name: 📸 国际抖音, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📷 中国抖音, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+  - {name: 🎹 网易音乐, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
   - {name: 🌎 全球直连, type: select, proxies: [DIRECT]}
 rule-providers:
-  TikTok:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/TikTok.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/TikTok.yaml"
-    interval: 86400
   Telegram:
     type: http
     behavior: classical
@@ -150,13 +147,6 @@ rule-providers:
     path: ./rule/Openai.yaml
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Openai.yaml"
     interval: 86400
-  Netease:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rule/Netease.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Netease.yaml"
-    interval: 86400
   Netflix:
     type: http
     behavior: classical
@@ -166,7 +156,9 @@ rule-providers:
     interval: 86400
 rules:
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
-  - RULE-SET,TikTok,📸 国际抖音
+  - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音
+  - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音
+  - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐
   - RULE-SET,Youtube,🎬 油管视频
   - RULE-SET,Netflix,📹 奈飞视频
   - RULE-SET,Google,📢 谷歌服务
@@ -174,11 +166,8 @@ rules:
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
   - RULE-SET,Telegram,📲 电报信息
   - RULE-SET,Openai,🤖 OpenAI
-  - RULE-SET,Netease,📭 网易服务
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,CN,🌎 全球直连
   - GEOIP,private,🌎 全球直连,no-resolve
   - GEOIP,CN,🌎 全球直连,no-resolve
   - MATCH,🐋 漏网之鱼
-  
-
