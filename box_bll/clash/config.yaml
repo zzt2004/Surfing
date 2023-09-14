@@ -58,13 +58,15 @@ dns:
     - '+.lan'
     - 'connect.rom.miui.com'
     - 'localhost.ptlogin2.qq.com'
-  nameserver-policy:
-  "geosite:cn,private":
+  default-nameserver:
     - 202.96.128.86
     - 202.96.134.133
   nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
+  fallback:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
 
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
