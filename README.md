@@ -161,6 +161,11 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 ---
 
+<a href="./LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/MoGuangYu/Surfing.svg">
+</a>
+
+
 ## 致谢
 
 <a href="https://github.com/CHIZI-0618">
