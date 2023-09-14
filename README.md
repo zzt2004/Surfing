@@ -11,8 +11,8 @@
     <a href="https://github.com/MoGuangYu/Surfing/releases">
         <img alt="Android" src="https://img.shields.io/badge/Android Surfingmodule-F05033.svg?logo=android&logoColor=white">
     </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.7.8">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.7.8/total?label=Download@v6.7.8&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.7.9">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.7.9/total?label=Download@v6.7.9&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
