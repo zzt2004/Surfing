@@ -59,7 +59,7 @@ dns:
     - '+.lan'
     - 'connect.rom.miui.com'
     - 'localhost.ptlogin2.qq.com'
- default-nameserver:
+  default-nameserver:
     - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query
     - https://233.6.6.6/dns-query
