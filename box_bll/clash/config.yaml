@@ -61,7 +61,8 @@ dns:
   default-nameserver:
     - 202.96.128.86
     - 202.96.134.133
-  nameserver:
+  nameserver-policy:
+  "geosite:cn,private":
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   fallback:
