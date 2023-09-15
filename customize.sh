@@ -46,8 +46,8 @@ if [ -d /data/adb/box_bll ] ; then
   ui_print "- 更新完成，无需重启..."
   #ui_print "- 用户配置 box.config  无更新已保留原始文件."
   #ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
-  ui_print "- 配置文件 config.yaml 已更新，旧文件已备份请重新添加订阅信息！"
-  ui_print "- 用户配置 box.config  已更新，旧文件已备份可自行选择重新配置！"
+  ui_print "- 配置文件已备份bak：如更新订阅需重新添加订阅链接！"
+  ui_print "- 用户配置已备份bak：可自行选择重新配置或使用默认！"
 else
   mv $MODPATH/box_bll /data/adb/
   ui_print "- 正在安装..."
