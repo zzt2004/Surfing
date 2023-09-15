@@ -23,7 +23,7 @@ fi
 # 定义数据库文件的下载链接
 geoip_url="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
 geosite_url="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-#mmdb_url="https://github.com/Loyalsoldier/geoip/releases/latest/download/Country.mmdb"
+mmdb_url="https://github.com/Loyalsoldier/geoip/releases/latest/download/Country.mmdb"
 
 # 定义数据库文件的存放路径
 database_dir="/data/adb/box_bll/clash/"
@@ -50,7 +50,7 @@ update_database() {
     # 下载数据库文件并覆盖旧文件
     download_and_replace "$geoip_url" "geoip.dat"
     download_and_replace "$geosite_url" "geosite.dat"
-    #download_and_replace "$mmdb_url" "country.mmdb"
+    download_and_replace "$mmdb_url" "country.mmdb"
 }
 
 # 主程序入口
