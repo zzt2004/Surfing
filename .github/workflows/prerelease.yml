@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      isAlpha: true
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,6 +46,7 @@ jobs:
           tag_name: Prerelease-Alpha
           files: Surfing_v*.zip
           prerelease: true
+          generate_release_notes: true
           body: |
             Synchronize the latest code updates of branches and keep only the latest version  
             
