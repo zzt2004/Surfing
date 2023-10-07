@@ -44,5 +44,6 @@ jobs:
           files: Surfing_v*.zip
           prerelease: true
           body: |
-            Synchronize the latest code updates of branches and keep only the latest version
+            Synchronize the latest code updates of branches and keep only the latest version  
+            
             Release Timestamp: ${{ env.TIMESTAMP }}
