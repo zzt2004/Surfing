@@ -68,7 +68,7 @@
 
 ## 卸载
 
- - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块，即删除所有数据！
+ - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块即可
 
 ## Wiki
 
