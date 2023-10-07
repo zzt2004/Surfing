@@ -64,8 +64,6 @@
 - 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 安装
 - 各版本变化 [📲日志.log](changelog.md)
 
-> "If only I could effortlessly navigate life's obstacles, just like Clash gracefully bypasses the GFW, perhaps my journey would be broader."
-
 ## 卸载
 
  - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块即可
