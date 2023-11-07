@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 注意！！！
-# 此脚本需要 curl 命令，请确保在运行脚本之前已经安装了 curl 命令，并以root权限执行
+# 此脚本需要 curl 命令，请确保在运行之前设备已经安装了 curl 命令，并以root权限执行此脚本
 # 可以使用以下命令在 Termux App 中安装
 # 终端依次执行以下命令
 # --------------------------
@@ -33,14 +33,14 @@ download_and_replace() {
     local url="$1"
     local file_name="$2"
     
-    echo "正在下载 $file_name ..."
+    echo "正在更新 $file_name ..."
     curl -L "$url" -o "$database_dir/$file_name"
     
     if [ $? -eq 0 ]; then
-        echo "$file_name 下载成功！"
+        echo "$file_name 更新成功！"
         return 0
     else
-        echo "$file_name 下载失败！"
+        echo "$file_name 更新失败！"
         return 1
     fi
 }
@@ -63,7 +63,7 @@ main() {
     # 更新数据库文件
     update_database
     
-    echo "自动下载完成！"
+    echo "自动更新完成！"
 }
 
 # 执行主程序
