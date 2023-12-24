@@ -1,10 +1,13 @@
+## v6.8.1
+- Update: Clash.Meta Core@v1.17.0
+- 嫌加载外网慢的，把 DNS 的 fallback 删除
+- 上游均停止，此项目先到此为止。感谢支持
+
 ## v6.8.0
 以下更新内容：
 - Fix DNS
 - Update Yacd@v0.3.7
 - Update Clash.Meta Core@v1.16.0
-- 上游均停止，此项目先到此为止。感谢支持
-  - 嫌加载外网慢的，把 DNS 的 fallback 删除
 
 ## v6.7.9
 以下更新内容：
