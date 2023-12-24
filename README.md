@@ -21,7 +21,7 @@
 
 **English** | [简体中文](./README_zh.md)  
 
-This project is a [Magisk](https://github.com/topjohnwu/Magisk) and [Kernelsu](https://railway.app/new/template/yytmgc) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
+This project is a [Magisk](https://github.com/topjohnwu/Magisk) and [Kernelsu](https://github.com/tiann/KernelSU) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
 
 Based on the upstream for integrated services, flash and use. This is suitable for the following people:
 - Procrastinators
