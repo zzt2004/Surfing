@@ -1,7 +1,7 @@
 id=Surfing
 name=Surfing
-version=v6.8.0
-versionCode=1559
+version=v6.8.1
+versionCode=1560
 author=MoGuangYu
 description="在网络上漫游，就像踏上一场数字冒险，穿越网页的丛林，遇见奇文异事。不再被数字边界所困扰，你就是那个无拘无束的网络冒险家！"
 updateJson=https://raw.githubusercontent.com/MoGuangYu/Surfing/main/Surfing.json
