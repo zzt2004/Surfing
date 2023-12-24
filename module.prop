@@ -1,7 +1,7 @@
 id=Surfing
 name=Surfing
 version=v6.8.0
-versionCode=1558
+versionCode=1559
 author=MoGuangYu
-description=支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。此模块开关就是实时 启用/关闭 无须重启。Web后端地址: 127.0.0.1:9090/ui
+description="在网络上漫游，就像踏上一场数字冒险，穿越网页的丛林，遇见奇文异事。不再被数字边界所困扰，你就是那个无拘无束的网络冒险家！"
 updateJson=https://raw.githubusercontent.com/MoGuangYu/Surfing/main/Surfing.json
