@@ -1,3 +1,4 @@
+
 # Surfing
 
 <h1 align="center">
@@ -18,150 +19,147 @@
 
 #
 
-  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [Kernelsu](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
-  
-  基于上游为集成式一体服务、即刷即用   
-  此适用以下人群：
-  - 懒癌
-  - 小白
+**English** | [简体中文](./README_zh.md)  
 
-  项目主题及配置仅围绕 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)  
-  当然如果你也可以自助 [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE)  
-  本模块需在 Magisk/Kernelsu 环境进行使用，如果你不知道如何配置所需环境，你可能需要像 ClashForAndroid、v2rayNG、surfboard、SagerNet、AnXray 等应用程序。
+This project is a [Magisk](https://github.com/topjohnwu/Magisk) and [Kernelsu](https://railway.app/new/template/yytmgc) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
 
-# Surfing用户声明及免责
+Based on the upstream for integrated services, flash and use. This is suitable for the following people:
+- Procrastinators
+- Beginners
 
-欢迎使用 在使用本项目前，请您仔细阅读并理解以下声明及免责条款。通过使用本项目，即表示您同意接受以下条款和条件。以下简称 **Surfing**
+The project theme and configuration revolve around [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta). Of course, if you can also help yourself with the [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE).
 
-## 免责声明
+This module needs to be used in the Magisk/Kernelsu environment. If you dont know how to configure the required environment, you may need apps like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray, etc.
 
-1. **本项目是一个开源项目，仅供学习和研究之用，不提供任何形式的担保。使用者必须对使用本项目的风险和后果负全部责任。**
+# Surfing User Declaration and Disclaimer
 
-2. **本项目仅为简化 Surfing 对 Clash 服务在 Android Magisk 环境中的安装和配置提供便利，并不对 Surfing 的功能和性能做出任何保证。如有任何问题或损失，本项目开发者概不负责。**
+Welcome to use Surfing. Before using this project, please carefully read and understand the following statements and disclaimers. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
 
-3. **本项目 Surfing 模块的使用可能会违反您所在地区的法律法规或服务提供商的使用条款。您需要自行承担使用本项目所带来的风险。本项目开发者不对您的行为或使用后果负责。**
+## Disclaimer
 
-4. **本项目开发者不对使用本项目产生的任何直接或间接损失或损害负责，包括但不限于数据丢失、设备损坏、服务中断、个人隐私泄露等。**
+1. **This project is an open-source project for learning and research purposes only and does not provide any form of guarantee. Users must bear full responsibility for the risks and consequences of using this project.**
 
-## 使用须知
+2. **This project is only for the convenience of simplifying the installation and configuration of Surfing for Clash services in the Android Magisk environment. It does not make any guarantees about the functionality and performance of Surfing. The developer of this project is not responsible for any problems or losses.**
 
-1. **在使用本项目 Surfing 模块前，请确保您已经仔细阅读并理解 Clash 和 Magisk 的使用说明和相关文档，并遵守其规定和条款。**
+3. **The use of this projects Surfing module may violate the laws and regulations of your region or the terms of service of service providers. You need to bear the risks of using this project on your own. The developer of this project is not responsible for your actions or the consequences of use.**
 
-2. **在使用本项目之前，请先备份您的设备数据和相关设置，以防发生意外情况。本项目开发者不对您的数据丢失或损坏负责。**
+4. **The developer of this project is not responsible for any direct or indirect losses or damages resulting from the use of this project, including but not limited to data loss, device damage, service interruption, personal privacy leaks, etc.**
 
-3. **请在使用本项目时遵守当地的法律法规，并尊重其他用户的合法权益。禁止使用本项目进行任何违法、滥用或侵权的行为。**
+## Instructions for Use
 
-4. **如果您在使用本项目时遇到任何问题或有任何建议，欢迎您向本项目开发者反馈，但开发者对于解决问题和回应反馈没有义务和责任。**
+1. **Before using the Surfing module, please make sure you have carefully read and understood the usage instructions and related documents of Clash and Magisk and comply with their rules and terms.**
 
-请您在明确理解并接受上述声明及免责条款后，再决定是否使用 Surfing 模块。如果您不同意或无法接受上述条款，请立即停止使用本项目。
+2. **Before using this project, back up your device data and related settings to prevent unexpected situations. The developer of this project is not responsible for your data loss or damage.**
 
-## 法律适用
+3. **Please comply with local laws and regulations and respect the legitimate rights and interests of other users when using this project. It is forbidden to use this project for illegal, abusive, or infringing activities.**
 
-**在使用本项目的过程中，您须遵守您所在地区的法律法规。如有任何争议，应依照当地法律法规进行解释和处理。**
+4. **If you encounter any problems or have any suggestions when using this project, you are welcome to provide feedback to the developer of this project, but the developer is not obligated to resolve issues or respond to feedback.**
 
-## 安装
+Please decide whether to use the Surfing module only after clearly understanding and accepting the above statements and disclaimers. If you do not agree or cannot accept the above terms, please stop using this project immediately.
 
-- 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 安装
-- 各版本变化 [📲日志.log](changelog.md)
+## Applicable Law
 
-## 卸载
+**During the use of this project, you must comply with the laws and regulations of your region. In case of any disputes, interpretation and resolution should be carried out in accordance with local laws and regulations.**
 
- - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块即可
+## Installation
+
+- Download the module zip file from the [Release](https://github.com/MoGuangYu/Surfing/releases) page and install it through Magisk Manager or KernelSU Manager.
+- Various version changes [📲changelog.md](changelog.md)
+
+## Uninstallation
+
+- You can uninstall this module from Magisk Manager or KernelSU Manager.
 
 ## Wiki
 
 <details>
-<summary>1. 首次使用</summary>
+<summary>1. First-time Usage</summary>
 
-- 订阅地址添加成功后重启手机，可能因网络原因不会自动下载完全部规则，请手动至 Web App 在代理页的最下方，手动点击至规则页右下方刷新图标更新/下载规则文件，如网络原因无法使用 App 请至浏览器复制并打开
-  - `127.0.0.1:9090/ui`  
-  - 如上述失败，请多次尝试模块开关，并确保你的网络环境正常
-- Web App official：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
-  - 仅为图形辅助工具，用于便携浏览及管理后台路由数据，并无其它多余用途
+- After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser:
+  - `127.0.0.1:9090/ui`
+  - If the above fails, try switching the module on and make sure your network environment is normal.
+- Web App official: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
+  - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
 
-> 模块已内置 Gui 可通过浏览器本地访问使用，亦或者使用 App 在线访问使用，两者本质上并无差异
+> The module has a built-in GUI that can be accessed locally through a browser or online using the app. There is essentially no difference between the two.
 </details>
 
 #
 
 <details>
-<summary>2. 控制运行</summary>
+<summary>2. Control Operation</summary>
 
-- 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+- You can enable or disable real-time control of the running service through the module switch.
 </details>
 
 #
 
 <details>
-<summary>3. 脚本更新</summary>
+<summary>3. Script Updates</summary>
 
-- UpdateGeo.sh 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，完成后脚本文件并以root权限执行
-  - 可以使用以下命令在 Termux App 中安装
-  - 终端依次执行以下命令  
-`pkg update`  
-`pkg install curl`
-- 安装过程如有选择性提示都是选择 Y 回车即可.
-- Termux App official：[Download](https://f-droid.org/repo/com.termux_118.apk)
+- UpdateGeo.sh script is used to update Geo database files in one click and requires the curl command. Please make sure you have already installed the curl command before running the script, and execute the following commands in the terminal one by one:
+  - `pkg update`
+  - `pkg install curl`
+- If there are selective prompts during the installation process, select "Y" and press Enter.
+- Termux App official: [Download](https://f-droid.org/repo/com.termux_118.apk)
 
-> 关于 Geo 数据库：  
-GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/Loyalsoldier/v2ray-rules-dat#%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F)  
-用于路由规则匹配，实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次更新即可
+> About the Geo database: GitHub Actions automatically builds it at 6 a.m. Beijing time every day to ensure the latest rules. It is used for routing rule matching to achieve precise diversion. The scripts updates will permanently point to the latest version, so youcan manually update it once a month.
 </details>
 
 #
 
 <details>
-<summary>4. 后续更新</summary>
+<summary>4. Subsequent Updates</summary>
 
-- 支持在 Magisk Manager 中在线更新模块
-- 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
-- 更新时 Clash.Meta config.yaml 配置文件会备份至
+- Supports online module updates in Magisk Manager.
+- No need to restart after the update, the service takes effect in real time.
+- During the update, the Clash.Meta config.yaml configuration file will be backed up to:
    - `/data/adb/box_bll/clash/config.yaml.bak`
-- 更新时会备份旧文件用户配置，至
+- During the update, the old user configuration files will be backed up to:
    - `/data/adb/box_bll/scripts/box.config.bak`
-- 更新模块并不会覆盖数据库文件
-   - geoip.dat、geosite.dat、country.mmdb
+- Module updates will not include updates to database files:
+   - geoip.dat, geosite.dat, country.mmdb
 
-- 更新模块不再包含数据库文件更新，至 Web Yacd-配置选项页，进行手动更新即可，亦或者脚本
+- Module updates will not include updates to database files. You can manually update them through the Web Yacd configuration page or the script.
 
-> Ps：主要跟随上游更新，及下发一些配置
+> Note: Updates mainly follow the upstream updates and issue some configurations.
 </details>
 
 #
 
 <details>
-<summary>5. 使用问题</summary>
+<summary>5. Usage Issues</summary>
 
-一、代理特定应用程序(黑白名单)
-- 代理所有应用程序，除了某些特定的应用外，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `blacklist`（默认值），在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**不代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
+I. Proxy Specific Applications (Blacklist/Whitelist)
+- If you want to proxy all applications except specific ones, open the `/data/adb/box_bll/scripts/box.config` file, change the value of `proxy_mode` to `blacklist` (default), and add elements to the `user_packages_list` array. The format of array elements is `id identifier: app package name`, separated by spaces. This will make the module **not proxy** the respective Android apps. For example: `user_packages_list=("id identifier: app package name" "id identifier: app package name")`
 
-- 只代理特定的应用程序，那么请打开 `/data/adb/box_bll/scripts/box.config` 文件，修改 `proxy_mode` 的值为 `whitelist`，在 `user_packages_list` 数组中添加元素，数组元素格式为`id标识:应用包名`，元素之间用空格隔开。即可**仅代理**相应安卓用户应用。例如 `user_packages_list=("id标识:应用包名" "id标识:应用包名")`
+- If you only want to proxy specific applications, open the `/data/adb/box_bll/scripts/box.config` file, change the value of `proxy_mode` to `whitelist`, and add elements to the `user_packages_list` array in the same format. This will make the module **only proxy** the respective Android apps. For example: `user_packages_list=("id identifier: app package name" "id identifier: app package name")`
 
-安卓用户组id标识：
+Android User Group Identifiers:
 
-| 标准用户 | ID  |
+| Standard User | ID  |
 | -------- | --- |
-| 机主     |  0  |
-| 手机分身 |  10  |
-| 应用多开 | 999 |
+| Owner     |  0  |
+| Second Space | 10  |
+| Clone Apps | 999 |
 
-> 通常你可以在`/data/user/`找到本机所有用户组id及应用包名，使用黑白名单请勿使用fake-ip模式
+> You can typically find all user group identifiers and app package names in `/data/user/` on your device. Avoid using the fake IP mode with blacklists/whitelists.
 
-二、Tun模式
-- 默认禁用
+II. Tun Mode
+- Disabled by default
 
-> 不推荐使用如非特殊需要，使用该模式前请勿使用黑白名单
+> Not recommended for general use unless you have special requirements. Do not use blacklists/whitelists with this mode.
 
-三、路由规则
-- 为大陆饶行
-- 规则由本人亲自维护的，基本能满足大多数使用需求
+III. Routing Rules
+- For bypassing China mainland.
+- The rules are maintained by the developer and can satisfy most usage needs.
 
-> 如非特别严格的要求，黑白名单意义不大，使用模块自带配置即可
+> Unless you have very strict requirements, blacklists/whitelists may not be very meaningful. You can use the modules built-in configuration.
 
-四、局域网共享
-- 开启热点让其它设备连接即可
+IV. LAN Sharing
+- Enable hotspot and let other devices connect.
 
-> 其它设备若访问控制台后端，只需 http://当前WiFi网关:9090/ui
+> If other devices want to access the console backend, just use http://currentWiFiGateway:9090/ui
 </details>
 
 ---
@@ -170,8 +168,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
     <img alt="License" src="https://img.shields.io/github/license/MoGuangYu/Surfing.svg">
 </a>
 
-
-## 致谢
+## Acknowledgments
 
 <a href="https://github.com/CHIZI-0618">
   <p align="center">
@@ -189,5 +186,6 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
   <a href="https://github.com/Loyalsoldier"><strong>Loyalsoldier</strong></a>
 </div>
 <div align="center">
-  <p> > 感谢为本项目的实现提供了宝贵的基础 < </p>
+  <p> > Thanks for providing valuable foundation for the implementation of this project. < </p>
 </div>
+
