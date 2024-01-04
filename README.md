@@ -19,7 +19,7 @@
 
 #
 
-**English** | [简体中文](./README_zh.md)  
+**English** | [简体中文](./README_CN.md)  
 
 This project is a [Magisk](https://github.com/topjohnwu/Magisk) and [Kernelsu](https://github.com/tiann/KernelSU) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
 
@@ -27,7 +27,7 @@ Based on the upstream for integrated services, flash and use. This is suitable f
 - Procrastinators
 - Beginners
 
-The project theme and configuration revolve around [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta). Of course, if you can also help yourself with the [Wiki](https://github.com/CHIZI-0618/box4magisk#%E9%85%8D%E7%BD%AE).
+The project theme and configuration revolve around [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta).  
 
 This module needs to be used in the Magisk/Kernelsu environment. If you dont know how to configure the required environment, you may need apps like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray, etc.
 
@@ -73,7 +73,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 ## Wiki
 
 <details>
-<summary>1. First-time Usage</summary>
+<summary>1. Firsttime Usage</summary>
 
 - After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser:
   - `127.0.0.1:9090/ui`
