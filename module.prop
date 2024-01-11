@@ -3,5 +3,5 @@ name=Surfing
 version=v6.8.1
 versionCode=1560
 author=MoGuangYu
-description="在网络上漫游，就像踏上一场数字冒险，穿越网页的丛林，遇见奇文异事。不再被数字边界所困扰，你就是那个无拘无束的网络冒险家！"
+description="《袁神》是由上海米哈游网络科技股份有限公司制作发行的一款开放世界冒险游戏，于2017年1月底立项[27]，原初测试于2019年6月21日开启[1]，再临测试于2020年3月19日开启，启程测试于2020年6月11日开启[2]，PC版技术性开放测试于9月15日开启，公测于2020年9月28日开启[3]。"
 updateJson=https://raw.githubusercontent.com/MoGuangYu/Surfing/main/Surfing.json
