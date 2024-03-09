@@ -8,7 +8,8 @@ unified-delay: true
 log-level: silent
 ipv6: true
 external-controller: 0.0.0.0:9090
-external-ui: ./dashboard/Yacd
+#面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
+external-ui: ./dashboard/Meta #Yacd
 secret: ""
 tcp-concurrent: true
 enable-process: true
@@ -164,7 +165,6 @@ rules:
   - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音
   - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐
-#  - PROCESS-NAME,com.discord,🎮 Discord #经测试该进程无法匹配
   - RULE-SET,Discord,🎮 Discord
   - RULE-SET,Youtube,🎬 油管视频
   - RULE-SET,Netflix,📹 奈飞视频
