@@ -1,4 +1,12 @@
+## v6.8.2
+以下更新内容：
+- 同步最新分支
+- Update Clash.Meta Core@v1.18.1
+- 双 Web 面板 可在 config.yaml 切换
+- 最后一版
+
 ## v6.8.1
+以下更新内容：
 - Update: Clash.Meta Core@v1.17.0
 - 嫌加载外网慢的，把 DNS 的 fallback 删除
 
