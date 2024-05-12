@@ -90,4 +90,4 @@ for pid in $(pidof inotifyd) ; do
   fi
 done
 
-inotifyd "/data/adb/box/scripts/box.inotify" "$MODPATH" > /dev/null 2>&1 &
+inotifyd "/data/adb/box_ll/scripts/box.inotify" "$MODPATH" > /dev/null 2>&1 &
