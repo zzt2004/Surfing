@@ -59,7 +59,11 @@ else
 fi
 
 if [ "$KSU" = true ] ; then
-  sed -i 's/name=Surfing/name=Surfing/g' $MODPATH/module.prop
+  sed -i 's/name=Surfingmagisk/name=SurfingKernelSU/g' $MODPATH/module.prop
+fi
+
+if [ "$APATCH" = true ] ; then
+  sed -i 's/name=Surfingmagisk/name=SurfingAPatch/g' $MODPATH/module.prop
 fi
 
 mkdir -p /data/adb/box_bll/bin/
@@ -86,4 +90,4 @@ for pid in $(pidof inotifyd) ; do
   fi
 done
 
-inotifyd "/data/adb/box_bll/scripts/box.inotify" "/data/adb/modules/Surfing" > /dev/null 2>&1 &
+inotifyd "/data/adb/box/scripts/box.inotify" "$MODPATH" > /dev/null 2>&1 &
