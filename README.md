@@ -1,4 +1,3 @@
-
 # Surfing
 
 <h1 align="center">
@@ -6,22 +5,28 @@
   <br>CLASHMETA<br>
 </h1>
 
-<h3 align="center">Magisk or Kernelsu</h3>
+<h3 align="center">Magisk、Kernelsu、APatch</h3>
 
 <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
+  </div>
+  
+  <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.2">
         <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.2/total?label=Download@v6.8.2&labelColor=00b56a&logo=git&logoColor=white">
     </a>
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.3">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.3/total?label=Download@v6.8.3&labelColor=00b56a&logo=git&logoColor=white">
+    </a>    
 </div>
 
 #
 
 **English** | [简体中文](./README_CN.md)  
 
-This project is a [Magisk](https://github.com/topjohnwu/Magisk) and [Kernelsu](https://github.com/tiann/KernelSU) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
+This project is a [Magisk](https://github.com/topjohnwu/Magisk) 、 [Kernelsu](https://github.com/tiann/KernelSU) and [APatch](https://github.com/bmax121/APatch) module for Clash, sing-box, v2ray, and xray. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
 
 Based on the upstream for integrated services, flash and use. This is suitable for the following people:
 - Procrastinators
@@ -68,7 +73,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 
 ## Uninstallation
 
-- You can uninstall this module from Magisk Manager or KernelSU Manager.
+- You can uninstall this module from Magisk Manager 、 KernelSU Manager 、 APatch. [👉🏻Shovel shit](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
 
 ## Wiki
 

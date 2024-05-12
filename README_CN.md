@@ -5,22 +5,28 @@
   <br>CLASHMETA<br>
 </h1>
 
-<h3 align="center">Magisk or Kernelsu</h3>
+<h3 align="center">Magisk、Kernelsu、APatch</h3>
 
 <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
+  </div>
+  
+  <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.2">
         <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.2/total?label=Download@v6.8.2&labelColor=00b56a&logo=git&logoColor=white">
     </a>
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.3">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.3/total?label=Download@v6.8.3&labelColor=00b56a&logo=git&logoColor=white">
+    </a>    
 </div>
 
 #
 
 [English](./README.md) | **简体中文**
 
-  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 与 [Kernelsu](https://github.com/tiann/KernelSU) 模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
+  本项目为 Clash、sing-box、v2ray、xray 的 [Magisk](https://github.com/topjohnwu/Magisk) 、 [Kernelsu](https://github.com/tiann/KernelSU) 或 [APatch](https://github.com/bmax121/APatch)模块。支持 REDIRECT（仅 TCP）、TPROXY（TCP + UDP）透明代理，支持 TUN（TCP + UDP），亦可 REDIRECT（TCP） + TUN（UDP） 混合模式代理。  
   
   基于上游为集成式一体服务、即刷即用   
   此适用以下人群：
@@ -68,7 +74,7 @@
 
 ## 卸载
 
- - 从 Magisk Manager 或 Kernelsu Manager 应用卸载本模块即可
+ - 从 Magisk Manager 、Kernelsu Manager 、APatch 应用卸载本模块即可 [👉🏻铲屎命令](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
 
 ## Wiki
 
