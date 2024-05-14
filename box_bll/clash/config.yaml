@@ -48,17 +48,17 @@ sniffer:
     QUIC:
       ports: [443, 8443]
   force-domain:
-    - +.v2ex.com
+    - "+.v2ex.com"
   skip-domain:
-    - Mijia Cloud
+    - "Mijia Cloud"
 
 tun:
   enable: false
   device: tun0
   stack: system
   dns-hijack:
-    - any:53
-    - tcp://any:53
+    - "any:53"
+    - "tcp://any:53"
   auto-route: true
   auto-detect-interface: true
   
@@ -70,12 +70,14 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.0/15
   fake-ip-filter:
-    - +.lan
-    - connect.rom.miui.com
-    - localhost.ptlogin2.qq.com
+    - "*"
+    - "+.lan"
+    - "connect.rom.miui.com"
+    - "localhost.ptlogin2.qq.com"
+ 
   nameserver:
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+    - "https://doh.pub/dns-query"
+    - "https://dns.alidns.com/dns-query"
     
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
@@ -174,6 +176,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
     interval: 86400
 rules:
+  - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
   - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音
   - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音
