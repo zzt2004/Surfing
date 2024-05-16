@@ -21,7 +21,7 @@ jobs:
       - name: Get version number
         id: version
         run: |
-          version=$(grep 'version=' module.prop | awk -F '=' '{print $2}')
+          version=$(grep 'version=' module.prop | awk -F '=' '{print $2}' | sed 's/ (.*)//')
           echo "TAG_NAME=${version}" >> $GITHUB_ENV
           echo "Version extracted: ${version}"
 
