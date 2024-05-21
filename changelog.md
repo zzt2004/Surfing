@@ -1,6 +1,7 @@
 ## v6.8.4
 以下更新内容：
 - Fix config.yaml
+- Update：amd64-v1.18.5 Metacore
 
 ## v6.8.3
 以下更新内容：
