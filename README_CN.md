@@ -8,20 +8,16 @@
 <h3 align="center">Magisk、Kernelsu、APatch</h3>
 
 <div align="center">
+    <a href="https://github.com/MoGuangYu/Surfing/blob/main/Vers.md">
+        <img alt="PreviousVersions" src="https://img.shields.io/badge/PreviousVersions-blue.svg">
+    </a>
+</div>
+<div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
-  </div>
-  
-  <div align="center">
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.2">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.2/total?label=Download@v6.8.2&labelColor=00b56a&logo=git&logoColor=white">
-    </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.3">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.3/total?label=Download@v6.8.3&labelColor=00b56a&logo=git&logoColor=white">
-    </a>    
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.4">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.4/total?label=Download@v6.8.4&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.5">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.5/total?label=Download@v6.8.5&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
