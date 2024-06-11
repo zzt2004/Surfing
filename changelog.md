@@ -1,4 +1,5 @@
 ## v6.8.5
+- 支持 Mihomo of Clash
 - 增加对 Hysteria 的支持
 - 增加对 Kernelsu 快捷打开 Webui 管理接口
 - Fix Hysteria 透明代理不应劫持 DNS
