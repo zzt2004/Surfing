@@ -1,10 +1,14 @@
+## v6.8.5
+- 增加对 Hysteria 的支持
+- 增加对 Kernelsu 快捷打开 Webui 管理接口
+- Fix Hysteria 透明代理不应劫持 DNS
+- Fix iptables 标记时使用或掩码，以避免更改 OEM 标记
+
 ## v6.8.4
-以下更新内容：
 - Fix config.yaml
 - Update：amd64-v1.18.5 Metacore
 
 ## v6.8.3
-以下更新内容：
 - 修复应用进程感知
 - 修复本地流量环路
 - 修复 fakeip ICMP
@@ -13,25 +17,21 @@
 - Update：amd64-v1.18.4 Metacore
 
 ## v6.8.2
-以下更新内容：
 - 同步最新分支
 - Update Clash.Meta Core@v1.18.1
 - 双 Web 面板 可在 config.yaml 切换
 - 最后一版
 
 ## v6.8.1
-以下更新内容：
 - Update: Clash.Meta Core@v1.17.0
 - 嫌加载外网慢的，把 DNS 的 fallback 删除
 
 ## v6.8.0
-以下更新内容：
 - Fix DNS
 - Update Yacd@v0.3.7
 - Update Clash.Meta Core@v1.16.0
 
 ## v6.7.9
-以下更新内容：
 - 启用域名嗅探，禁用 Tun 模式
 - 优化 DNS 配置，节点使用体验直速上升
 - 大陆绕行无感访问（推荐）
@@ -44,20 +44,17 @@
   - 中国抖音
 
 ## v6.7.8
-以下更新内容：
 - 拒绝本地链路回环，从而导致出现大量连接引发路由崩溃
 - 移除动态更新，更新时默认备份 config.yaml、box.config 文件可自行选择重新配置合并，至原始路径
   - /data/adb/box_bll/clash/config.yaml.bak
   - /data/adb/box_bll/scripts/box.config.bak
 
 ## v6.7.7
-以下更新内容：
 - ~~启用 tun 高性能的透明代理，提升网络性能及隐私保护~~
   - 如非特殊要求，使用无意义
   - 已禁用
 
 ## v6.7.6
-以下更新内容：
 - ~~动态更新配置文件~~
   - ~~模块更新时，如 Clash.Meta 配置文件或用户配置文件无更新时则保留原始文件，如更新时则原路径备份原始文件，后缀为.bak~~
 - 模块不再包含 Geo 数据库文件更新
@@ -66,19 +63,16 @@
   - UpdateGeo.sh
 
 ## v6.7.5
-以下更新内容：
 - 修复模块更新后，模块开关控制失效
 - ~~优化模块更新时，如 Clash.Meta 配置文件无更新时则保留原始文件~~
 - 更新 Geo 数据库_Released on 202308262207
 
 ## v6.7.4
-以下更新内容：
 - 更贴切的使用体验
 - 优化 Clash.Meta 配置文件
 - 更新 Geo 数据库_Released on 202308252208
 
 ## v6.7.3
-以下更新内容：
 - 修复 APP 黑白名单匹配与 UID 计算
 - 修复 v2fly/xray 核心 geo* 文件位置错误
 - 优化 Clash.Meta 配置
