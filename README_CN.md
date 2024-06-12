@@ -68,7 +68,7 @@
 
 ## 安装
 
-- 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 安装
+- 从 [Release](https://github.com/MoGuangYu/Surfing/releases) 页下载模块压缩包，然后通过 Magisk Manager 或 KernelSU Manager 或 APatch 安装
 - 各版本变化 [📲日志.log](changelog.md)
 
 ## 卸载
@@ -102,8 +102,8 @@
 <details>
 <summary>3. 脚本更新</summary>
 
-- UpdateGeo.sh 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经安装了 curl  命令，完成后脚本文件并以root权限执行
-  - 可以使用以下命令在 Termux App 中安装
+- UpdateGeo.sh 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经有了 curl  命令，完成后脚本文件并以root权限执行
+  - 可先尝试执行，如没有可以使用以下命令在 Termux App 中安装
   - 终端依次执行以下命令  
 `pkg update`  
 `pkg install curl`
@@ -121,7 +121,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <summary>4. 后续更新</summary>
 
 - 支持在 Magisk Manager 中在线更新模块
-- 更新后无须重启，~~但模块开关控制 启用/关闭 会临时失效，仍需重启~~
+- 更新后无须重启，但模块开关控制 启用/关闭 可能会临时失效，仍需重启
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - 更新时会备份旧文件用户配置，至

@@ -67,8 +67,8 @@ Please decide whether to use the Surfing module only after clearly understanding
 
 ## Installation
 
-- Download the module zip file from the [Release](https://github.com/MoGuangYu/Surfing/releases) page and install it through Magisk Manager or KernelSU Manager.
-- Various version changes [📲changelog.md](changelog.md)
+- Download the module zip package from the [Release](https://github.com/MoGuangYu/Surfing/releases) page, then install it via Magisk Manager, KernelSU Manager, or APatch.
+- For changes in each version, see the [📲changelog.md](changelog.md).
 
 ## Uninstallation
 
@@ -101,7 +101,9 @@ Please decide whether to use the Surfing module only after clearly understanding
 <details>
 <summary>3. Script Updates</summary>
 
-- UpdateGeo.sh script is used to update Geo database files in one click and requires the curl command. Please make sure you have already installed the curl command before running the script, and execute the following commands in the terminal one by one:
+- UpdateGeo.sh This script is used to update the Geo database file with one click. It requires the curl command. Please ensure you have the curl command before running the script and execute the script file with root permissions.
+  - You can try to run it first, and if you don't have curl, install it using the following commands in the Termux app.
+  - Execute the following commands in the terminal in sequence:
   - `pkg update`
   - `pkg install curl`
 - If there are selective prompts during the installation process, select "Y" and press Enter.
@@ -116,7 +118,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 <summary>4. Subsequent Updates</summary>
 
 - Supports online module updates in Magisk Manager.
-- No need to restart after the update, the service takes effect in real time.
+- No restart is required after the update, but the module switch control (enable/disable) may temporarily fail and still require a restart.
 - During the update, the Clash.Meta config.yaml configuration file will be backed up to:
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - During the update, the old user configuration files will be backed up to:
