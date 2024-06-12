@@ -44,7 +44,7 @@ if [ -d /data/adb/box_bll ] ; then
   mv /data/adb/box_bll/clash/geosite_tmp.dat /data/adb/box_bll/clash/geosite.dat
   mv /data/adb/box_bll/clash/country_tmp.mmdb /data/adb/box_bll/clash/country.mmdb
   ui_print "- 正在更新..."
-  ui_print "- 更新完成，无需重启..."
+  ui_print "- 更新完成..."
   #ui_print "- 用户配置 box.config  无更新已保留原始文件."
   #ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
   ui_print "- 配置文件已备份bak：如更新订阅需重新添加订阅链接！"
@@ -55,7 +55,7 @@ else
   ui_print "- 安装完成..."
   ui_print "- 首次安装完成后，先不要重启"
   ui_print "- 请至 data/adb/box_bll/clash/config.yaml 添加订阅信息"
-  ui_print "- 此模块开关就是实时 启用/关闭 首次安装使用需重启一次！"
+  ui_print "- 此模块开关就是实时 启用/关闭 首次安装使用需重启！"
 fi
 
 if [ "$KSU" = true ] ; then
