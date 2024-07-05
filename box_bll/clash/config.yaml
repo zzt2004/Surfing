@@ -18,6 +18,7 @@ tcp-concurrent: true
 enable-process: true
 find-process-mode: strict
 global-client-fingerprint: chrome
+global-ua: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36
 
 #####################
 #修改配置文件时，建议先停止模块服务，再进行保存.
@@ -53,7 +54,7 @@ sniffer:
     - "Mijia Cloud"
 
 tun:
-  enable: false
+  enable: true
   device: tun0
   stack: system
   dns-hijack:
@@ -75,6 +76,15 @@ dns:
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
  
+  nameserver-policy:
+    "geosite:cn":
+    - 223.5.5.5
+    - 223.6.6.6
+    - 119.29.29.29
+    - 182.254.116.116
+    - [2402:4e00::]
+    - [2400:3200::1]
+    - [2400:3200:baba::1]
   nameserver:
     - "https://doh.pub/dns-query"
     - "https://dns.alidns.com/dns-query"
