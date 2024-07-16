@@ -1,6 +1,7 @@
 ## v6.8.6
 - More detailed diversion and WeChat FCM support
 - Fix：sing tun hotspot
+- Add：Telegram chat.sh
 - Chore: add ipv6 tun forward support
 - Chore: Configuration Optimization
 - Update：Meta panel v1.141.1
