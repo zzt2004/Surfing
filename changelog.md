@@ -1,3 +1,11 @@
+## v6.8.6
+- More detailed diversion and WeChat FCM support
+- Fix：sing tun hotspot
+- Chore: add ipv6 tun forward support
+- Chore: Configuration Optimization
+- Update：Meta panel v1.141.1
+- Update：Meta amd64 v1.18.6
+
 ## v6.8.5
 - 支持 Mihomo of Clash
 - 增加对 Hysteria 的支持
