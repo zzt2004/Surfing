@@ -18,7 +18,6 @@ tcp-concurrent: true
 enable-process: true
 find-process-mode: strict
 global-client-fingerprint: chrome
-global-ua: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36
 
 #####################
 #修改配置文件时，建议先停止模块服务，再进行保存.
@@ -76,18 +75,12 @@ dns:
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
  
-  nameserver-policy:
-    "geosite:cn":
+  default-nameserver:
     - 223.5.5.5
-    - 223.6.6.6
-    - 119.29.29.29
-    - 182.254.116.116
-    - [2402:4e00::]
-    - [2400:3200::1]
-    - [2400:3200:baba::1]
+    - 1129.29.29.29
   nameserver:
-    - "https://doh.pub/dns-query"
-    - "https://dns.alidns.com/dns-query"
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
     
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
@@ -122,9 +115,9 @@ proxy-groups:
   - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎮 Discord, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 国际抖音, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📷 中国抖音, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
-  - {name: 🎹 网易音乐, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+  - {name: 📸 国际抖音「进程匹配」, type: select, proxies: [🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📷 中国抖音「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+  - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 自动切换,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
   - {name: 🌎 全球直连, type: select, proxies: [DIRECT]}
@@ -188,9 +181,9 @@ rule-providers:
 rules:
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
-  - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音
-  - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音
-  - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐
+  - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音「进程匹配」
+  - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音「进程匹配」
+  - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
   - RULE-SET,Discord,🎮 Discord
   - RULE-SET,Youtube,🎬 油管视频
   - RULE-SET,Netflix,📹 奈飞视频
