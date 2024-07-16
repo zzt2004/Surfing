@@ -12,4 +12,7 @@
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.4">
         <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.4/total?label=Download@v6.8.4&labelColor=00b56a&logo=git&logoColor=white">
     </a>
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.5">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.5/total?label=Download@v6.8.5&labelColor=00b56a&logo=git&logoColor=white">
+    </a>
 </div>
