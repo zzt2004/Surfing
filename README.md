@@ -152,9 +152,9 @@ Android User Group Identifiers:
 > You can typically find all user group identifiers and app package names in `/data/user/` on your device. Avoid using the fake IP mode with blacklists/whitelists.
 
 II. Tun Mode
-- Disabled by default
+- Enabled by default
 
-> Not recommended for general use unless you have special requirements. Do not use blacklists/whitelists with this mode.
+> Its recommended to enable this under WiFi. Unless theres a special need, you can keep it disabled. Before using this mode, please avoid using blacklists and whitelists.
 
 III. Routing Rules
 - For bypassing China mainland.
