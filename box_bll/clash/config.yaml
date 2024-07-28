@@ -1,22 +1,18 @@
 mixed-port: 7890
 redir-port: 7891
 tproxy-port: 1536
-allow-lan: true
 mode: Rule
+allow-lan: true
 geodata-mode: true
 geodata-loader: standard
 unified-delay: true
 log-level: silent
-external-controller: 0.0.0.0:9090
-
-#面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: ./dashboard/Meta #Yacd
-secret: ""
-
 tcp-concurrent: true
 enable-process: true
 find-process-mode: always
 global-client-fingerprint: chrome
+external-controller: 0.0.0.0:9090
+secret: ""
 
 #####################
 #修改配置文件时，建议先停止模块服务，再进行保存.
