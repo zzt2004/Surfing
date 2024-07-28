@@ -67,6 +67,7 @@ tun:
   - fc00::/7
   exclude-package:
   - com.tencent.mm
+  - com.tencent.tmgp.sgame
     
 dns:
   enable: true
