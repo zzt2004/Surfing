@@ -9,7 +9,7 @@
 # pkg install curl
 # --------------------------  
 # 安装过程如有选择性提示都是选择 Y 回车即可.
-# Termux App 官方下载地址：https://f-droid.org/repo/com.termux_118.apk
+# Termux App 官方下载地址：https://f-droid.org/zh_Hans/packages/com.termux/
 
 # 检查是否已经具有 root 权限
 if [ "$(id -u)" -eq 0 ]; then
