@@ -47,7 +47,6 @@ if [ -d /data/adb/box_bll ] ; then
   
   mv /data/adb/box_bll/clash/geoip_tmp.dat /data/adb/box_bll/clash/geoip.dat
   mv /data/adb/box_bll/clash/geosite_tmp.dat /data/adb/box_bll/clash/geosite.dat
-  mv /data/adb/box_bll/clash/country_tmp.mmdb /data/adb/box_bll/clash/country.mmdb
   ui_print "- 正在更新..."
   ui_print "- 更新完成..."
   #ui_print "- 用户配置 box.config  无更新已保留原始文件."
