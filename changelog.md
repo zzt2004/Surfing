@@ -1,9 +1,16 @@
+## v6.8.7
+- 优化 config.yaml 配置
+- 开启 Tun 排除本地局域网
+- 移除本地面板管理 改用 https 在线
+- Fix：hotspot of singbox Tun
+- Update：android arm64-v8-v1.18.7 core
+
 ## v6.8.6
 - More detailed diversion and WeChat FCM support
 - Fix：sing tun hotspot
 - Add：Telegram chat.sh
-- Chore: add ipv6 tun forward support
-- Chore: Configuration Optimization
+- Chore：add ipv6 tun forward support
+- Chore：Configuration Optimization
 - Update：Meta panel v1.141.1
 - Update：Meta amd64 v1.18.6
 
