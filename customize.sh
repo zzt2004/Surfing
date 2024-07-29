@@ -26,7 +26,6 @@ if [ -d /data/adb/box_bll ] ; then
   #mv /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box_tmp.config
   mv /data/adb/box_bll/clash/geoip.dat /data/adb/box_bll/clash/geoip_tmp.dat
   mv /data/adb/box_bll/clash/geosite.dat /data/adb/box_bll/clash/geosite_tmp.dat
-  mv /data/adb/box_bll/clash/country.mmdb /data/adb/box_bll/clash/country_tmp.mmdb
   
   cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
   cp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak
@@ -48,11 +47,11 @@ if [ -d /data/adb/box_bll ] ; then
   mv /data/adb/box_bll/clash/geoip_tmp.dat /data/adb/box_bll/clash/geoip.dat
   mv /data/adb/box_bll/clash/geosite_tmp.dat /data/adb/box_bll/clash/geosite.dat
   ui_print "- 正在更新..."
-  ui_print "- 更新完成..."
   #ui_print "- 用户配置 box.config  无更新已保留原始文件."
   #ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
   ui_print "- 配置文件已备份bak：如更新订阅需重新添加订阅链接！"
   ui_print "- 用户配置已备份bak：可自行选择重新配置或使用默认！"
+  ui_print "- ......"
 else
   mv $MODPATH/box_bll /data/adb/
   ui_print "- 正在安装..."
