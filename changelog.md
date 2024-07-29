@@ -2,6 +2,7 @@
 - 优化 config.yaml 配置
 - 开启 Tun 排除本地局域网
 - 移除本地面板管理 改用 https 在线
+- 开启模块时日志输出至文件夹路径 .xx/log
 - Fix：hotspot of singbox Tun
 - Update：android arm64-v8-v1.18.7 core
 
