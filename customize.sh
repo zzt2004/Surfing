@@ -34,6 +34,7 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf "/data/adb/box_bll/clash/Gui Yacd: 获取面板.sh"
   rm -rf "/data/adb/box_bll/clash/Gui Meta: 获取面板.sh"
   rm -rf "/data/adb/box_bll/clash/Telegram chat.sh"
+  rm -rf "/data/adb/box_bll/clash/country.mmdb"
   rm -rf "/data/adb/box_bll/clash/UpdateGeo.sh"
   rm -rf /data/adb/box_bll/clash/dashboard/Meta
   rm -rf /data/adb/box_bll/clash/dashboard/Yacd
