@@ -46,18 +46,23 @@ if [ -d /data/adb/box_bll ] ; then
   
   mv /data/adb/box_bll/clash/geoip_tmp.dat /data/adb/box_bll/clash/geoip.dat
   mv /data/adb/box_bll/clash/geosite_tmp.dat /data/adb/box_bll/clash/geosite.dat
-  ui_print "- 正在更新..."
-  #ui_print "- 用户配置 box.config  无更新已保留原始文件."
-  #ui_print "- 配置文件 config.yaml 无更新已保留原始文件."
-  ui_print "- 配置文件已备份bak：如更新订阅需重新添加订阅链接！"
-  ui_print "- 用户配置已备份bak：可自行选择重新配置或使用默认！"
-  ui_print "- ......"
+  ui_print "- Updating..."
+  ui_print "- ————————————————"
+  ui_print "- 配置文件 config.yaml 已备份 bak："
+  ui_print "- 如更新订阅需重新添加订阅链接！"
+  ui_print "- ————————————————"
+  ui_print "- 用户配置 box.config 已备份 bak："
+  ui_print "- 可自行选择重新配置或使用默认！"
+  ui_print "- ————————————————"
+  ui_print "- 正在等待重启中..."
 else
   mv $MODPATH/box_bll /data/adb/
-  ui_print "- 正在安装..."
-  ui_print "- 安装完成..."
+  ui_print "- Installing..."
+  ui_print "- ————————————————"
   ui_print "- 首次安装完成后，先不要重启"
   ui_print "- 请至 data/adb/box_bll/clash/config.yaml 添加订阅信息"
+  ui_print "- ————————————————"
+  ui_print "- 正在等待重启中..."
 fi
 
 if [ "$KSU" = true ] ; then
