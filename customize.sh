@@ -60,7 +60,6 @@ else
   ui_print "- 安装完成..."
   ui_print "- 首次安装完成后，先不要重启"
   ui_print "- 请至 data/adb/box_bll/clash/config.yaml 添加订阅信息"
-  ui_print "- 此模块开关就是实时 启用/关闭 首次安装使用需重启！"
 fi
 
 if [ "$KSU" = true ] ; then
