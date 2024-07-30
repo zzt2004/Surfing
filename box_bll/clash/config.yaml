@@ -116,6 +116,7 @@ proxy-groups:
   - {name: ♻️ 手动切换2, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: ♻️ 手动切换3, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📱 Facebook, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📲 电报信息, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎬 油管视频, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📹 奈飞视频, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
@@ -129,61 +130,68 @@ proxy-groups:
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
 rule-providers:
+  Facebook:
+    type: http
+    behavior: classical
+    format: yaml
+    path: ./rule/Facebook.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Facebook/Facebook.yaml"
+    interval: 86400
   Telegram:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Telegram.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Telegram.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml"
     interval: 86400
   Youtube:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Youtube.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Youtube.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml"
     interval: 86400
   Google:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Google.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Google.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml"
     interval: 86400
   Microsoft:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Microsoft.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Microsoft.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml"
     interval: 86400
   Apple:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Apple.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Apple.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml"
     interval: 86400
-  Openai:
+  OpenAI:
     type: http
     behavior: classical
     format: yaml
-    path: ./rule/Openai.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Openai.yaml"
+    path: ./rule/OpenAI.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
     interval: 86400
   Netflix:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Netflix.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Netflix.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml"
     interval: 86400
   Discord:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Discord.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Discord/Discord.yaml"
     interval: 86400
 rules:
   - DST-PORT,53,DNS_Hijack
@@ -195,7 +203,8 @@ rules:
   - RULE-SET,Discord,🎮 Discord
   - RULE-SET,Youtube,🎬 油管视频
   - RULE-SET,Netflix,📹 奈飞视频
-  - RULE-SET,Openai,🤖 OpenAI
+  - RULE-SET,Facebook,📱 Facebook
+  - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Google,📢 谷歌服务
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
