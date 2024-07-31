@@ -24,8 +24,9 @@ if [ -d /data/adb/box_bll ] ; then
   mv /data/adb/box_bll/clash/cache.db /data/adb/box_bll/clash/cache_tmp.db
   #mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
   #mv /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box_tmp.config
-  mv /data/adb/box_bll/clash/geoip.dat /data/adb/box_bll/clash/geoip_tmp.dat
-  mv /data/adb/box_bll/clash/geosite.dat /data/adb/box_bll/clash/geosite_tmp.dat
+  mv /data/adb/box_bll/clash/GeoIP.dat /data/adb/box_bll/clash/ASN_tmp.mmdb
+  mv /data/adb/box_bll/clash/GeoIP.dat /data/adb/box_bll/clash/GeoIP_tmp.dat
+  mv /data/adb/box_bll/clash/GeoSite.dat /data/adb/box_bll/clash/GeoSite_tmp.dat
   
   cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
   cp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak
@@ -36,17 +37,18 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf "/data/adb/box_bll/clash/country.mmdb"
   rm -rf "/data/adb/box_bll/clash/UpdateGeo.sh"
   rm -rf "/data/adb/box_bll/clash/Update: 数据库.sh"
-  rm -rf /data/adb/box_bll/clash/dashboard/Meta
-  rm -rf /data/adb/box_bll/clash/dashboard/Yacd
+  rm -rf /data/adb/box_bll/clash/dashboard
+  rm -rf /data/adb/box_bll/panel/Meta
   cp -rf $MODPATH/box_bll/* /data/adb/box_bll/
   rm -rf $MODPATH/box_bll
   mv /data/adb/box_bll/clash/cache_tmp.db /data/adb/box_bll/clash/cache.db
   
   #mv /data/adb/box_bll/clash/config_tmp.yaml /data/adb/box_bll/clash/config.yaml
   #mv /data/adb/box_bll/scripts/box_tmp.config /data/adb/box_bll/scripts/box.config
-  
-  mv /data/adb/box_bll/clash/geoip_tmp.dat /data/adb/box_bll/clash/geoip.dat
-  mv /data/adb/box_bll/clash/geosite_tmp.dat /data/adb/box_bll/clash/geosite.dat
+
+  mv /data/adb/box_bll/clash/ASN_tmp.mmdb /data/adb/box_bll/clash/ASN.mmdb
+  mv /data/adb/box_bll/clash/GeoIP_tmp.dat /data/adb/box_bll/clash/GeoIP.dat
+  mv /data/adb/box_bll/clash/GeoSite_tmp.dat /data/adb/box_bll/clash/GeoSite.dat
   ui_print "- Updating..."
   ui_print "- ————————————————"
   ui_print "- 配置文件 config.yaml 已备份 bak："
