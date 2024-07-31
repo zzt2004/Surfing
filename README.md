@@ -35,40 +35,40 @@ The project's theme and configuration focus on [Clash.Meta](https://github.com/M
 
 This module needs to be used in a Magisk/Kernelsu environment. If you don't know how to configure the required environment, you might need applications like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray.
 
-# Surfing User Statement and Disclaimer
+# Surfing User Declaration and Disclaimer
 
-Welcome to use. Please read and understand the following statement and disclaimer carefully before using this project. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
+Welcome to use Surfing. Before using this project, please carefully read and understand the following statements and disclaimers. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
 
 ## Disclaimer
 
-1. **This project is an open-source project for learning and research purposes only, without any form of guarantee. Users must bear all risks and consequences of using this project.**
+1. **This project is an open-source project for learning and research purposes only and does not provide any form of guarantee. Users must bear full responsibility for the risks and consequences of using this project.**
 
-2. **This project only facilitates the installation and configuration of Surfing for Clash services in the Android Magisk environment and does not guarantee Surfing's functionality and performance. The developer of this project is not responsible for any issues or losses.**
+2. **This project is only for the convenience of simplifying the installation and configuration of Surfing for Clash services in the Android Magisk environment. It does not make any guarantees about the functionality and performance of Surfing. The developer of this project is not responsible for any problems or losses.**
 
-3. **The use of the Surfing module in this project may violate the laws and regulations of your region or the terms of service of your provider. You bear the risks of using this project. The developer is not responsible for your actions or the consequences of using this project.**
+3. **The use of this projects Surfing module may violate the laws and regulations of your region or the terms of service of service providers. You need to bear the risks of using this project on your own. The developer of this project is not responsible for your actions or the consequences of use.**
 
-4. **The developer is not responsible for any direct or indirect losses or damages caused by using this project, including but not limited to data loss, device damage, service interruption, and personal privacy leaks.**
+4. **The developer of this project is not responsible for any direct or indirect losses or damages resulting from the use of this project, including but not limited to data loss, device damage, service interruption, personal privacy leaks, etc.**
 
-## Usage Notes
+## Instructions for Use
 
-1. **Before using the Surfing module, please make sure you have read and understood the instructions and related documents of Clash and Magisk, and comply with their regulations and terms.**
+1. **Before using the Surfing module, please make sure you have carefully read and understood the usage instructions and related documents of Clash and Magisk and comply with their rules and terms.**
 
-2. **Before using this project, please back up your device data and settings to prevent unexpected situations. The developer is not responsible for any data loss or damage.**
+2. **Before using this project, back up your device data and related settings to prevent unexpected situations. The developer of this project is not responsible for your data loss or damage.**
 
-3. **Please comply with local laws and regulations and respect the legal rights of others when using this project. Do not use this project for any illegal, abusive, or infringing activities.**
+3. **Please comply with local laws and regulations and respect the legitimate rights and interests of other users when using this project. It is forbidden to use this project for illegal, abusive, or infringing activities.**
 
-4. **If you encounter any problems or have any suggestions while using this project, you are welcome to provide feedback to the developer. However, the developer is not obligated or responsible for solving problems or responding to feedback.**
+4. **If you encounter any problems or have any suggestions when using this project, you are welcome to provide feedback to the developer of this project, but the developer is not obligated to resolve issues or respond to feedback.**
 
-Please decide whether to use the Surfing module only after you have clearly understood and accepted the above statements and disclaimers. If you do not agree with or cannot accept the above terms, please stop using this project immediately.
+Please decide whether to use the Surfing module only after clearly understanding and accepting the above statements and disclaimers. If you do not agree or cannot accept the above terms, please stop using this project immediately.
 
-## Legal Compliance
+## Applicable Law
 
-**You must comply with the laws and regulations of your region while using this project. Any disputes should be interpreted and handled according to local laws and regulations.**
+**During the use of this project, you must comply with the laws and regulations of your region. In case of any disputes, interpretation and resolution should be carried out in accordance with local laws and regulations.**
 
 ## Installation
 
 - Download the module zip file from the [Release](https://github.com/MoGuangYu/Surfing/releases) page and install it via Magisk Manager, KernelSU Manager, or APatch.
-- Version changes: [📲log.log](changelog.md)
+- Version changes: [📲log](changelog.md)
 
 ## Uninstallation
 
@@ -78,11 +78,11 @@ Please decide whether to use the Surfing module only after you have clearly unde
 
 <details>
 <summary>1. First Use</summary>
-- After adding the subscription address successfully, restart the phone. Due to network reasons, all rules may not be downloaded automatically. Please manually refresh the rule files at the bottom of the proxy page in the Web App. If the app cannot be used due to network issues, copy and open in a browser
+- After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser:
   - `127.0.0.1:9090/ui`
-  - If the above fails, try toggling the module multiple times and ensure your network environment is normal.
+  - If the above fails, try switching the module on and make sure your network environment is normal.
 - Web App official: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
-  - This is a graphical auxiliary tool for convenient browsing and managing backend routing data, with no additional purposes.
+  - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
 
 > The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
 
