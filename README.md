@@ -158,7 +158,7 @@ Android user group ID identifiers:
 5. LAN Sharing
 - Enable hotspot to allow other devices to connect.
 
-> For other devices to access the console backend, just use (http://current WiFi gateway:9090/ui).
+> For other devices to access the console backend, just use (http://currentWiFigateway:9090/ui).
 
 </details>
 
