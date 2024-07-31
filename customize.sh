@@ -24,7 +24,7 @@ if [ -d /data/adb/box_bll ] ; then
   mv /data/adb/box_bll/clash/cache.db /data/adb/box_bll/clash/cache_tmp.db
   #mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
   #mv /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box_tmp.config
-  mv /data/adb/box_bll/clash/GeoIP.dat /data/adb/box_bll/clash/ASN_tmp.mmdb
+  mv /data/adb/box_bll/clash/ASN.mmdb /data/adb/box_bll/clash/ASN_tmp.mmdb
   mv /data/adb/box_bll/clash/GeoIP.dat /data/adb/box_bll/clash/GeoIP_tmp.dat
   mv /data/adb/box_bll/clash/GeoSite.dat /data/adb/box_bll/clash/GeoSite_tmp.dat
   
