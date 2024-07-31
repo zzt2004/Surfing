@@ -101,7 +101,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 
 GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the latest rules. [Wiki](https://github.com/MetaCubeX/meta-rules-dat)
 
-> Used for routing rule matching to achieve precise traffic diversion. The script's update will always point to the latest version, so it only needs to be updated once a month.
+> Used for routing rule matching to achieve accurate diversion. Updates will always point to the latest version, so you only need to update the file once a month.
 
 </details>
 
