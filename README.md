@@ -80,11 +80,9 @@ Please decide whether to use the Surfing module only after clearly understanding
 <summary>1. First Use</summary>
 
 - After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser
-
   - `127.0.0.1:9090/ui`
   - If the above fails, try switching the module on and make sure your network environment is normal.
-
-- Web App official [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
+- Web App official： [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
   - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
 
 > The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
