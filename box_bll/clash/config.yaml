@@ -4,6 +4,8 @@ tproxy-port: 1536
 mode: Rule
 allow-lan: true
 geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
 geodata-loader: standard
 unified-delay: true
 log-level: silent
@@ -19,12 +21,6 @@ secret: ""
 #####################
 #修改配置文件时，建议先停止模块服务，再进行保存.
 #####################
-
-geo-auto-update: true
-geo-update-interval: 24
-geox-url:
-  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
 
 profile:
   store-selected: true
@@ -65,7 +61,7 @@ tun:
   exclude-package:
   - com.tencent.mm
   - com.tencent.tmgp.sgame
-    
+
 dns:
   enable: true
   prefer-h3: true
@@ -83,7 +79,7 @@ dns:
     - tls://223.6.6.6
     - tls://1.12.12.12
     - tls://120.53.53.53
-      
+  
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
   u: &u
