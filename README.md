@@ -5,7 +5,7 @@
   <br>CLASHMETA<br>
 </h1>
 
-<h3 align="center">Magisk、Kernelsu、APatch</h3>
+<h3 align="center">Magisk, Kernelsu, APatch</h3>
 
 <div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/blob/main/Vers.md">
@@ -23,149 +23,141 @@
 
 #
 
-**English** | [简体中文](./README_CN.md)  
+[English](./README.md) | **简体中文**
 
-This project is a [Magisk](https://github.com/topjohnwu/Magisk) 、 [Kernelsu](https://github.com/tiann/KernelSU) and [APatch](https://github.com/bmax121/APatch) module for Clash, sing-box, v2ray, and xray, hysteria. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and a mixed mode proxy with REDIRECT (TCP) + TUN (UDP).
+This project is a [Magisk](https://github.com/topjohnwu/Magisk), [Kernelsu](https://github.com/tiann/KernelSU), or [APatch](https://github.com/bmax121/APatch) module for Clash, sing-box, v2ray, xray, hysteria. It supports REDIRECT (TCP only), TPROXY (TCP + UDP) transparent proxy, TUN (TCP + UDP), and hybrid mode REDIRECT (TCP) + TUN (UDP) proxy.
 
-Based on the upstream for integrated services, flash and use. This is suitable for the following people:
-- Procrastinators
+Based on upstream integration for one-stop service, ready to use. Suitable for:
+- Lazy people
 - Beginners
 
-The project theme and configuration revolve around [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta).  
+The project's theme and configuration focus on [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta).
 
-This module needs to be used in the Magisk/Kernelsu environment. If you dont know how to configure the required environment, you may need apps like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray, etc.
+This module needs to be used in a Magisk/Kernelsu environment. If you don't know how to configure the required environment, you might need applications like ClashForAndroid, v2rayNG, surfboard, SagerNet, AnXray.
 
-# Surfing User Declaration and Disclaimer
+# Surfing User Statement and Disclaimer
 
-Welcome to use Surfing. Before using this project, please carefully read and understand the following statements and disclaimers. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
+Welcome to use. Please read and understand the following statement and disclaimer carefully before using this project. By using this project, you agree to accept the following terms and conditions. Hereinafter referred to as **Surfing**.
 
 ## Disclaimer
 
-1. **This project is an open-source project for learning and research purposes only and does not provide any form of guarantee. Users must bear full responsibility for the risks and consequences of using this project.**
+1. **This project is an open-source project for learning and research purposes only, without any form of guarantee. Users must bear all risks and consequences of using this project.**
 
-2. **This project is only for the convenience of simplifying the installation and configuration of Surfing for Clash services in the Android Magisk environment. It does not make any guarantees about the functionality and performance of Surfing. The developer of this project is not responsible for any problems or losses.**
+2. **This project only facilitates the installation and configuration of Surfing for Clash services in the Android Magisk environment and does not guarantee Surfing's functionality and performance. The developer of this project is not responsible for any issues or losses.**
 
-3. **The use of this projects Surfing module may violate the laws and regulations of your region or the terms of service of service providers. You need to bear the risks of using this project on your own. The developer of this project is not responsible for your actions or the consequences of use.**
+3. **The use of the Surfing module in this project may violate the laws and regulations of your region or the terms of service of your provider. You bear the risks of using this project. The developer is not responsible for your actions or the consequences of using this project.**
 
-4. **The developer of this project is not responsible for any direct or indirect losses or damages resulting from the use of this project, including but not limited to data loss, device damage, service interruption, personal privacy leaks, etc.**
+4. **The developer is not responsible for any direct or indirect losses or damages caused by using this project, including but not limited to data loss, device damage, service interruption, and personal privacy leaks.**
 
-## Instructions for Use
+## Usage Notes
 
-1. **Before using the Surfing module, please make sure you have carefully read and understood the usage instructions and related documents of Clash and Magisk and comply with their rules and terms.**
+1. **Before using the Surfing module, please make sure you have read and understood the instructions and related documents of Clash and Magisk, and comply with their regulations and terms.**
 
-2. **Before using this project, back up your device data and related settings to prevent unexpected situations. The developer of this project is not responsible for your data loss or damage.**
+2. **Before using this project, please back up your device data and settings to prevent unexpected situations. The developer is not responsible for any data loss or damage.**
 
-3. **Please comply with local laws and regulations and respect the legitimate rights and interests of other users when using this project. It is forbidden to use this project for illegal, abusive, or infringing activities.**
+3. **Please comply with local laws and regulations and respect the legal rights of others when using this project. Do not use this project for any illegal, abusive, or infringing activities.**
 
-4. **If you encounter any problems or have any suggestions when using this project, you are welcome to provide feedback to the developer of this project, but the developer is not obligated to resolve issues or respond to feedback.**
+4. **If you encounter any problems or have any suggestions while using this project, you are welcome to provide feedback to the developer. However, the developer is not obligated or responsible for solving problems or responding to feedback.**
 
-Please decide whether to use the Surfing module only after clearly understanding and accepting the above statements and disclaimers. If you do not agree or cannot accept the above terms, please stop using this project immediately.
+Please decide whether to use the Surfing module only after you have clearly understood and accepted the above statements and disclaimers. If you do not agree with or cannot accept the above terms, please stop using this project immediately.
 
-## Applicable Law
+## Legal Compliance
 
-**During the use of this project, you must comply with the laws and regulations of your region. In case of any disputes, interpretation and resolution should be carried out in accordance with local laws and regulations.**
+**You must comply with the laws and regulations of your region while using this project. Any disputes should be interpreted and handled according to local laws and regulations.**
 
 ## Installation
 
-- Download the module zip package from the [Release](https://github.com/MoGuangYu/Surfing/releases) page, then install it via Magisk Manager, KernelSU Manager, or APatch.
-- For changes in each version, see the [📲changelog.md](changelog.md).
+- Download the module zip file from the [Release](https://github.com/MoGuangYu/Surfing/releases) page and install it via Magisk Manager, KernelSU Manager, or APatch.
+- Version changes: [📲log.log](changelog.md)
 
 ## Uninstallation
 
-- You can uninstall this module from Magisk Manager 、 KernelSU Manager 、 APatch. [👉🏻Shovel shit](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
+- Uninstall the module from the Magisk Manager, Kernelsu Manager, or APatch application. [👉🏻Removal Command](https://github.com/MoGuangYu/Surfing/blob/main/uninstall.sh#L3-L4)
 
 ## Wiki
 
 <details>
-<summary>1. Firsttime Usage</summary>
-
-- After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser:
+<summary>1. First Use</summary>
+- After adding the subscription address successfully, restart the phone. Due to network reasons, all rules may not be downloaded automatically. Please manually refresh the rule files at the bottom of the proxy page in the Web App. If the app cannot be used due to network issues, copy and open in a browser
   - `127.0.0.1:9090/ui`
-  - If the above fails, try switching the module on and make sure your network environment is normal.
+  - If the above fails, try toggling the module multiple times and ensure your network environment is normal.
 - Web App official: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
-  - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
+  - This is a graphical auxiliary tool for convenient browsing and managing backend routing data, with no additional purposes.
 
-> The module has a built-in GUI that can be accessed locally through a browser or online using the app. There is essentially no difference between the two.
+> The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
+
 </details>
-
-#
 
 <details>
 <summary>2. Control Operation</summary>
 
-- You can enable or disable real-time control of the running service through the module switch.
-</details>
+- You can control the operation service in real time by toggling the module on/off.
 
-#
+</details>
 
 <details>
-<summary>3. Script Updates</summary>
+<summary>3. Geo Database</summary>
 
-- UpdateGeo.sh This script is used to update the Geo database file with one click. It requires the curl command. Please ensure you have the curl command before running the script and execute the script file with root permissions.
-  - You can try to run it first, and if you don't have curl, install it using the following commands in the Termux app.
-  - Execute the following commands in the terminal in sequence:
-  - `pkg update`
-  - `pkg install curl`
-- If there are selective prompts during the installation process, select "Y" and press Enter.
-- Termux App official: [Download](https://f-droid.org/repo/com.termux_118.apk)
+GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the latest rules. [Wiki](https://github.com/MetaCubeX/meta-rules-dat)
 
-> About the Geo database: GitHub Actions automatically builds it at 6 a.m. Beijing time every day to ensure the latest rules. It is used for routing rule matching to achieve precise diversion. The scripts updates will permanently point to the latest version, so youcan manually update it once a month.
+> Used for routing rule matching to achieve precise traffic diversion. The script's update will always point to the latest version, so it only needs to be updated once a month.
+
 </details>
-
-#
 
 <details>
 <summary>4. Subsequent Updates</summary>
 
-- Supports online module updates in Magisk Manager.
-- No restart is required after the update, but the module switch control (enable/disable) may temporarily fail and still require a restart.
-- During the update, the Clash.Meta config.yaml configuration file will be backed up to:
+- Supports online module updates in the client.
+- No need to restart after updating, but toggling the module on/off might temporarily fail, still requiring a restart.
+- The Clash.Meta config.yaml configuration file is backed up during updates to
    - `/data/adb/box_bll/clash/config.yaml.bak`
-- During the update, the old user configuration files will be backed up to:
+- User configuration files are backed up during updates to
    - `/data/adb/box_bll/scripts/box.config.bak`
-- Module updates will not include updates to database files:
-   - geoip.dat, geosite.dat, country.mmdb
+- Updating the module will not overwrite any database files.
+- For database file updates, manually update in the Web panel - Configuration Options page.
 
-- Module updates will not include updates to database files. You can manually update them through the Web panel configuration page or the script.
+> Mainly follow upstream updates and issue some configurations.
 
-> Note: Updates mainly follow the upstream updates and issue some configurations.
 </details>
-
-#
 
 <details>
 <summary>5. Usage Issues</summary>
 
-I. Proxy Specific Applications (Blacklist/Whitelist)
-- If you want to proxy all applications except specific ones, open the `/data/adb/box_bll/scripts/box.config` file, change the value of `proxy_mode` to `blacklist` (default), and add elements to the `user_packages_list` array. The format of array elements is `id identifier: app package name`, separated by spaces. This will make the module **not proxy** the respective Android apps. For example: `user_packages_list=("id identifier: app package name" "id identifier: app package name")`
+1. Proxy Specific Applications (Black/Whitelist)
+- To proxy all applications except certain ones, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `blacklist` (default), and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **not proxy** specific Android user applications.
+- To only proxy specific applications, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `whitelist`, and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **only proxy** specific Android user applications.
 
-- If you only want to proxy specific applications, open the `/data/adb/box_bll/scripts/box.config` file, change the value of `proxy_mode` to `whitelist`, and add elements to the `user_packages_list` array in the same format. This will make the module **only proxy** the respective Android apps. For example: `user_packages_list=("id identifier: app package name" "id identifier: app package name")`
-
-Android User Group Identifiers:
+Android user group ID identifiers:
 
 | Standard User | ID  |
-| -------- | --- |
-| Owner     |  0  |
-| Second Space | 10  |
-| Clone Apps | 999 |
+| ------------- | --- |
+| Owner         |  0  |
+| Second Space  |  10 |
+| App Clone     | 999 |
 
-> You can typically find all user group identifiers and app package names in `/data/user/` on your device. Avoid using the fake IP mode with blacklists/whitelists.
+> Typically, you can find all user group IDs and application package names in `/data/user/`. Do not use fake-ip mode when using black/whitelist.
 
-II. Tun Mode
+2. Tun Mode
 - Enabled by default
 
-> Its recommended to enable this under WiFi. Unless theres a special need, you can keep it disabled. Before using this mode, please avoid using blacklists and whitelists.
+> Recommended to enable under WiFi. If not necessary, it can be disabled. Do not use black/whitelist before enabling this mode.
 
-III. Routing Rules
-- For bypassing China mainland.
-- The rules are maintained by the developer and can satisfy most usage needs.
+3. Routing Rules
+- Bypass mainland China
+- Updated daily
 
-> Unless you have very strict requirements, blacklists/whitelists may not be very meaningful. You can use the modules built-in configuration.
+> Black/whitelist is not significant unless strictly required. The module's built-in configuration is sufficient.
 
-IV. LAN Sharing
-- Enable hotspot and let other devices connect.
+4. Panel Management
+- Magisk Font Module
 
-> If other devices want to access the console backend, just use http://currentWiFiGateway:9090/ui
+> May affect normal display of page fonts.
+
+5. LAN Sharing
+- Enable hotspot to allow other devices to connect.
+
+> For other devices to access the console backend, just use http://current WiFi gateway:9090/ui.
+
 </details>
 
 ---
@@ -194,4 +186,3 @@ IV. LAN Sharing
 <div align="center">
   <p> > Thanks for providing valuable foundation for the implementation of this project. < </p>
 </div>
-

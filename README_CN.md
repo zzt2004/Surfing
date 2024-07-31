@@ -79,7 +79,6 @@
 
 <details>
 <summary>1. 首次使用</summary>
-
 - 订阅地址添加成功后重启手机，可能因网络原因不会自动下载完全部规则，请手动至 Web App 在代理页的最下方，手动点击至规则页右下方刷新图标更新/下载规则文件，如网络原因无法使用 App 请至浏览器复制并打开
   - `127.0.0.1:9090/ui`  
   - 如上述失败，请多次尝试模块开关，并确保你的网络环境正常
@@ -87,6 +86,7 @@
   - 仅为图形辅助工具，用于便携浏览及管理后台路由数据，并无其它多余用途
 
 > 模块已内置 Gui 可通过浏览器本地访问使用，亦或者使用 App 在线访问使用，两者本质上并无差异
+
 </details>
 
 #
@@ -95,24 +95,18 @@
 <summary>2. 控制运行</summary>
 
 - 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+
 </details>
 
 #
 
 <details>
-<summary>3. 脚本更新</summary>
+<summary>3. Geo 数据库</summary>
 
-- UpdateGeo.sh 此脚本用于一键更新 Geo 数据库文件，需要 curl 命令，请确保在运行脚本之前已经有了 curl  命令，完成后脚本文件并以root权限执行
-  - 可先尝试执行，如没有可以使用以下命令在 Termux App 中安装
-  - 终端依次执行以下命令  
-`pkg update`  
-`pkg install curl`
-- 安装过程如有选择性提示都是选择 Y 回车即可.
-- Termux App official：[Download](https://f-droid.org/repo/com.termux_118.apk)
+GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/MetaCubeX/meta-rules-dat)  
 
-> 关于 Geo 数据库：  
-GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/Loyalsoldier/v2ray-rules-dat#%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%96%B9%E5%BC%8F)  
-用于路由规则匹配，实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次更新即可
+> 用于路由规则匹配，实现精准分流，脚本中的更新将永久指向最新版本，因此只需每个月执行一次更新即可
+
 </details>
 
 #
@@ -120,18 +114,17 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <details>
 <summary>4. 后续更新</summary>
 
-- 支持在 Magisk Manager 中在线更新模块
+- 支持在客户端中在线更新模块
 - 更新后无须重启，但模块开关控制 启用/关闭 可能会临时失效，仍需重启
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - 更新时会备份旧文件用户配置，至
    - `/data/adb/box_bll/scripts/box.config.bak`
-- 更新模块并不会覆盖数据库文件
-   - geoip.dat、geosite.dat、country.mmdb
-
-- 更新模块不再包含数据库文件更新，至 Web 面板-配置选项页，进行手动更新即可，亦或者脚本
+- 更新模块不会覆盖任何数据库文件
+- 更新数据库文件更新，至 Web面板-配置选项页，进行手动更新即可
 
 > Ps：主要跟随上游更新，及下发一些配置
+
 </details>
 
 #
@@ -161,14 +154,20 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 三、路由规则
 - 为大陆饶行
-- 规则由本人亲自维护的，基本能满足大多数使用需求
+- 每日更新
 
 > 如非特别严格的要求，黑白名单意义不大，使用模块自带配置即可
 
-四、局域网共享
+四、面板管理
+- Magisk字体模块
+
+> 会影响页面字体正常显示
+
+五、局域网共享
 - 开启热点让其它设备连接即可
 
 > 其它设备若访问控制台后端，只需 http://当前WiFi网关:9090/ui
+
 </details>
 
 ---
