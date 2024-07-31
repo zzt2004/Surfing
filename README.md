@@ -82,7 +82,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 - After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser
   - `127.0.0.1:9090/ui`
   - If the above fails, try switching the module on and make sure your network environment is normal.
-- Web App official： [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
+- Web App：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
   - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
 
 > The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
@@ -126,6 +126,7 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 
 1. Proxy Specific Applications (Black/Whitelist)
 - To proxy all applications except certain ones, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `blacklist` (default), and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **not proxy** specific Android user applications.
+
 - To only proxy specific applications, open the `/data/adb/box_bll/scripts/box.config` file, set the `proxy_mode` value to `whitelist`, and add elements to the `user_packages_list` array. The format for elements is `id:package_name`, separated by spaces. For example, `user_packages_list=("id:package_name" "id:package_name")` to **only proxy** specific Android user applications.
 
 Android user group ID identifiers:
