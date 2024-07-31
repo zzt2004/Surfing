@@ -4,7 +4,7 @@ SKIPUNZIP=1
 ASH_STANDALONE=1
 
 if [ "$BOOTMODE" ! = true ] ; then
-  abort "Error: 请在 Magisk Manager 或 KernelSU Manager 中安装"
+  abort "Error: 请在 Magisk Manager / KernelSU Manager / APatch 中安装"
 elif [ "$KSU" = true ] && [ "$KSU_VER_CODE" -lt 10670 ] ; then
   abort "Error: 请更新您的 KernelSU Manager 版本"
 fi
@@ -21,13 +21,6 @@ fi
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d $MODPATH
 if [ -d /data/adb/box_bll ] ; then
-  mv /data/adb/box_bll/clash/cache.db /data/adb/box_bll/clash/cache_tmp.db
-  #mv /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config_tmp.yaml
-  #mv /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box_tmp.config
-  mv /data/adb/box_bll/clash/ASN.mmdb /data/adb/box_bll/clash/ASN_tmp.mmdb
-  mv /data/adb/box_bll/clash/GeoIP.dat /data/adb/box_bll/clash/GeoIP_tmp.dat
-  mv /data/adb/box_bll/clash/GeoSite.dat /data/adb/box_bll/clash/GeoSite_tmp.dat
-  
   cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
   cp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak
   
@@ -38,17 +31,11 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf "/data/adb/box_bll/clash/UpdateGeo.sh"
   rm -rf "/data/adb/box_bll/clash/Update: 数据库.sh"
   rm -rf /data/adb/box_bll/clash/dashboard
-  rm -rf /data/adb/box_bll/panel/Meta
-  cp -rf $MODPATH/box_bll/* /data/adb/box_bll/
-  rm -rf $MODPATH/box_bll
-  mv /data/adb/box_bll/clash/cache_tmp.db /data/adb/box_bll/clash/cache.db
   
-  #mv /data/adb/box_bll/clash/config_tmp.yaml /data/adb/box_bll/clash/config.yaml
-  #mv /data/adb/box_bll/scripts/box_tmp.config /data/adb/box_bll/scripts/box.config
+  cp -f $MODPATH/box_bll/clash/config.yaml /data/adb/box_bll/clash/
+  cp -f $MODPATH/box_bll/scripts/* /data/adb/box_bll/scripts/
+  rm -rf $MODPATH/box_bll
 
-  mv /data/adb/box_bll/clash/ASN_tmp.mmdb /data/adb/box_bll/clash/ASN.mmdb
-  mv /data/adb/box_bll/clash/GeoIP_tmp.dat /data/adb/box_bll/clash/GeoIP.dat
-  mv /data/adb/box_bll/clash/GeoSite_tmp.dat /data/adb/box_bll/clash/GeoSite.dat
   ui_print "- Updating..."
   ui_print "- ————————————————"
   ui_print "- 配置文件 config.yaml 已备份 bak："
@@ -85,6 +72,7 @@ rm -f customize.sh
 
 set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm_recursive /data/adb/box_bll/ 0 0 0755 0644
+set_perm_recursive /data/adb/box_bll/panel/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/log/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/run/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/proxy_providers/ 0 0 0755 0666
