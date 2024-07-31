@@ -15,7 +15,7 @@ find-process-mode: always
 global-client-fingerprint: chrome
 external-controller: 0.0.0.0:9090
 #面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: ./dashboard/Meta #/Meta/Yacd
+external-ui: /data/adb/box_bll/panel/Meta/ #/Meta/Yacd
 secret: ""
 
 #####################
