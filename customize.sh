@@ -29,6 +29,7 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf "/data/adb/box_bll/clash/Telegram chat.sh"
   rm -rf "/data/adb/box_bll/clash/country.mmdb"
   rm -rf "/data/adb/box_bll/clash/UpdateGeo.sh"
+  rm -rf "/data/adb/box_bll/clash/ASN.mmdb"
   rm -rf "/data/adb/box_bll/clash/Update: 数据库.sh"
   rm -rf /data/adb/box_bll/clash/dashboard
   
