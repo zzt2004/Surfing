@@ -146,7 +146,7 @@ Android user group ID identifiers:
 
 3. Routing Rules
 - Bypass mainland China
-- Updated daily
+- The rules are maintained by the developer and can satisfy most usage needs.
 
 > Black/whitelist is not significant unless strictly required. The module's built-in configuration is sufficient.
 
