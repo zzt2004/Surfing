@@ -6,6 +6,9 @@ allow-lan: true
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
+geox-url:
+  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
+  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
 geodata-loader: standard
 unified-delay: true
 log-level: silent
@@ -92,12 +95,12 @@ proxy-providers:
     <<: *p
     url: "引入您的Clash订阅链接地址"
     path: ./proxy_providers/subscribe1.yaml
-    #注意！如果您的订阅链接中带有“&”字符，请删掉.
+    
   2.备用地址:
     <<: *p
     url: "引入您的Clash订阅链接地址"
     path: ./proxy_providers/subscribe2.yaml
-    #注意！如果您的订阅链接中带有“&”字符，请删掉.
+    
 proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: DNS_Hijack, type: dns}
@@ -130,63 +133,63 @@ rule-providers:
     behavior: classical
     format: yaml
     path: ./rule/Facebook.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Facebook/Facebook.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Facebook.yaml"
     interval: 86400
   Telegram:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Telegram.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Telegram.yaml"
     interval: 86400
   Youtube:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Youtube.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/YouTube.yaml"
     interval: 86400
   Google:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Google.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Google.yaml"
     interval: 86400
   Microsoft:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Microsoft.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Microsoft.yaml"
     interval: 86400
   Apple:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Apple.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Apple.yaml"
     interval: 86400
   OpenAI:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/OpenAI.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/OpenAI.yaml"
     interval: 86400
   Netflix:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Netflix.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Netflix.yaml"
     interval: 86400
   Discord:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Discord.yaml
-    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Discord/Discord.yaml"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
     interval: 86400
 rules:
   - DST-PORT,53,DNS_Hijack
