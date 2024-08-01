@@ -128,12 +128,12 @@ proxy-groups:
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
 rule-providers:
-  Tiktok:
+  TikTok:
     type: http
     behavior: classical
     format: yaml
-    path: ./rule/Tiktok.yaml
-    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Tiktok.yaml"
+    path: ./rule/TikTok.yaml
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/TikTok.yaml"
     interval: 86400
   Facebook:
     type: http
