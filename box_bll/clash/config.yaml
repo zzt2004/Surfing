@@ -149,11 +149,11 @@ rule-providers:
     path: ./rule/Telegram.yaml
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Telegram.yaml"
     interval: 86400
-  Youtube:
+  YouTube:
     type: http
     behavior: classical
     format: yaml
-    path: ./rule/Youtube.yaml
+    path: ./rule/YouTube.yaml
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/YouTube.yaml"
     interval: 86400
   Google:
@@ -205,8 +205,8 @@ rules:
   - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音「进程匹配」
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
   - RULE-SET,Discord,🎮 Discord
-  - RULE-SET,Discord,📸 国际抖音
-  - RULE-SET,Youtube,🎬 油管媒体
+  - RULE-SET,TikTok,📸 国际抖音
+  - RULE-SET,YouTube,🎬 油管媒体
   - RULE-SET,Netflix,📹 奈飞媒体
   - RULE-SET,Facebook,📱 脸书社交
   - RULE-SET,OpenAI,🤖 OpenAI
