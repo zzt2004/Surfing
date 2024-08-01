@@ -114,20 +114,27 @@ proxy-groups:
   - {name: ♻️ 手动切换2, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: ♻️ 手动切换3, type: select, proxies: [🚀 节点选择,🌎 全球直连], <<: *u}
   - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📱 Facebook, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📱 脸书社交, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📲 电报信息, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 🎬 油管视频, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📹 奈飞视频, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 🎬 油管媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📹 奈飞媒体, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎮 Discord, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 国际抖音「进程匹配」, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
+  - {name: 📸 国际抖音, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 📷 中国抖音「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
   - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
 rule-providers:
+  Tiktok:
+    type: http
+    behavior: classical
+    format: yaml
+    path: ./rule/Tiktok.yaml
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Tiktok.yaml"
+    interval: 86400
   Facebook:
     type: http
     behavior: classical
@@ -195,13 +202,13 @@ rules:
   - DST-PORT,53,DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
-  - PROCESS-NAME,com.zhiliaoapp.musically,📸 国际抖音「进程匹配」
   - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音「进程匹配」
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
   - RULE-SET,Discord,🎮 Discord
-  - RULE-SET,Youtube,🎬 油管视频
-  - RULE-SET,Netflix,📹 奈飞视频
-  - RULE-SET,Facebook,📱 Facebook
+  - RULE-SET,Discord,📸 国际抖音
+  - RULE-SET,Youtube,🎬 油管媒体
+  - RULE-SET,Netflix,📹 奈飞媒体
+  - RULE-SET,Facebook,📱 脸书社交
   - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Google,📢 谷歌服务
   - RULE-SET,Apple,🍎 苹果服务
@@ -209,6 +216,6 @@ rules:
   - RULE-SET,Telegram,📲 电报信息
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,CN,🌎 全球直连
-  - GEOIP,private,🌎 全球直连,no-resolve
   - GEOIP,CN,🌎 全球直连,no-resolve
+  - GEOIP,private,🌎 全球直连,no-resolve
   - MATCH,🐋 漏网之鱼
