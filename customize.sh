@@ -38,7 +38,7 @@ if [ -d /data/adb/box_bll ] ; then
   
   cp -f $MODPATH/box_bll/clash/config.yaml /data/adb/box_bll/clash/
   cp -f $MODPATH/box_bll/clash/enhanced_config.yaml /data/adb/box_bll/clash/
-  cp -f $MODPATH/box_bll/bin/* /data/adb/box_bll/bin/
+  #cp -f $MODPATH/box_bll/bin/* /data/adb/box_bll/bin/
   cp -f $MODPATH/box_bll/scripts/* /data/adb/box_bll/scripts/
   rm -rf $MODPATH/box_bll
 
@@ -55,8 +55,8 @@ else
   mv $MODPATH/box_bll /data/adb/
   ui_print "- Installing..."
   ui_print "- ————————————————"
-  ui_print "- 首次安装完成后，先不要重启"
-  ui_print "- 请至 data/adb/box_bll/clash/config.yaml 添加订阅信息"
+  ui_print "- 安装完成 工作目录"
+  ui_print "- data/adb/box_bll/"
   ui_print "- ————————————————"
   ui_print "- 正在等待重启中..."
 fi
@@ -78,8 +78,10 @@ rm -f customize.sh
 
 set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm_recursive /data/adb/box_bll/ 0 0 0755 0644
-set_perm_recursive /data/adb/box_bll/panel/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/log/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/run/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/clash/proxy_providers/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/clash/rule/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/scripts/ 0 0 0755 0700
 set_perm_recursive /data/adb/box_bll/bin/ 0 0 0755 0700
 
