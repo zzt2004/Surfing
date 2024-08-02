@@ -79,11 +79,12 @@ Please decide whether to use the Surfing module only after clearly understanding
 <details>
 <summary>1. First Use</summary>
 
-- After successfully adding the subscription address, restart your phone. The complete rule files may not be automatically downloaded due to network issues. Manually navigate to the rule page at the bottom right of the proxy page on the Web App and click the refresh icon to update/download rule files. If you cant use the app due to network issues, please copy and open it in a browser
-  - `127.0.0.1:9090/ui`
-  - If the above fails, try switching the module on and make sure your network environment is normal.
-- Web App：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
-  - It is only a graphical tool for portable browsing and managing backend routing data, with no other additional uses.
+- Install and restart the phone.
+- Add the subscription address in `config.yaml` and reload the configuration.
+- Due to network reasons, all rules may not be downloaded automatically. Please manually update/download the rule files.
+  - If the above fails, ensure your network environment is normal.
+- Web App: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
+  - This is a graphical auxiliary tool for convenient browsing and managing backend routing data, with no additional purposes.
 
 > The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
 
@@ -114,8 +115,10 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - User configuration files are backed up during updates to
    - `/data/adb/box_bll/scripts/box.config.bak`
-- Updating the module will not overwrite any database files.
-- For database file updates, manually update in the Web panel - Configuration Options page.
+- Updates do not include:
+   - Geo database files
+   - bin files
+   - Web resources
 
 > Mainly follow upstream updates and issue some configurations.
 

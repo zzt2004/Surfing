@@ -80,10 +80,11 @@
 <details>
 <summary>1. 首次使用</summary>
 
-- 订阅地址添加成功后重启手机，可能因网络原因不会自动下载完全部规则，请手动至 Web App 在代理页的最下方，手动点击至规则页右下方刷新图标更新/下载规则文件，如网络原因无法使用 App 请至浏览器复制并打开
-  - `127.0.0.1:9090/ui`
-  - 如上述失败，请多次尝试模块开关，并确保你的网络环境正常
-- Web App official：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
+- 安装重启手机
+- 于`config.yaml`添加订阅地址，重载一下配置
+- 可能因网络原因不会自动下载完全部规则，请手动 更新/下载 规则文件
+  - 如上述失败，并确保你的网络环境正常
+- Web App：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
   - 仅为图形辅助工具，用于便携浏览及管理后台路由数据，并无其它多余用途
 
 > 模块已内置 Gui 可通过浏览器本地访问使用，亦或者使用 App 在线访问使用，两者本质上并无差异
@@ -116,13 +117,15 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <summary>4. 后续更新</summary>
 
 - 支持在客户端中在线更新模块
-- 更新后无须重启，但模块开关控制 启用/关闭 可能会临时失效，仍需重启
+- 更新后无须重启，但模块开关控制 启用/关闭 会临时失效，仍需重启
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - 更新时会备份旧文件用户配置，至
    - `/data/adb/box_bll/scripts/box.config.bak`
-- 更新模块不会覆盖任何数据库文件
-- 更新数据库文件更新，至 Web面板-配置选项页，进行手动更新即可
+- 更新模块时不包含：
+   - Geo数据库文件
+   - bin文件
+   - Web资源
 
 > Ps：主要跟随上游更新，及下发一些配置
 
