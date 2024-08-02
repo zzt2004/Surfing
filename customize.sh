@@ -31,6 +31,9 @@ if [ -d /data/adb/box_bll ] ; then
   rm -rf "/data/adb/box_bll/clash/UpdateGeo.sh"
   rm -rf "/data/adb/box_bll/clash/ASN.mmdb"
   rm -rf "/data/adb/box_bll/clash/Update: 数据库.sh"
+  rm -rf "/data/adb/box_bll/clash/Telegram: 聊天组.sh"
+  rm -rf "/data/adb/box_bll/clash/Gui Meta: 在线面板.sh"
+  rm -rf "/data/adb/box_bll/clash/Gui Yacd: 在线面板.sh"
   rm -rf /data/adb/box_bll/clash/dashboard
   
   cp -f $MODPATH/box_bll/clash/config.yaml /data/adb/box_bll/clash/
@@ -77,9 +80,6 @@ set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm_recursive /data/adb/box_bll/ 0 0 0755 0644
 set_perm_recursive /data/adb/box_bll/panel/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/log/ 0 0 0755 0666
-set_perm_recursive /data/adb/box_bll/run/ 0 0 0755 0666
-set_perm_recursive /data/adb/box_bll/clash/proxy_providers/ 0 0 0755 0666
-set_perm_recursive /data/adb/box_bll/clash/rule/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/scripts/ 0 0 0755 0700
 set_perm_recursive /data/adb/box_bll/bin/ 0 0 0755 0700
 
