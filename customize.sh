@@ -78,7 +78,7 @@ rm -f customize.sh
 
 set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm_recursive /data/adb/box_bll/ 0 0 0755 0644
-set_perm_recursive /data/adb/box_bll/clash/log/ 0 0 0755 0666
+set_perm_recursive /data/adb/box_bll/clash/log/ 0 0 0777 0666
 set_perm_recursive /data/adb/box_bll/run/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/proxy_providers/ 0 0 0755 0666
 set_perm_recursive /data/adb/box_bll/clash/rule/ 0 0 0755 0666
