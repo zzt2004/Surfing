@@ -12,7 +12,7 @@
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.10">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.10/total?label=Download@v6.8.9&labelColor=00b56a&logo=git&logoColor=white">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.10/total?label=Download@v6.8.10&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
