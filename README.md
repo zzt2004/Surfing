@@ -8,16 +8,11 @@
 <h3 align="center">Magisk, Kernelsu, APatch</h3>
 
 <div align="center">
-    <a href="https://github.com/MoGuangYu/Surfing/blob/main/Vers.md">
-        <img alt="PreviousVersions" src="https://img.shields.io/badge/PreviousVersions-blue.svg">
-    </a>
-</div>
-<div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.9">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.9/total?label=Download@v6.8.9&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.10">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.10/total?label=Download@v6.8.9&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
@@ -109,6 +104,7 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 <details>
 <summary>4. Subsequent Updates</summary>
 
+- If you use all default configurations, the update will be seamless.
 - Supports online module updates in the client.
 - No need to restart after updating, the module switch control enable/disable ~~will be temporarily invalid, and still need to restart~~
 - The Clash.Meta config.yaml configuration file is backed up during updates to

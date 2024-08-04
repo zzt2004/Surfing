@@ -8,16 +8,11 @@
 <h3 align="center">Magisk、Kernelsu、APatch</h3>
 
 <div align="center">
-    <a href="https://github.com/MoGuangYu/Surfing/blob/main/Vers.md">
-        <img alt="PreviousVersions" src="https://img.shields.io/badge/PreviousVersions-blue.svg">
-    </a>
-</div>
-<div align="center">
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.9">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.9/total?label=Download@v6.8.9&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v6.8.10">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v6.8.10/total?label=Download@v6.8.10&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
@@ -80,7 +75,7 @@
 <details>
 <summary>1. 首次使用</summary>
 
-- 安装模块后无需重启设备，可使用`Toolbox`整合刷新客户端的更新状态
+- 安装模块后无需重启设备，可使用`Toolbox`整合并刷新客户端的更新状态
 - 于`config.yaml`添加订阅地址，重载一下配置
 - 可能因网络原因不会自动下载完全部规则，请手动 更新/下载 规则文件
   - 如上述失败，并确保你的网络环境正常
@@ -116,6 +111,7 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <details>
 <summary>4. 后续更新</summary>
 
+- 如果你全部使用默认配置，更新将是无感更新
 - 支持在客户端中在线更新模块
 - 更新后无须重启，模块开关控制 启用/关闭 ~~会临时失效，仍需重启~~
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
