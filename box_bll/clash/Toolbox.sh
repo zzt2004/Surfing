@@ -1,20 +1,24 @@
 #!/bin/sh
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo "请设置以 Root 用户运行！"
+    echo "请设置以 Root 用户运行"
     exit 1
 fi
 
-BASE_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
-TEMP_FILE="/data/local/tmp/mihomo_latest.gz"
-TEMP_DIR="/data/local/tmp/mihomo_update"
 SURFING_PATH="/data/adb/modules/Surfing/"
+MODULE_PROP="${SURFING_PATH}module.prop"
 GXSURFING_PATH="/data/adb/modules_update/Surfing"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 BOX_PATH="/data/adb/box_bll/scripts/box.config"
 CONFIG_PATH="/data/adb/box_bll/clash/config.yaml"
 CORE_PATH="/data/adb/box_bll/bin/clash"
 COREE_PATH="/data/adb/box_bll/clash/"
+VAR_PATH="/data/adb/box_bll/variab/"
+BASEE_URL="https://github.com/MetaCubeX/mihomo/releases/download/"
+RELEASE_PATH="mihomo-android-arm64-v8"
+BASE_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
+TEMP_FILE="/data/local/tmp/mihomo_latest.gz"
+TEMP_DIR="/data/local/tmp/mihomo_update"
 PANEL_DIR="/data/adb/box_bll/panel/"
 META_DIR="${PANEL_DIR}Meta/"
 META_URL="https://github.com/metacubex/metacubexd/archive/gh-pages.zip"
@@ -34,6 +38,7 @@ GEODATA_URL="https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/
 GEOIP_PATH="/data/adb/box_bll/clash/GeoIP.dat"
 GEOSITE_PATH="/data/adb/box_bll/clash/GeoSite.dat"
 RULES_PATH="/data/adb/box_bll/clash/rule/"
+GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
@@ -96,15 +101,15 @@ show_menu() {
         esac
     done
 }
-
 integrate_magisk_update() {
     echo "↴"
-    echo "如果你在 Magisk客户端 更新了模块，可进行手动整合刷新更新状态 无需重启手机，是否整合？回复y/n"
+    echo "如果你在 Magisk客户端 更新了模块，可手动进行整合刷新更新状态 无需重启手机，是否整合？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
         echo "操作取消！"
         return
     fi
+    echo "↴"
     echo "正在检测更新状态..."
         for i in 2 1
     do
@@ -123,15 +128,21 @@ integrate_magisk_update() {
         echo "没有检测到更新 Surfing 模块。"
     fi
 }
-
 update_module() {
-    echo "↴"
-    echo "正在从 GitHub 获取中..."
-    module_release=$(curl -s "https://api.github.com/repos/MoGuangYu/Surfing/releases/latest")
+    echo "↴" 
+    if [ -f "$MODULE_PROP" ]; then
+        current_version=$(grep '^version=' "$MODULE_PROP" | cut -d'=' -f2)
+        echo "当前模块版本号: $current_version"
+    else
+        echo "无法获取当前模块版本号，文件不存在。"
+    fi
+    echo "正在获取服务器中..."
+    module_release=$(curl -s "$GIT_URL")
     module_version=$(echo "$module_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$module_version" ]; then
-        echo "无法获取最新版本信息："
-        echo "1h 内请求次数过多 / 网络不稳定"
+        echo "获取服务器失败！"
+        echo "可能："
+        echo "1h内请求次数过多 / 网络不稳定"
         show_menu
     fi
     download_url=$(echo "$module_release" | grep '"browser_download_url"' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -143,6 +154,7 @@ update_module() {
         echo "操作取消！"
         return
     fi
+    echo "↴"
     echo "正在下载更新中..."
     curl -L -o "$TEMP_FILE" "$download_url"
     if [ $? -ne 0 ]; then
@@ -156,46 +168,36 @@ update_module() {
         echo "解压失败，请检查下载的文件！"
         exit 1
     fi
-
-    if [ -f "$BOX_PATH" ] || CONFIG_PATH ; then
+    if [ -f "$BOX_PATH" ] || [ -f "$CONFIG_PATH" ]; then
         mv "$BOX_PATH" "${BOX_PATH}.bak"
-    fi
-    if [ -f "$CONFIG_PATH" ] || CONFIG_PATH ; then
         mv "$CONFIG_PATH" "${CONFIG_PATH}.bak"
-    fi
-        
+    fi       
     mv "$TEMP_DIR/box_bll/scripts/"* "$SCRIPTS_PATH"
     chmod -R 0711 "${SCRIPTS_PATH}"
-    chown -R root:net_admin "${SCRIPTS_PATH}"
-     
+    chown -R root:net_admin "${SCRIPTS_PATH}"    
     mv "$TEMP_DIR/box_bll/clash/config.yaml" "$COREE_PATH"
     mv "$TEMP_DIR/box_bll/clash/enhanced_config.yaml" "$COREE_PATH"
     mv "$TEMP_DIR/box_bll/clash/Toolbox.sh" "$COREE_PATH"
-
     find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
-
     if [ -d "$TEMP_DIR/webroot" ]; then
       cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
     fi
-
     if [ "$KSU" = true ] && [ "$KSU_VER_CODE" -lt 10683 ]; then
         SERVICE_PATH="/data/adb/ksu/service.d"
     else 
         SERVICE_PATH="/data/adb/service.d"
     fi
-
     if [ ! -d "$SERVICE_PATH" ]; then
         mkdir -p "$SERVICE_PATH"
     fi
-    mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH" 
-    
+    mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH"     
     chmod 0700 "${SERVICE_PATH}/Surfing_service.sh"
     rm -rf "$TEMP_FILE" "$TEMP_DIR"
     echo "更新成功✓"
     echo "重启模块服务中..."
-    touch "/data/adb/modules/Surfing/disable"
+    touch "${SURFING_PATH}disable"
     sleep 1.5
-    rm -f "/data/adb/modules/Surfing/disable"
+    rm -f "${SURFING_PATH}disable"
     sleep 1.5
     for i in 5 4 3 2 1
     do
@@ -204,15 +206,27 @@ update_module() {
     $SERVICE_SCRIPT status
     echo "ok"
 }
-
 clear_cache() {
     echo "↴"
+    if [ ! -d "$VAR_PATH" ]; then
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建路径失败，请检查权限！"
+            exit 1
+        fi
+    fi  
+    CACHE_CLEAR_TIMESTAMP="${VAR_PATH}last_cache_update.txt" 
+    if [ -f "$CACHE_CLEAR_TIMESTAMP" ]; then
+        last_clear=$(date -d "@$(cat $CACHE_CLEAR_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
+        echo "距离上次清空缓存是: $last_clear" 
+    fi
     echo "此操作会清空数据库缓存，是否清除？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
         echo "操作取消！"
         return
     fi
+    echo "↴"
     if [ -f "$DB_PATH" ]; then
         rm "$DB_PATH"
         echo "已清空数据库缓存✓"
@@ -223,9 +237,9 @@ clear_cache() {
         echo "已创建新的空数据库文件"
     fi
     echo "重启模块服务中..."
-    touch "/data/adb/modules/Surfing/disable"
+    touch "$SURFING_PATH/disable"
     sleep 1.5
-    rm -f "/data/adb/modules/Surfing/disable"
+    rm -f "$SURFING_PATH/disable"
     sleep 1.5
     for i in 5 4 3 2 1
     do
@@ -233,19 +247,31 @@ clear_cache() {
     done
     $SERVICE_SCRIPT status
     echo "ok"
+    date +%s > "$CACHE_CLEAR_TIMESTAMP"
 }
-
 update_geo_database() {
-    echo "↴"
-    echo "正在从 GitHub 获取中..."
+    echo "↴"  
+    if [ ! -d "$VAR_PATH" ]; then   
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建路径失败，请检查权限！"
+            exit 1
+        fi
+    fi
+    GEO_DATABASE_VERSION_FILE="${VAR_PATH}geo_database_update.txt"
+    if [ -f "$GEO_DATABASE_VERSION_FILE" ]; then
+        last_version=$(cat "$GEO_DATABASE_VERSION_FILE")
+        echo "距离上次更新的版本号是: $last_version"
+    fi
+    echo "正在获取服务器中..."
     geo_release=$(curl -s "$GEODATA_URL")
     geo_version=$(echo "$geo_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-    
     if [ -z "$geo_version" ]; then
-        echo "无法获取最新版本信息："
-        echo "1h 内请求次数过多 / 网络不稳定"
+        echo "获取服务器失败！"
+        echo "可能："
+        echo "1h内请求次数过多 / 网络不稳定"
         show_menu
-    fi   
+    fi       
     echo "获取成功！"
     echo "当前最新版本号: $geo_version"
     echo "是否更新？回复y/n"
@@ -254,21 +280,22 @@ update_geo_database() {
         echo "操作取消！"
         return
     fi
+    echo "↴"
     if [ -f "/data/adb/box_bll/clash/geosite.dat" ]; then
         rm "/data/adb/box_bll/clash/geosite.dat"
     fi
     if [ -f "/data/adb/box_bll/clash/geoip.dat" ]; then
         rm "/data/adb/box_bll/clash/geoip.dat"
     fi
-    echo "正在更新中..."
+    echo "正在下载更新中..."
     curl -o "$GEOIP_PATH" -L "$GEOIP_URL"
     if [ $? -ne 0 ]; then
-        echo "下载 geoip.dat 失败！"
+        echo "下载 GeoIP.dat 失败！"
         return
     fi
     curl -o "$GEOSITE_PATH" -L "$GEOSITE_URL"
     if [ $? -ne 0 ]; then
-        echo "下载 geosite.dat 失败！"
+        echo "下载 GeoSite.dat 失败！"
         return
     fi
     echo "更新成功✓"
@@ -280,10 +307,22 @@ update_geo_database() {
         echo "设置文件权限失败！"
         return
     fi
+    echo "$geo_version" > "$GEO_DATABASE_VERSION_FILE"
 }
-
 update_rules() {
     echo "↴"
+    if [ ! -d "$VAR_PATH" ]; then   
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建路径失败，请检查权限！"
+            exit 1
+        fi
+    fi     
+    RULES_UPDATE_TIMESTAMP="${VAR_PATH}last_rules_update.txt"    
+    if [ -f "$RULES_UPDATE_TIMESTAMP" ]; then
+        last_update=$(date -d "@$(cat $RULES_UPDATE_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
+        echo "距离上次更新是: $last_update"
+    fi
     echo "此操作会从 GitHub 拉取最新全部规则，是否更新？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ];then
@@ -298,7 +337,8 @@ update_rules() {
             return
         fi
     fi
-    echo "正在更新中..."
+    echo "↴"
+    echo "正在下载更新中..."
     for rule in "${RULES[@]}"; do
         curl -o "${RULES_PATH}${rule}" -L "${RULES_URL_PREFIX}${rule}"
         if [ $? -ne 0 ];then
@@ -316,8 +356,8 @@ update_rules() {
         echo "设置文件权限失败！"
         return
     fi
+    date +%s > "$RULES_UPDATE_TIMESTAMP"
 }
-
 show_web_panel_menu() {
     while true; do
         echo "↴"
@@ -358,27 +398,39 @@ show_web_panel_menu() {
         esac
     done
 }
-
 open_telegram_group() {
     echo "↴"
-    echo "正在跳转到 Telegram 聊天组..."
+    echo "正在跳转到 Surfing..."
     am start -a android.intent.action.VIEW -d "https://t.me/+vvlXyWYl6HowMTBl"
     echo "ok"
 }
-
 update_web_panel() {
     echo "↴"
-    echo "正在从 GitHub 获取中..."
+    if [ ! -d "$VAR_PATH" ]; then 
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建路径失败，请检查权限！"
+            exit 1
+        fi
+    fi
+    WEB_PANEL_TIMESTAMP="${VAR_PATH}last_web_panel_update.txt"
+    if [ -f "$WEB_PANEL_TIMESTAMP" ]; then
+        last_update=$(cat "$WEB_PANEL_TIMESTAMP")
+        echo "距离上次更新的 Meta 版本号是: $(echo $last_update | cut -d ' ' -f 1)"
+        echo "距离上次更新的 Yacd 版本号是: $(echo $last_update | cut -d ' ' -f 2)"
+    fi
+    echo "正在获取服务器中..."
     meta_release=$(curl -s "$METAA_URL")
     meta_version=$(echo "$meta_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     yacd_release=$(curl -s "$YACDD_URL")
     yacd_version=$(echo "$yacd_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$meta_version" ] || [ -z "$yacd_version" ]; then
-        echo "无法获取最新版本信息："
-        echo "1h 内请求次数过多 / 网络不稳定"
+        echo "获取服务器失败！"
+        echo "可能："
+        echo "1h内请求次数过多 / 网络不稳定"
         show_menu
-    fi 
-    echo "获取成功！"
+    fi  
+    echo "获取成功！"   
     echo "Meta 当前最新版本号: $meta_version"
     echo "Yacd 当前最新版本号: $yacd_version"
     echo "是否更新？回复y/n"
@@ -386,7 +438,7 @@ update_web_panel() {
     if [ "$confirmation" != "y" ]; then
         echo "操作取消！"
         return
-    fi   
+    fi    
     echo "↴"
     echo "Update Web panel：Meta"
     if [ ! -d "$META_DIR" ]; then
@@ -423,7 +475,7 @@ update_web_panel() {
         fi
     else
         echo "拉取下载失败！"
-    fi
+    fi   
     echo "Update Web panel：Yacd"
     if [ ! -d "$YACD_DIR" ]; then
         echo "目录不存在，正在创建..."
@@ -460,7 +512,7 @@ update_web_panel() {
         fi
     else
         echo "拉取下载失败！"
-    fi
+    fi 
     chown -R root:net_admin "$PANEL_DIR"
     find "$PANEL_DIR" -type d -exec chmod 0755 {} \;
     find "$PANEL_DIR" -type f -exec chmod 0666 {} \;
@@ -468,31 +520,44 @@ update_web_panel() {
         echo "设置文件权限失败！"
         return
     fi
+    echo "$meta_version $yacd_version" > "$WEB_PANEL_TIMESTAMP"
 }
-
 reload_configuration() {
     echo "↴"
     echo "正在重载 Clash 配置..."
     curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
-    $SERVICE_SCRIPT status
+
     if [ $? -eq 0 ];then
         echo "ok"
     else
         echo "重载失败！"
     fi
 }
-
 update_core() {
     echo "↴"
-    echo "正在从 GitHub 获取中..."
+    if [ ! -d "$VAR_PATH" ]; then
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建路径失败，请检查权限！"
+            exit 1
+        fi
+    fi
+    CORE_TIMESTAMP="${VAR_PATH}last_core_update.txt"
+    if [ -f "$CORE_TIMESTAMP" ]; then
+        last_update=$(cat "$CORE_TIMESTAMP")
+        echo "距离上次更新的版本号是: $last_update"
+    fi
+    echo "正在获取服务器中..."
     latest_release=$(curl -s "$BASE_URL")
     latest_version=$(echo "$latest_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$latest_version" ]; then
-        echo "无法获取最新版本信息："
-        echo "1h 内请求次数过多 / 网络不稳定"
+        echo "服务器连接失败！"
+        echo "可能："
+        echo "1h内请求次数过多 / 网络不稳定"
         show_menu
+        return
     fi
-    download_url="https://github.com/MetaCubeX/mihomo/releases/download/$latest_version/mihomo-android-arm64-v8-${latest_version}.gz"
+    download_url="${BASEE_URL}${latest_version}/${RELEASE_PATH}-${latest_version}.gz"
     echo "获取成功！"
     echo "当前最新版本号: $latest_version"
     echo "是否更新？回复y/n"
@@ -500,7 +565,8 @@ update_core() {
     if [ "$confirmation" != "y" ]; then
         echo "操作取消！"
         return
-    fi    
+    fi
+    echo "↴"
     echo "正在下载更新中..."
     curl -L -o "$TEMP_FILE" "$download_url"
     if [ $? -ne 0 ]; then
@@ -529,16 +595,15 @@ update_core() {
     echo "更新成功✓"
     echo ""
     echo "重启模块服务中..."
-    touch "/data/adb/modules/Surfing/disable"
+    touch "${SURFING_PATH}disable"
     sleep 1.5
-    rm -f "/data/adb/modules/Surfing/disable"
+    rm -f "${SURFING_PATH}disable"
     sleep 1.5
-    for i in 5 4 3 2 1
-    do
+    for i in 5 4 3 2 1; do
         sleep 1
     done
     $SERVICE_SCRIPT status
     echo "ok"
+    echo "$latest_version" > "$CORE_TIMESTAMP"
 }
-
 show_menu
