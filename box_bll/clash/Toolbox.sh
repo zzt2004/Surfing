@@ -45,7 +45,7 @@ RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml"
 show_menu() {
     while true; do
         echo "=========="
-        echo "v1.0"
+        echo "v2.0"
         echo "Menu Bar："
         echo "1. 清空数据库缓存"
         echo "2. 更新 Web 面板"
@@ -103,21 +103,21 @@ show_menu() {
 }
 integrate_magisk_update() {
     echo "↴"
-    echo "如果你在 Magisk客户端 更新了模块，可手动进行整合刷新更新状态 无需重启手机，是否整合？回复y/n"
+    echo "如果你在 Magisk客户端 安装/更新 模块，可进行整合刷新并更新状态 无需重启手机，是否整合？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
         echo "操作取消！"
         return
     fi
     echo "↴"
-    echo "正在检测更新状态..."
+    echo "正在检测当前状态..."
         for i in 2 1
     do
         sleep 1
     done
     
     if [ -d "$GXSURFING_PATH" ]; then
-        echo "检测到更新 Surfing 模块，进行整合..."
+        echo "检测到 安装/更新 Surfing 模块，进行整合..."
         rm -rf "$SURFING_PATH"
         mv "$GXSURFING_PATH" /data/adb/modules/
         if [ -f "$SURFING_PATH/update" ]; then
@@ -125,7 +125,7 @@ integrate_magisk_update() {
         fi    
         echo "整合成功✓"
     else
-        echo "没有检测到更新 Surfing 模块。"
+        echo "没有检测到 安装/更新 Surfing 模块。"
     fi
 }
 update_module() {
@@ -134,7 +134,7 @@ update_module() {
         current_version=$(grep '^version=' "$MODULE_PROP" | cut -d'=' -f2)
         echo "当前模块版本号: $current_version"
     else
-        echo "无法获取当前模块版本号，文件不存在。"
+        echo "无法获取当前模块版本号，模块未安装。"
     fi
     echo "正在获取服务器中..."
     module_release=$(curl -s "$GIT_URL")
@@ -165,7 +165,7 @@ update_module() {
     mkdir -p "$TEMP_DIR"
     unzip -q "$TEMP_FILE" -d "$TEMP_DIR"
     if [ $? -ne 0 ]; then
-        echo "解压失败，请检查下载的文件！"
+        echo "解压失败，文件异常！"
         exit 1
     fi
     if [ -f "$BOX_PATH" ] || [ -f "$CONFIG_PATH" ]; then
@@ -468,7 +468,7 @@ update_web_panel() {
                 echo "更新成功✓"
                 echo ""
             else
-                echo "解压失败！"
+                echo "解压失败，文件异常！"
             fi
         else
             echo "下载的文件为空或无效！"
@@ -505,7 +505,7 @@ update_web_panel() {
                 echo ""
                 echo "建议重载配置..."
             else
-                echo "解压失败！"
+                echo "解压失败，文件异常！"
             fi
         else
             echo "下载的文件为空或无效！"
@@ -551,7 +551,7 @@ update_core() {
     latest_release=$(curl -s "$BASE_URL")
     latest_version=$(echo "$latest_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$latest_version" ]; then
-        echo "服务器连接失败！"
+        echo "获取服务器失败！"
         echo "可能："
         echo "1h内请求次数过多 / 网络不稳定"
         show_menu
@@ -575,14 +575,14 @@ update_core() {
     fi
     file_size=$(stat -c%s "$TEMP_FILE")
     if [ "$file_size" -le 100 ]; then
-        echo "下载的文件大小异常，请检查下载链接是否正确！"
+        echo "下载的文件大小异常，停止更新！"
         exit 1
     fi
     echo "文件有效，开始进行更新..."
     mkdir -p "$TEMP_DIR"
     gunzip -c "$TEMP_FILE" > "$TEMP_DIR/clash"
     if [ $? -ne 0 ]; then
-        echo "解压失败，请检查下载的文件！"
+        echo "解压失败，文件异常！"
         exit 1
     fi
     chown root:net_admin "$TEMP_DIR/clash"
