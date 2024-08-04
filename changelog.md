@@ -1,3 +1,21 @@
+## v6.8.9
+- Fix：更新模块时开关控制失效
+- Update：首次安装无需重启设备
+- Update：自此后续更新不再包含
+  - Geo数据库
+  - bin文件
+  - Web资源
+- Add：Toolbox v1.0
+  - 清空数据库缓存
+  - 更新 Web 面板
+  - 更新 Apps 路由规则
+  - 更新 Clash 核心
+  - 进入 Telegram 频道
+  - Web 面板访问入口
+  - 整合 Magisk 更新状态
+  - 更新 Surfing 模块
+- 其它调整...
+
 ## v6.8.8
 - 考虑首次使用及部分网络问题 恢复本地面板
 - panel：Meta v1.143.4
