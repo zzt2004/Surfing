@@ -79,7 +79,7 @@ Please decide whether to use the Surfing module only after clearly understanding
 <details>
 <summary>1. First Use</summary>
 
-- Install and restart the phone.
+- After installing the module, you don't need to restart the device. You can use the `Toolbox` integration to refresh the update status of the client
 - Add the subscription address in `config.yaml` and reload the configuration.
 - Due to network reasons, all rules may not be downloaded automatically. Please manually update/download the rule files.
   - If the above fails, ensure your network environment is normal.
@@ -110,7 +110,7 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 <summary>4. Subsequent Updates</summary>
 
 - Supports online module updates in the client.
-- No need to restart after updating, but toggling the module on/off might temporarily fail, still requiring a restart.
+- No need to restart after updating, the module switch control enable/disable ~~will be temporarily invalid, and still need to restart~~
 - The Clash.Meta config.yaml configuration file is backed up during updates to
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - User configuration files are backed up during updates to
