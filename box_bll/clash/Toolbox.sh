@@ -13,7 +13,7 @@ BOX_PATH="/data/adb/box_bll/scripts/box.config"
 CONFIG_PATH="/data/adb/box_bll/clash/config.yaml"
 CORE_PATH="/data/adb/box_bll/bin/clash"
 COREE_PATH="/data/adb/box_bll/clash/"
-VAR_PATH="/data/adb/box_bll/variab/"
+VAR_PATH="${SURFING_PATH}variab/"
 BASEE_URL="https://github.com/MetaCubeX/mihomo/releases/download/"
 RELEASE_PATH="mihomo-android-arm64-v8"
 BASE_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
@@ -45,54 +45,72 @@ RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml"
 show_menu() {
     while true; do
         echo "=========="
-        echo "v2.0"
+        echo "v3.0"
         echo "Menu Bar："
-        echo "1. 清空数据库缓存"
-        echo "2. 更新 Web 面板"
-        echo "3. 更新 Geo 数据库"
-        echo "4. 更新 Apps 路由规则"
-        echo "5. 更新 Clash 核心"
-        echo "6. 进入 Telegram 频道"
-        echo "7. Web 面板访问入口"
-        echo "8. 整合 Magisk 更新状态"
-        echo "9. 更新 Surfing 模块"
-        echo "10. 重载配置"
-        echo "11. Exit"
+        echo "1. 重载配置"
+        echo "2. 清空数据库缓存"
+        echo "3. 更新 Web 面板"
+        echo "4. 更新 Geo 数据库"
+        echo "5. 更新 Apps 路由规则"
+        echo "6. 更新 Clash 核心"
+        echo "7. 进入 Telegram 频道"
+        echo "8. Web 面板访问入口"
+        echo "9. 整合 Magisk 更新状态"
+        echo "10. 更新 Surfing 模块"
+        echo "11. 禁用/启用 更新模块"
+        echo "12. Exit"
         echo "——————"
         read -r choice
 
         case $choice in
             1)
-                clear_cache
-                ;;
-            2)
-                update_web_panel
-                ;;
-            3)
-                update_geo_database
-                ;;
-            4)
-                update_rules
-                ;;
-            5)
-                update_core
-                ;;
-            6)
-                open_telegram_group
-                ;;
-            7)
-                show_web_panel_menu
-                ;;
-            8)
-                integrate_magisk_update
-                ;;
-            9)
-                update_module
-                ;;
-            10)
                 reload_configuration
                 ;;
+            2)
+                clear_cache
+                ;;
+            3)
+                update_web_panel
+                ;;
+            4)
+                update_geo_database
+                ;;
+            5)
+                update_rules
+                ;;
+            6)
+                update_core
+                ;;
+            7)
+                open_telegram_group
+                ;;
+            8)
+                show_web_panel_menu
+                ;;
+            9)
+                integrate_magisk_update
+                ;;
+            10)
+                update_module
+                ;;
             11)
+                check_update_status
+                echo "1. 禁用更新"
+                echo "2. 启用更新"
+                read -r update_choice
+                case $update_choice in
+                    1)
+                        disable_updates
+                        ;;
+                    2)
+                        enable_updates
+                        ;;
+                    *)
+                        echo "无效的选择！"
+                        ;;
+                esac
+                ;;
+            12)
                 exit 0
                 ;;
             *)
@@ -100,6 +118,58 @@ show_menu() {
                 ;;
         esac
     done
+}
+check_update_status() {
+    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
+    if [ -f "$UPDATE_STATUS_FILE" ]; then
+        echo "↴" 
+        echo "当前客户端状态：更新已禁用"
+    else
+        echo "↴" 
+        echo "当前客户端状态：更新已启用"
+    fi
+}
+disable_updates() {
+    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
+    MODULE_PROP="${SURFING_PATH}/module.prop"
+    
+    if grep -q "^updateJson=" "$MODULE_PROP"; then
+        echo "↴" 
+        echo "此操作会对该模块在客户端禁止检测更新，是否继续？回复y/n"
+        read -r confirmation
+        if [ "$confirmation" != "y" ]; then
+            echo "操作取消！"
+            return
+        fi
+        updateJson_value=$(grep "^updateJson=" "$MODULE_PROP" | cut -d '=' -f 2-)
+        echo "$updateJson_value" > "$UPDATE_STATUS_FILE"
+        sed -i '/^updateJson=/d' "$MODULE_PROP"
+        echo "更新检测已禁止✓"
+    else
+        echo "↴" 
+        echo "当前已是禁用状态，无需操作。"
+    fi
+}
+enable_updates() {
+    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
+    MODULE_PROP="${SURFING_PATH}/module.prop"
+    
+    if [ -f "$UPDATE_STATUS_FILE" ]; then
+        echo "↴" 
+        echo "此操作会恢复模块在客户端的检测更新，是否继续？回复y/n"
+        read -r confirmation
+        if [ "$confirmation" != "y" ]; then
+            echo "操作取消！"
+            return
+        fi
+        updateJson_value=$(cat "$UPDATE_STATUS_FILE")
+        echo "updateJson=$updateJson_value" >> "$MODULE_PROP"
+        rm -f "$UPDATE_STATUS_FILE"
+        echo "更新检测已恢复✓"
+    else
+        echo "↴" 
+        echo "当前已是启用状态，无需操作。"
+    fi
 }
 integrate_magisk_update() {
     echo "↴"
@@ -442,10 +512,10 @@ update_web_panel() {
     echo "↴"
     echo "Update Web panel：Meta"
     if [ ! -d "$META_DIR" ]; then
-        echo "目录不存在，正在创建..."
+        echo "面板不存在，正在创建..."
         mkdir -p "$META_DIR"
         if [ $? -ne 0 ]; then
-            echo "创建目录失败，请检查权限！"
+            echo "创建失败，请检查权限！"
             return
         fi
     fi
@@ -478,10 +548,10 @@ update_web_panel() {
     fi   
     echo "Update Web panel：Yacd"
     if [ ! -d "$YACD_DIR" ]; then
-        echo "目录不存在，正在创建..."
+        echo "面板不存在，正在创建..."
         mkdir -p "$YACD_DIR"
         if [ $? -ne 0 ]; then
-            echo "创建目录失败，请检查权限！"
+            echo "创建失败，请检查权限！"
             return
         fi
     fi
