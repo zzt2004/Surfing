@@ -16,23 +16,9 @@
   - 整合 Magisk 更新状态
   - 更新 Surfing 模块
   - 禁止/启用 更新模块
+- 开启模块时日志输出至文件夹路径 .xx/log
 - 更新后如发打不开面板 脚本执行一下更新即可恢复
 - 其它调整...
-
-## v6.8.8
-- 考虑首次使用及部分网络问题 恢复本地面板
-- panel：Meta v1.143.4
-- panel：Yacd v0.3.7
-- 更新模块时开关启停 还是建议重启一次比较好 老老实实重启吧...
-- 部分调整...
-
-## v6.8.7
-- 优化 config.yaml 配置
-- 开启 Tun 排除本地局域网
-- 移除本地面板管理 改用 https 在线
-- 开启模块时日志输出至文件夹路径 .xx/log
-- Fix：hotspot of singbox Tun
-- Update：android arm64-v8-v1.18.7 core
 
 ## v6.8.6
 - More detailed diversion and WeChat FCM support
