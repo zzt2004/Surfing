@@ -119,8 +119,18 @@ show_menu() {
         esac
     done
 }
+ensure_var_path() {
+    if [ ! -d "$VAR_PATH" ]; then
+        mkdir -p "$VAR_PATH"
+        if [ $? -ne 0 ]; then
+            echo "创建 $VAR_PATH 失败，请检查权限！"
+            exit 1
+        fi
+    fi
+}
 check_update_status() {
-    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
+    ensure_var_path
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
     if [ -f "$UPDATE_STATUS_FILE" ]; then
         echo "↴" 
         echo "当前客户端状态：更新已禁用"
@@ -130,9 +140,9 @@ check_update_status() {
     fi
 }
 disable_updates() {
-    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
-    MODULE_PROP="${SURFING_PATH}/module.prop"
-    
+    ensure_var_path
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
+    MODULE_PROP="${MODULE_PROP}"
     if grep -q "^updateJson=" "$MODULE_PROP"; then
         echo "↴" 
         echo "此操作会对该模块在客户端禁止检测更新，是否继续？回复y/n"
@@ -151,14 +161,14 @@ disable_updates() {
     fi
 }
 enable_updates() {
-    UPDATE_STATUS_FILE="${SURFING_PATH}/update_status.txt"
-    MODULE_PROP="${SURFING_PATH}/module.prop"
-    
+    ensure_var_path
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
+    MODULE_PROP="${MODULE_PROP}"
     if [ -f "$UPDATE_STATUS_FILE" ]; then
         echo "↴" 
         echo "此操作会恢复模块在客户端的检测更新，是否继续？回复y/n"
         read -r confirmation
-        if [ "$confirmation" != "y" ]; then
+        if [ "$confirmation" != "y" ];then
             echo "操作取消！"
             return
         fi
@@ -181,11 +191,10 @@ integrate_magisk_update() {
     fi
     echo "↴"
     echo "正在检测当前状态..."
-        for i in 2 1
+        for i in 1
     do
         sleep 1
     done
-    
     if [ -d "$GXSURFING_PATH" ]; then
         echo "检测到 安装/更新 Surfing 模块，进行整合..."
         rm -rf "$SURFING_PATH"
