@@ -104,19 +104,18 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 <details>
 <summary>4. Subsequent Updates</summary>
 
-- If you use all default configurations, the update will be seamless.
-- Supports online module updates in the client.
-- No need to restart after updating, the module switch control enable/disable ~~will be temporarily invalid, and still need to restart~~
-- The Clash.Meta config.yaml configuration file is backed up during updates to
+- If you use all default configurations, the updates will be seamless
+- Supports online module updates within the client, no reboot required after updates; however, module switch control for enabling/disabling will ~~temporarily fail~~, still requiring a reboot. It is recommended to use Toolbox for updates
+- During the update, the Clash.Meta config.yaml file will be backed up to
    - `/data/adb/box_bll/clash/config.yaml.bak`
-- User configuration files are backed up during updates to
+- During the update, old user configuration files will be backed up to
    - `/data/adb/box_bll/scripts/box.config.bak`
-- Updates do not include:
+- The following are not included in module updates:
    - Geo database files
-   - bin files
+   - Bin files
    - Web resources
 
-> Mainly follow upstream updates and issue some configurations.
+> Ps: Mainly follows upstream updates and distributes some configurations
 
 </details>
 
