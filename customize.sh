@@ -1,8 +1,9 @@
-#!/sbin/sh
+#!/bin/sh
 
 SKIPUNZIP=1
 ASH_STANDALONE=1
-
+SURFING_PATH="/data/adb/modules/Surfing/"
+SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 
 if [ "$BOOTMODE" != true ]; then
   abort "Error: 请在 Magisk Manager / KernelSU Manager / APatch 中安装"
@@ -95,16 +96,11 @@ set_perm_recursive /data/adb/box_bll/bin/ 0 3005 0755 0700
 
 set_perm "$service_dir/Surfing_service.sh" 0 0 0700
 
-if find /data/adb/box_bll/scripts/ -type f | read; then
-  chmod ugo+x /data/adb/box_bll/scripts/*
-fi
+chmod ugo+x /data/adb/box_bll/scripts/*
 
 for pid in $(pidof inotifyd) ; do
-  if grep -q box.inotify /proc/${pid}/cmdline ; then
-    kill ${pid}
-  fi
+if grep -q box.inotify /proc/${pid}/cmdline ; then
+  kill ${pid}
+fi
 done
-
-inotifyd "/data/adb/box_bll/scripts/box.inotify" "$MODPATH" > /dev/null 2>&1 &
-
-/system/bin/sh "$service_dir/Surfing_service.sh" 
+nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
