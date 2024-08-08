@@ -57,7 +57,7 @@ if [ -d /data/adb/box_bll ]; then
   ui_print "- 用户配置 box.config 已备份 bak："
   ui_print "- 可自行选择重新配置或使用默认！"
   ui_print "- ————————————————"
-  ui_print "- 更新无需重启..."
+  ui_print "- 更新无需重启设备..."
 else
   mv "$MODPATH/box_bll" /data/adb/
   ui_print "- Installing..."
@@ -65,7 +65,7 @@ else
   ui_print "- 安装完成 工作目录"
   ui_print "- data/adb/box_bll/"
   ui_print "- ————————————————"
-  ui_print "- 安装无需重启..."
+  ui_print "- 安装无需重启设备..."
 fi
 
 if [ "$KSU" = true ]; then
@@ -100,3 +100,8 @@ if grep -q box.inotify /proc/${pid}/cmdline ; then
 fi
 done
 inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+
+touch "$SURFING_PATH/disable"
+sleep 1.5
+rm -f "$SURFING_PATH/disable"
+ui_print "- 模块服务已重启完成！"
