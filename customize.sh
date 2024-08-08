@@ -99,4 +99,4 @@ if grep -q box.inotify /proc/${pid}/cmdline ; then
   kill ${pid}
 fi
 done
-nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
