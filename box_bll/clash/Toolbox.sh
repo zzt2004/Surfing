@@ -13,7 +13,7 @@ BOX_PATH="/data/adb/box_bll/scripts/box.config"
 CONFIG_PATH="/data/adb/box_bll/clash/config.yaml"
 CORE_PATH="/data/adb/box_bll/bin/clash"
 COREE_PATH="/data/adb/box_bll/clash/"
-VAR_PATH="${SURFING_PATH}variab/"
+VAR_PATH="/data/adb/box_bll/variab/"
 BASEE_URL="https://github.com/MetaCubeX/mihomo/releases/download/"
 RELEASE_PATH="mihomo-android-arm64-v8"
 BASE_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
@@ -41,7 +41,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v6.0"
+CURRENT_VERSION="v7.0"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -91,7 +91,7 @@ check_version
 show_menu() {
     while true; do
         echo "=========="
-        echo "v6.0" 
+        echo "v7.0" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
@@ -179,16 +179,7 @@ ensure_var_path() {
     if [ ! -d "$VAR_PATH" ]; then
         mkdir -p "$VAR_PATH"
         if [ $? -ne 0 ]; then
-            echo "创建 $VAR_PATH 失败，请检查权限！"
-            exit 1
-        fi
-    fi
-}
-ensure_var_path() {
-    if [ ! -d "$VAR_PATH" ]; then
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建 $VAR_PATH 失败，请检查权限！"
+            echo "操作失败，请检查权限！"
             exit 1
         fi
     fi
@@ -271,15 +262,8 @@ integrate_magisk_update() {
     TEMP_PATH="/data/local/tmp/Surfing_variab_backup"
     if [ -d "$GXSURFING_PATH" ]; then
         echo "检测到 安装/更新 Surfing 模块，进行整合..."
-        if [ -d "$VARIAB_PATH" ]; then
-            mv "$VARIAB_PATH" "$TEMP_PATH"
-        fi
         rm -rf "$SURFING_PATH"
         mv "$GXSURFING_PATH" /data/adb/modules/
-        if [ -d "$TEMP_PATH" ]; then
-            mv "$TEMP_PATH" "$SURFING_PATH/variab"
-            rm -rf "$TEMP_PATH"
-        fi
         if [ -f "$SURFING_PATH/update" ]; then
             rm -f "$SURFING_PATH/update"
         fi    
@@ -400,15 +384,6 @@ update_module() {
         fi
     done
     nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
-    sleep 1.5
-    for i in 3 2 1; do
-        sleep 1
-    done
-    echo "初始化服务中..."
-    touch "$SURFING_PATH/disable"
-    sleep 1.5
-    rm -f "$SURFING_PATH/disable"
-
     if [ "$module_installed" = false ]; then
         echo "安装成功✓"
     else
