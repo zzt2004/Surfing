@@ -99,9 +99,5 @@ if grep -q box.inotify /proc/${pid}/cmdline ; then
   kill ${pid}
 fi
 done
-inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
-
-touch "$SURFING_PATH/disable"
-sleep 1.5
-rm -f "$SURFING_PATH/disable"
-ui_print "- 模块服务已重启完成！"
+mkdir -p "$SURFING_PATH"
+nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
