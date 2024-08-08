@@ -92,6 +92,23 @@
 <summary>2. 控制运行</summary>
 
 - 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+- 可向系统状态栏添加模块的控制开关  
+  
+<img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
+
+[下载Apk](https://www.coolapk.com/apk/com.coolapk.market) | [复制URL](https://raw.githubusercontent.com/MoGuangYu/Surfing/main/folder/KJFSURL.md)
+
+<img src="./folder/BJZDY.jpg" alt="KJFS" width="300">
+
+- 进入设置
+
+<img src="./folder/WLDR.jpg" alt="KJFS" width="300">
+
+- 导入URL
+
+<img src="./folder/CTSZ.jpg" alt="KJFS" width="300">
+
+- 向状态栏自定义磁贴
 
 </details>
 

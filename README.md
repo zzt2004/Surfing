@@ -85,12 +85,33 @@ Please decide whether to use the Surfing module only after clearly understanding
 
 </details>
 
+#
+
 <details>
 <summary>2. Control Operation</summary>
 
-- You can control the operation service in real time by toggling the module on/off.
+- The service can be controlled in real-time through the module switch to turn it on/off.
+- You can add a control switch for the module to the system status bar.  
+  
+<img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
+
+[Download Apk](https://www.coolapk.com/apk/com.coolapk.market) | [Copy URL](https://raw.githubusercontent.com/MoGuangYu/Surfing/main/folder/KJFSURL.md)
+
+<img src="./folder/BJZDY.jpg" alt="KJFS" width="300">
+
+- Enter Settings
+
+<img src="./folder/WLDR.jpg" alt="KJFS" width="300">
+
+- Import URL
+
+<img src="./folder/CTSZ.jpg" alt="KJFS" width="300">
+
+- Add a custom tile to the status bar
 
 </details>
+
+#
 
 <details>
 <summary>3. Geo Database</summary>
@@ -100,6 +121,8 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 > Used for routing rule matching to achieve accurate diversion. Updates will always point to the latest version, so you only need to update the file once a month.
 
 </details>
+
+#
 
 <details>
 <summary>4. Subsequent Updates</summary>
@@ -118,6 +141,8 @@ GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the late
 > Ps: Mainly follows upstream updates and distributes some configurations
 
 </details>
+
+#
 
 <details>
 <summary>5. Usage Issues</summary>
