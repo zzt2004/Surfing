@@ -41,7 +41,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v7.0"
+CURRENT_VERSION="v8.0"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -91,7 +91,7 @@ check_version
 show_menu() {
     while true; do
         echo "=========="
-        echo "v7.0" 
+        echo "v8.0" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
@@ -140,14 +140,10 @@ show_menu() {
                 update_module
                 ;;
             11)
-                if [ ! -f "$MODULE_PROP" ]; then
-                    echo "↴" 
-                    echo "当前未安装模块！"
+                if ! check_module_installed; then
                     continue
                 fi
-                
                 check_update_status
-
                 echo "1. 禁用更新"
                 echo "2. 启用更新"
                 read -r update_choice
@@ -183,6 +179,14 @@ ensure_var_path() {
             exit 1
         fi
     fi
+}
+check_module_installed() {
+    if [ ! -f "$MODULE_PROP" ]; then
+        echo "↴" 
+        echo "当前未安装模块！"
+        return 1 
+    fi
+    return 0
 }
 check_update_status() {
     ensure_var_path
@@ -398,13 +402,7 @@ clear_cache() {
         return
     fi
     echo "↴"
-    if [ ! -d "$VAR_PATH" ]; then
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建路径失败，请检查权限！"
-            exit 1
-        fi
-    fi  
+    ensure_var_path
     CACHE_CLEAR_TIMESTAMP="${VAR_PATH}last_cache_update.txt" 
     if [ -f "$CACHE_CLEAR_TIMESTAMP" ]; then
         last_clear=$(date -d "@$(cat $CACHE_CLEAR_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
@@ -441,13 +439,7 @@ update_geo_database() {
         return
     fi
     echo "↴"  
-    if [ ! -d "$VAR_PATH" ]; then   
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建路径失败，请检查权限！"
-            exit 1
-        fi
-    fi
+    ensure_var_path
     GEO_DATABASE_VERSION_FILE="${VAR_PATH}geo_database_update.txt"
     if [ -f "$GEO_DATABASE_VERSION_FILE" ]; then
         last_version=$(cat "$GEO_DATABASE_VERSION_FILE")
@@ -509,13 +501,7 @@ update_rules() {
         return
     fi
     echo "↴"
-    if [ ! -d "$VAR_PATH" ]; then   
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建路径失败，请检查权限！"
-            exit 1
-        fi
-    fi     
+    ensure_var_path
     RULES_UPDATE_TIMESTAMP="${VAR_PATH}last_rules_update.txt"    
     if [ -f "$RULES_UPDATE_TIMESTAMP" ]; then
         last_update=$(date -d "@$(cat $RULES_UPDATE_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
@@ -609,13 +595,7 @@ update_web_panel() {
         return
     fi
     echo "↴"
-    if [ ! -d "$VAR_PATH" ]; then 
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建路径失败，请检查权限！"
-            exit 1
-        fi
-    fi
+    ensure_var_path
     WEB_PANEL_TIMESTAMP="${VAR_PATH}last_web_panel_update.txt"
     last_meta_version=""
     last_yacd_version=""
@@ -763,7 +743,6 @@ reload_configuration() {
     echo "↴"
     echo "正在重载 Clash 配置..."
     curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
-
     if [ $? -eq 0 ];then
         echo "ok"
     else
@@ -777,13 +756,7 @@ update_core() {
         return
     fi
     echo "↴"
-    if [ ! -d "$VAR_PATH" ]; then
-        mkdir -p "$VAR_PATH"
-        if [ $? -ne 0 ]; then
-            echo "创建路径失败，请检查权限！"
-            exit 1
-        fi
-    fi
+    ensure_var_path
     CORE_TIMESTAMP="${VAR_PATH}last_core_update.txt"
     if [ -f "$CORE_TIMESTAMP" ]; then
         last_update=$(cat "$CORE_TIMESTAMP")
