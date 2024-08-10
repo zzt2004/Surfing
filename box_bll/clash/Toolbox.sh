@@ -41,7 +41,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v8.0"
+CURRENT_VERSION="v9.0"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -88,10 +88,133 @@ check_version() {
     fi
 }
 check_version
+update_module() {
+    echo "↴"
+    module_installed=true
+    if [ -f "$MODULE_PROP" ]; then
+        current_version=$(grep '^version=' "$MODULE_PROP" | cut -d'=' -f2)
+        echo "当前模块版本号: $current_version"
+    else
+        module_installed=false
+        echo "当前设备没有安装 Surfing 模块"
+        echo "是否下载安装？回复y/n"
+        read -r install_confirmation
+        if [ "$install_confirmation" != "y" ]; then
+            echo "操作取消！"
+            return
+        fi
+    fi
+    echo "↴"
+    echo "正在获取服务器中..."
+    module_release=$(curl -s "$GIT_URL")
+    module_version=$(echo "$module_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+    if [ -z "$module_version" ]; then
+        echo "获取服务器失败！"
+        echo "错误：请确保网络能正常访问 GitHub！"
+        return
+    fi
+    download_url=$(echo "$module_release" | grep '"browser_download_url"' | sed -E 's/.*"([^"]+)".*/\1/')
+    echo "获取成功！"
+    echo "当前最新版本号: $module_version"
+    if [ "$module_installed" = true ] && [ "$current_version" = "$module_version" ]; then
+        echo "当前已是最新版本！"
+        return
+    fi
+    changelog=$(curl -s "$CHANGELOG_URL")
+    latest_changelog=$(echo "$changelog" | awk '/^## /{p=0} p; /^## '$module_version'$/{p=1}')
+    echo "$latest_changelog"
+    echo ""
+    if [ "$module_installed" = false ]; then
+        echo "是否安装模块？回复y/n"
+    else
+        echo "是否更新模块？回复y/n"
+    fi
+    read -r confirmation
+    if [ "$confirmation" != "y" ]; then
+        echo "操作取消！"
+        return
+    fi
+    echo "↴"
+    echo "正在下载文件中..."
+    curl -L -o "$TEMP_FILE" "$download_url"
+    if [ $? -ne 0 ]; then
+        echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
+        exit 1
+    fi
+    if [ "$module_installed" = false ]; then
+        echo "文件效验通过，开始进行安装..."
+    else
+        echo "文件效验通过，开始进行更新..."
+    fi
+    mkdir -p "$TEMP_DIR"
+    unzip -qo "$TEMP_FILE" -d "$TEMP_DIR"
+    if [ $? -ne 0 ]; then
+        echo "解压失败，文件异常！"
+        exit 1
+    fi
+    if [ "$KSU" = true ] && [ "$KSU_VER_CODE" -lt 10683 ]; then
+        SERVICE_PATH="/data/adb/ksu/service.d"
+    else 
+        SERVICE_PATH="/data/adb/service.d"
+    fi
+    if [ ! -d "$SERVICE_PATH" ]; then
+        mkdir -p "$SERVICE_PATH"
+    fi
+    mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH"
+    chmod 0700 "${SERVICE_PATH}/Surfing_service.sh"
+    if [ -d /data/adb/box_bll ]; then
+        mkdir -p "$SCRIPTS_PATH"
+        mkdir -p "$COREE_PATH"
+        mkdir -p "$SURFING_PATH"
+        mkdir -p "$SURFING_PATH/webroot"
+        if [ -f "$BOX_PATH" ]; then
+            mv "$BOX_PATH" "${BOX_PATH}.bak"
+        fi
+        if [ -f "$CONFIG_PATH" ]; then
+            mv "$CONFIG_PATH" "${CONFIG_PATH}.bak"
+        fi
+        mv "$TEMP_DIR/box_bll/scripts/"* "$SCRIPTS_PATH"
+        mv "$TEMP_DIR/box_bll/clash/config.yaml" "$COREE_PATH"
+        mv "$TEMP_DIR/box_bll/clash/enhanced_config.yaml" "$COREE_PATH"
+        mv "$TEMP_DIR/box_bll/clash/Toolbox.sh" "$COREE_PATH"
+        find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
+        if [ -d "$TEMP_DIR/webroot" ]; then
+            cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
+        fi
+    else
+        mkdir -p "$SURFING_PATH"
+        mv "$TEMP_DIR/box_bll" "/data/adb/"
+        mv "$TEMP_DIR/webroot" "$SURFING_PATH"
+        find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
+    fi
+    chown -R root:net_admin /data/adb/box_bll/
+    find /data/adb/box_bll/ -type d -exec chmod 755 {} \;
+    find /data/adb/box_bll/ -type f -exec chmod 644 {} \;
+    chmod -R 711 /data/adb/box_bll/scripts/
+    chmod -R 700 /data/adb/box_bll/bin/
+    rm -rf "$TEMP_FILE" "$TEMP_DIR"
+    for pid in $(pidof inotifyd); do
+        if grep -q box.inotify /proc/${pid}/cmdline; then
+            kill ${pid}
+        fi
+    done
+    nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+    while [ ! -f /data/misc/net/rt_tables ] ; do
+       sleep 3
+    done
+    nohup inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
+    if [ "$module_installed" = false ]; then
+        echo "安装成功✓"
+    else
+        echo "更新成功✓"
+    fi
+    echo "无需重启设备..."
+}
+update_module
 show_menu() {
     while true; do
         echo "=========="
-        echo "v8.0" 
+        echo "v9.0" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
@@ -102,10 +225,9 @@ show_menu() {
         echo "7. 进入Telegran频道"
         echo "8. Web面板访问入口整合"
         echo "9. 整合Magisk更新状态"
-        echo "10. 安装/更新 Surfing模块"
-        echo "11. 禁用/启用 更新模块"
-        echo "12. 项目地址"
-        echo "13. Exit"
+        echo "10. 禁用/启用 更新模块"
+        echo "11. 项目地址"
+        echo "12. Exit"
         echo "——————"
         read -r choice
         case $choice in
@@ -137,9 +259,6 @@ show_menu() {
                 integrate_magisk_update
                 ;;
             10)
-                update_module
-                ;;
-            11)
                 if ! check_module_installed; then
                     continue
                 fi
@@ -159,10 +278,10 @@ show_menu() {
                         ;;
                 esac
                 ;;
-            12)
+            11)
                 open_project_page
                 ;;
-            13)
+            12)
                 exit 0
                 ;;
             *)
@@ -276,125 +395,6 @@ integrate_magisk_update() {
         echo "没有检测到 安装/更新 Surfing 模块。"
     fi
 }
-update_module() {
-    echo "↴"
-    module_installed=true
-    if [ -f "$MODULE_PROP" ]; then
-        current_version=$(grep '^version=' "$MODULE_PROP" | cut -d'=' -f2)
-        echo "当前模块版本号: $current_version"
-    else
-        module_installed=false
-        echo "当前设备没有安装 Surfing 模块"
-        echo "是否下载安装？回复y/n"
-        read -r install_confirmation
-        if [ "$install_confirmation" != "y" ]; then
-            echo "操作取消！"
-            return
-        fi
-    fi
-    echo "↴"
-    echo "正在获取服务器中..."
-    module_release=$(curl -s "$GIT_URL")
-    module_version=$(echo "$module_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-    if [ -z "$module_version" ]; then
-        echo "获取服务器失败！"
-        echo "Error：请确保网络能正常访问 GitHub！"
-      
-        return
-    fi
-    download_url=$(echo "$module_release" | grep '"browser_download_url"' | sed -E 's/.*"([^"]+)".*/\1/')
-    echo "获取成功！"
-    echo "当前最新版本号: $module_version"
-    if [ "$module_installed" = true ] && [ "$current_version" = "$module_version" ]; then
-        echo "当前已是最新版本！"
-        return
-    fi
-    changelog=$(curl -s "$CHANGELOG_URL")
-    latest_changelog=$(echo "$changelog" | awk '/^## /{p=0} p; /^## '$module_version'$/{p=1}')
-    echo "$latest_changelog"
-    echo ""
-    if [ "$module_installed" = false ]; then
-        echo "是否安装模块？回复y/n"
-    else
-        echo "是否更新模块？回复y/n"
-    fi
-    read -r confirmation
-    if [ "$confirmation" != "y" ]; then
-        echo "操作取消！"
-        return
-    fi
-    echo "↴"
-    echo "正在下载文件中..."
-    curl -L -o "$TEMP_FILE" "$download_url"
-    if [ $? -ne 0 ]; then
-        echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
-        exit 1
-    fi
-    if [ "$module_installed" = false ]; then
-        echo "文件效验通过，开始进行安装..."
-    else
-        echo "文件效验通过，开始进行更新..."
-    fi
-    mkdir -p "$TEMP_DIR"
-    unzip -qo "$TEMP_FILE" -d "$TEMP_DIR"
-    if [ $? -ne 0 ]; then
-        echo "解压失败，文件异常！"
-        exit 1
-    fi
-    if [ "$KSU" = true ] && [ "$KSU_VER_CODE" -lt 10683 ]; then
-        SERVICE_PATH="/data/adb/ksu/service.d"
-    else 
-        SERVICE_PATH="/data/adb/service.d"
-    fi
-    if [ ! -d "$SERVICE_PATH" ]; then
-        mkdir -p "$SERVICE_PATH"
-    fi
-    mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH"
-    chmod 0700 "${SERVICE_PATH}/Surfing_service.sh"
-    if [ -d /data/adb/box_bll ]; then
-        mkdir -p "$SCRIPTS_PATH"
-        mkdir -p "$COREE_PATH"
-        mkdir -p "$SURFING_PATH"
-        mkdir -p "$SURFING_PATH/webroot"
-        if [ -f "$BOX_PATH" ]; then
-            mv "$BOX_PATH" "${BOX_PATH}.bak"
-        fi
-        if [ -f "$CONFIG_PATH" ]; then
-            mv "$CONFIG_PATH" "${CONFIG_PATH}.bak"
-        fi
-        mv "$TEMP_DIR/box_bll/scripts/"* "$SCRIPTS_PATH"
-        mv "$TEMP_DIR/box_bll/clash/config.yaml" "$COREE_PATH"
-        mv "$TEMP_DIR/box_bll/clash/enhanced_config.yaml" "$COREE_PATH"
-        mv "$TEMP_DIR/box_bll/clash/Toolbox.sh" "$COREE_PATH"
-        find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
-        if [ -d "$TEMP_DIR/webroot" ]; then
-            cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
-        fi
-    else
-        mkdir -p "$SURFING_PATH"
-        mv "$TEMP_DIR/box_bll" "/data/adb/"
-        mv "$TEMP_DIR/webroot" "$SURFING_PATH"
-        find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
-    fi
-    chown -R root:net_admin /data/adb/box_bll/
-    find /data/adb/box_bll/ -type d -exec chmod 755 {} \;
-    find /data/adb/box_bll/ -type f -exec chmod 644 {} \;
-    chmod -R 711 /data/adb/box_bll/scripts/
-    chmod -R 700 /data/adb/box_bll/bin/
-    rm -rf "$TEMP_FILE" "$TEMP_DIR"
-    for pid in $(pidof inotifyd); do
-        if grep -q box.inotify /proc/${pid}/cmdline; then
-            kill ${pid}
-        fi
-    done
-    nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
-    if [ "$module_installed" = false ]; then
-        echo "安装成功✓"
-    else
-        echo "更新成功✓"
-    fi
-    echo "无需重启设备..."
-}
 clear_cache() {
     if [ ! -f "$MODULE_PROP" ]; then
         echo "↴" 
@@ -450,7 +450,7 @@ update_geo_database() {
     geo_version=$(echo "$geo_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$geo_version" ]; then
         echo "获取服务器失败！"
-        echo "Error：请确保网络能正常访问 GitHub！"
+        echo "错误：请确保网络能正常访问 GitHub！"
         return
     fi       
     echo "获取成功！"
@@ -613,7 +613,7 @@ update_web_panel() {
     yacd_version=$(echo "$yacd_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$meta_version" ] || [ -z "$yacd_version" ]; then
         echo "获取服务器失败！"
-        echo "Error：请确保网络能正常访问 GitHub！"
+        echo "错误：请确保网络能正常访问 GitHub！"
       
         return
     fi  
@@ -769,7 +769,7 @@ update_core() {
     latest_version=$(echo "$latest_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$latest_version" ]; then
         echo "获取服务器失败！"
-        echo "Error：请确保网络能正常访问 GitHub！"
+        echo "错误：请确保网络能正常访问 GitHub！"
         return
     fi
     download_url="${BASEE_URL}${latest_version}/${RELEASE_PATH}-${latest_version}.gz"
