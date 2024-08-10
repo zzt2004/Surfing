@@ -2,6 +2,7 @@
 
 SKIPUNZIP=1
 ASH_STANDALONE=1
+net_dir="/data/misc/net"
 SURFING_PATH="/data/adb/modules/Surfing/"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 
@@ -101,3 +102,9 @@ fi
 done
 mkdir -p "$SURFING_PATH"
 nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+
+mkdir -p "$scripts_dir"
+while [ ! -f /data/misc/net/rt_tables ] ; do
+  sleep 3
+done
+inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
