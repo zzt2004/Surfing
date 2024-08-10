@@ -103,7 +103,6 @@ done
 mkdir -p "$SURFING_PATH"
 nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
 
-mkdir -p "$scripts_dir"
 while [ ! -f /data/misc/net/rt_tables ] ; do
   sleep 3
 done
