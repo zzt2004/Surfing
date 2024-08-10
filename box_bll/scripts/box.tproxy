@@ -91,7 +91,7 @@ start_redirect() {
 
   if [ "${ignore_out_list}" != "" ] ; then
     for ignore in ${ignore_out_list[@]} ; do
-      ${iptables} -t nat -I BOX_LOCAL -o ${ignore} -j RETURN
+      ${iptables} -t nat -A BOX_LOCAL -o ${ignore} -j RETURN
     done
     log Info "${ignore_out_list[*]} ignore transparent proxy."
   fi
@@ -104,7 +104,7 @@ start_redirect() {
     else
       # Bypass apps
       for appid in ${uid_list[@]} ; do
-        ${iptables} -t nat -I BOX_LOCAL -m owner --uid-owner ${appid} -j RETURN
+        ${iptables} -t nat -A BOX_LOCAL -m owner --uid-owner ${appid} -j RETURN
       done
       # Allow !app
       ${iptables} -t nat -A BOX_LOCAL -p tcp -j REDIRECT --to-ports ${redir_port}
@@ -113,7 +113,7 @@ start_redirect() {
     if [ "${gid_list}" != "" ] ; then
       # Bypass gids
       for gid in ${gid_list[@]} ; do
-        ${iptables} -t nat -I BOX_LOCAL -m owner --gid-owner ${gid} -j RETURN
+        ${iptables} -t nat -A BOX_LOCAL -m owner --gid-owner ${gid} -j RETURN
       done
       log Info "proxy mode: ${proxy_mode}, GID ${gid_list[*]} no transparent proxy."
     fi
@@ -429,90 +429,6 @@ enable_ipv6() {
   echo 0 > /proc/sys/net/ipv6/conf/wlan0/disable_ipv6
 }
 
-# create_tun_link() {
-#   mkdir -p /dev/net
-#   [ ! -L /dev/net/tun ] && ln -s /dev/tun /dev/net/tun
-# }
-
-probe_tun_device() {
-  ifconfig | grep -q ${tun_device} || return 1
-}
-
-probe_tun_index() {
-  while [ ! -f "/data/misc/net/rt_tables" ] ; do
-    sleep 3
-  done
-  cat /data/misc/net/rt_tables | while read -r index name ; do
-    if [ ${name} = ${tun_device} ] ; then
-      tun_table_index=${index}
-      return 0
-    fi
-  done
-  return 1
-}
-
-tun_forward_ip_rules() {
-  ip rule $1 iif lo goto 6000 pref 5000
-  ip rule $1 iif ${tun_device} lookup main suppress_prefixlength 0 pref 5010
-  ip rule $1 iif ${tun_device} goto 6000 pref 5020
-  ip rule $1 from 10.0.0.0/8 lookup ${tun_table_index} pref 5030
-  ip rule $1 from 172.16.0.0/12 lookup ${tun_table_index} pref 5040
-  ip rule $1 from 192.168.0.0/16 lookup ${tun_table_index} pref 5050
-  ip rule $1 nop pref 6000
-}
-
-tun_forward_ip_rules_del() {
-  ip rule del pref 5000
-  ip rule del pref 5010
-  ip rule del pref 5020
-  ip rule del pref 5030
-  ip rule del pref 5040
-  ip rule del pref 5050
-  ip rule del pref 6000
-}
-
-tun_forward_iptables_rules() {
-  # iptables $1 FORWARD -s 10.0.0.0/8 -o ${tun_device} -j ACCEPT
-  # iptables $1 FORWARD -s 172.16.0.0/12 -o ${tun_device} -j ACCEPT
-  # iptables $1 FORWARD -s 192.168.0.0/16 -o ${tun_device} -j ACCEPT
-  iptables -w 100 $1 FORWARD -o ${tun_device} -j ACCEPT
-  iptables -w 100 $1 FORWARD -i ${tun_device} -j ACCEPT
-  ip6tables -w 100 $1 FORWARD -o ${tun_device} -j ACCEPT
-  ip6tables -w 100 $1 FORWARD -i ${tun_device} -j ACCEPT
-  # iptables $1 PREROUTING -t nat ! -i ${tun_device} -s 10.0.0.0/8 -p udp --dport 53 -j DNAT --to 1.1.1.1
-  # iptables $1 PREROUTING -t nat ! -i ${tun_device} -s 172.16.0.0/12 -p udp --dport 53 -j DNAT --to 1.1.1.1
-  # iptables $1 PREROUTING -t nat ! -i ${tun_device} -s 192.168.0.0/16 -p udp --dport 53 -j DNAT --to 1.1.1.1
-  ## iptables $1 PREROUTING -t nat ! -i ${tun_device} -p udp --dport 53 -j DNAT --to 1.1.1.1
-  ## ip6tables -w 100 $1 FORWARD -j REJECT --reject-with icmp6-no-route
-}
-
-tun_forward_enable() {
-  echo 1 > /proc/sys/net/ipv4/ip_forward
-  echo 2 > /proc/sys/net/ipv4/conf/default/rp_filter
-  echo 2 > /proc/sys/net/ipv4/conf/all/rp_filter
-  ## echo 0 > /dev/ip_forward_stub
-  ## chown $(stat -c '%u:%g' /data/misc/net/rt_tables) /dev/ip_forward_stub
-  ## chcon $(stat -Z -c '%C' /data/misc/net/rt_tables) /dev/ip_forward_stub
-  ## mount -o bind /dev/ip_forward_stub /proc/sys/net/ipv4/ip_forward
-
-  # create_tun_link
-  ## probe_tun_index && tun_forward_ip_rules "add"
-  probe_tun_device && tun_forward_iptables_rules "-I" && log Info "tun hotspot support is enabled."
-}
-
-tun_forward_disable() {
-  # tun_forward_ip_rules "del" >> /dev/null 2>&1
-  tun_forward_ip_rules_del >> /dev/null 2>&1
-  tun_forward_iptables_rules "-D" >> /dev/null 2>&1
-  log Warn "tun hotspot support is disabled."
-}
-
-if [ "${tun_forward}" = "enable" ] ; then
-  tun_forward_enable
-else
-  tun_forward_disable
-fi
-
 if [ "${proxy_mode}" = "core" ] ; then
   iptables="iptables -w 100" && stop_tproxy >> /dev/null 2>&1
   iptables="ip6tables -w 100" && stop_tproxy >> /dev/null 2>&1
@@ -532,7 +448,7 @@ case "$1" in
       return 1
     fi
     find_packages_uid
-    intranet[${#intranet[@]}]=$(ip address | grep -w inet | grep -v 127 | awk '{print $2}')
+    intranet[${#intranet[@]}]=$(ip -4 a | awk '/inet/ {print $2}' | grep -vE "^127.0.0.1")
     if [ "${proxy_method}" = "TPROXY" ] ; then
       if (zcat /proc/config.gz | grep -q TPROXY) ; then
         log Info "use TPROXY:TCP+UDP."
@@ -543,7 +459,7 @@ case "$1" in
           log Debug "use IPv6."
           enable_ipv6
           iptables="ip6tables -w 100"
-          intranet6[${#intranet6[@]}]=$(ip address | grep -w inet6 | grep -v ::1 | grep -v fe80 | awk '{print $2}')
+          intranet6[${#intranet6[@]}]=$(ip -6 a | awk '/inet6/ {print $2}' | grep -vE "^fe80|^::1")
           start_tproxy && log Info "create ip6tables transparent proxy rules done." || (log Error "create ip6tables transparent proxy rules failed." && stop_tproxy >> /dev/null 2>&1)
         else
           disable_ipv6
@@ -588,7 +504,7 @@ case "$1" in
       return 1
     fi
     find_packages_uid
-    intranet[${#intranet[@]}]=$(ip address | grep -w inet | grep -v 127 | awk '{print $2}')
+    intranet[${#intranet[@]}]=$(ip -4 a | awk '/inet/ {print $2}' | grep -vE "^127.0.0.1")
     if [ "${proxy_method}" = "TPROXY" ] ; then
       if (zcat /proc/config.gz | grep -q TPROXY) ; then
         log Info "use TPROXY:TCP+UDP."
@@ -599,7 +515,7 @@ case "$1" in
           log Debug "use IPv6."
           enable_ipv6
           iptables="ip6tables -w 100"
-          intranet6[${#intranet6[@]}]=$(ip address | grep -w inet6 | grep -v ::1 | grep -v fe80 | awk '{print $2}')
+          intranet6[${#intranet6[@]}]=$(ip -6 a | awk '/inet6/ {print $2}' | grep -vE "^fe80|^::1")
           start_tproxy && log Info "create ip6tables transparent proxy rules done." || (log Error "create ip6tables transparent proxy rules failed." && stop_tproxy >> /dev/null 2>&1)
         else
           disable_ipv6
@@ -628,12 +544,6 @@ case "$1" in
   disable_ipv6)
     disable_ipv6
     log Warn "disable IPv6."
-    ;;
-  tun_forward_enable)
-    tun_forward_enable
-    ;;
-  tun_forward_disable)
-    tun_forward_disable
     ;;
   *)
     log Error "$0 $1 usage: $0 {enable|disable|renew|enable_ipv6|disable_ipv6}"
