@@ -106,4 +106,4 @@ nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
 while [ ! -f /data/misc/net/rt_tables ] ; do
   sleep 3
 done
-inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
+nohup inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
