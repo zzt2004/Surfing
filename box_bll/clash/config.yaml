@@ -5,7 +5,6 @@ mode: Rule
 allow-lan: true
 geodata-mode: true
 geo-auto-update: true
-geodata-loader: standard
 geo-update-interval: 24
 geox-url:
   geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
