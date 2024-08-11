@@ -63,6 +63,7 @@ tun:
   exclude-package:
   - com.tencent.mm
   - com.tencent.tmgp.sgame
+  - com.miui.weather2
 
 dns:
   enable: true
