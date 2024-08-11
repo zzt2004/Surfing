@@ -2,7 +2,7 @@
 
 SKIPUNZIP=1
 ASH_STANDALONE=1
-net_dir="/data/misc/net"
+
 SURFING_PATH="/data/adb/modules/Surfing/"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 
