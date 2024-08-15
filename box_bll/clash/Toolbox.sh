@@ -41,7 +41,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v9.0"
+CURRENT_VERSION="v10.0"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -214,7 +214,7 @@ update_module
 show_menu() {
     while true; do
         echo "=========="
-        echo "v9.0" 
+        echo "v10.0" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
@@ -712,7 +712,7 @@ update_web_panel() {
                     mv "$TEMP_DIR/Yacd-meta-gh-pages/"* "$YACD_DIR"
                     rm -rf "$TEMP_FILE" "$TEMP_DIR"
                     echo "$([ "$new_install" = true ] && echo "安装成功✓" || echo "更新成功✓")"
-                    echo ""
+                    #echo ""
                 else
                     echo "解压失败，文件异常！"
                 fi
@@ -723,7 +723,7 @@ update_web_panel() {
             echo "拉取下载失败！"
         fi 
     fi 
-    echo "建议重载配置..."
+   # echo "建议重载配置..."
     chown -R root:net_admin "$PANEL_DIR"
     find "$PANEL_DIR" -type d -exec chmod 0755 {} \;
     find "$PANEL_DIR" -type f -exec chmod 0666 {} \;
