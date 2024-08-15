@@ -47,7 +47,7 @@ sniffer:
     - "Mijia Cloud"
 
 tun:
-  enable: true
+  enable: false #true
   device: tun0
   stack: system
   dns-hijack:
