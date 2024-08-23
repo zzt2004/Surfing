@@ -783,6 +783,7 @@ update_core() {
     echo "是否更新？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi
