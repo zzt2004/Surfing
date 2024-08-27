@@ -574,9 +574,11 @@ show_web_panel_menu() {
                 echo ""
                 ;;
             4)
+                echo "↴"
                 return
                 ;;
             *)
+                echo "↴"
                 echo "无效的选择！"
                 ;;
         esac
