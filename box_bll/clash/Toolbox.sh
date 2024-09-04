@@ -100,6 +100,7 @@ update_module() {
         echo "是否下载安装？回复y/n"
         read -r install_confirmation
         if [ "$install_confirmation" != "y" ]; then
+            echo "↴"
             echo "操作取消！"
             return
         fi
@@ -131,6 +132,7 @@ update_module() {
     fi
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi
@@ -329,6 +331,7 @@ disable_updates() {
         echo "此操作会对该模块在客户端禁止检测更新，是否继续？回复y/n"
         read -r confirmation
         if [ "$confirmation" != "y" ]; then
+            echo "↴"
             echo "操作取消！"
             return
         fi
@@ -351,6 +354,7 @@ enable_updates() {
         echo "此操作会恢复模块在客户端的检测更新，是否继续？回复y/n"
         read -r confirmation
         if [ "$confirmation" != "y" ];then
+            echo "↴"
             echo "操作取消！"
             return
         fi
@@ -374,6 +378,7 @@ integrate_magisk_update() {
     echo "如果你在客户端 安装/更新 模块，可进行整合刷新并更新状态 无需重启设备，是否整合？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi
@@ -413,6 +418,7 @@ clear_cache() {
     echo "此操作会清空数据库缓存，是否清除？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi
@@ -465,6 +471,7 @@ update_geo_database() {
     echo "是否更新？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi
@@ -512,6 +519,7 @@ update_rules() {
     echo "此操作会从 GitHub 拉取最新全部规则，是否更新？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ];then
+        echo "↴"
         echo "操作取消！"
         return
     fi
@@ -644,6 +652,7 @@ update_web_panel() {
     echo "是否更新？回复y/n"
     read -r confirmation
     if [ "$confirmation" != "y" ]; then
+        echo "↴"
         echo "操作取消！"
         return
     fi    
