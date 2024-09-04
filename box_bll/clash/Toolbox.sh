@@ -274,6 +274,7 @@ show_menu() {
                         enable_updates
                         ;;
                     *)
+                        echo "↴"
                         echo "无效的选择！"
                         ;;
                 esac
@@ -285,6 +286,7 @@ show_menu() {
                 exit 0
                 ;;
             *)
+                echo "↴"
                 echo "无效的选择！"
                 ;;
         esac
