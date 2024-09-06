@@ -122,8 +122,7 @@ proxy-groups:
   - {name: Ⓜ️ 微软服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🍎 苹果服务, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎮 Discord, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📸 国际抖音, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
-  - {name: 📷 中国抖音「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
+  - {name: 📸 TikTok, type: select, proxies: [🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3,🌎 全球直连]}
   - {name: 🎹 网易音乐「进程匹配」, type: select, proxies: [🌎 全球直连,🎯 总模式,♻️ 延迟最低,♻️ 故障转移,♻️ 负载均衡,♻️ 手动切换1,♻️ 手动切换2,♻️ 手动切换3]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT,🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式,🌎 全球直连]}
@@ -202,10 +201,9 @@ rules:
   - DST-PORT,53,DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
-  - PROCESS-NAME,com.ss.android.ugc.aweme,📷 中国抖音「进程匹配」
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐「进程匹配」
   - RULE-SET,Discord,🎮 Discord
-  - RULE-SET,TikTok,📸 国际抖音
+  - RULE-SET,TikTok,📸 TikTok
   - RULE-SET,YouTube,🎬 油管媒体
   - RULE-SET,Netflix,📹 奈飞媒体
   - RULE-SET,Facebook,📱 脸书社交
