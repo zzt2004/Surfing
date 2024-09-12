@@ -47,7 +47,7 @@ sniffer:
 
 tun:
   #请自测已知问题wifi状态下false 无法访问 raw.githubusercontent.com 服务
-  enable: false #true
+  enable: false #true #false
   device: tun0
   stack: system
   dns-hijack:
@@ -61,9 +61,10 @@ tun:
   - 192.168.0.0/16
   - fc00::/7
   exclude-package:
-  - com.tencent.mm
-  - com.tencent.tmgp.sgame
-  - com.miui.weather2
+  - com.tencent.mm #微信
+  - com.tencent.tmgp.sgame #王者荣耀
+  - com.miui.weather2 #小米天气
+  - com.ss.android.ugc.aweme #抖音
 
 dns:
   enable: true
@@ -77,12 +78,14 @@ dns:
     - "+.lan"
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
+  nameserver-policy:
+   "geosite:category-ads-all": rcode://success
   nameserver:
     - tls://223.5.5.5
     - tls://223.6.6.6
     - tls://1.12.12.12
-    - tls://120.53.53.53
-  
+    - tls://120.53.53.53  
+
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
   u: &u
