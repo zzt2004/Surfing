@@ -216,7 +216,7 @@ update_module
 show_menu() {
     while true; do
         echo "=========="
-        echo "v10.2" 
+        echo "v10.3" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
