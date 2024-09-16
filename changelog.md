@@ -1,3 +1,11 @@
+## v6.8.15
+- Update the configuration file (config.yaml)
+- SyncUpstrea Updates
+  - Provides legacy Clash DNS forwarding compatibility for Mihomo transparent proxy
+  - Fix local IP backflow prevention rules
+  - Fix Mihomo DNS forwarding condition judgment error
+  - Add USB tethering to the default ap_list
+
 ## v6.8.14
 - 追随上游更新
   - 优化本机 IP 获取
