@@ -21,3 +21,4 @@ done
 
 net_dir="/data/misc/net"
 inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
+inotifyd ${scripts_dir}/ctr.inotify /data/misc/net/rt_tables &>/dev/null &
