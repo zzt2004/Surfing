@@ -41,7 +41,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v10.3"
+CURRENT_VERSION="v10.4"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -201,10 +201,6 @@ update_module() {
         fi
     done
     nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
-    while [ ! -f /data/misc/net/rt_tables ] ; do
-       sleep 3
-    done
-    nohup inotifyd ${scripts_dir}/net.inotify ${net_dir} > /dev/null 2>&1 &
     if [ "$module_installed" = false ]; then
         echo "安装成功✓"
     else
@@ -216,7 +212,7 @@ update_module
 show_menu() {
     while true; do
         echo "=========="
-        echo "v10.3" 
+        echo "v10.4" 
         echo "Menu Bar："
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
