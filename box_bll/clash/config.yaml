@@ -65,6 +65,8 @@ tun:
   - com.tencent.tmgp.sgame #王者荣耀
   - com.miui.weather2 #小米天气
   - com.ss.android.ugc.aweme #抖音
+  - com.xiaomi.market #小米应用商店
+  - com.android.providers.downloads.ui #小米下载管理
 
 dns:
   enable: true
