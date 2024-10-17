@@ -3,128 +3,158 @@
 export PATH="/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH:/data/data/com.termux/files/usr/bin"
 
 module_dir="/data/adb/modules/Surfing"
+base_dir="/data/adb/box_bll"
+variab_dir="${base_dir}/variab"
+log_file="${base_dir}/debug.log"
+state_file="${variab_dir}/service_state"
+last_check_file="${variab_dir}/last_check_time"
+last_wifi_state_file="${variab_dir}/last_wifi_state"
+
+log_enabled="true"
+
+if [ ! -d "$variab_dir" ]; then
+    mkdir -p "$variab_dir"
+fi
+
 scripts=$(realpath $0)
 scripts_dir=$(dirname ${scripts})
 
 events=$1
 if ! [ "${events}" = w ]; then
-	return
+    return
 fi
 
 source ${scripts_dir}/box.config
 source ${scripts_dir}/ctr.utils
 
-if [ -f "${run_path}/.lastOutbound" ]; then
-	Outbound="$(cat "${run_path}/.lastOutbound")"
-fi
-if [ -f "${run_path}/.lastClashMode" ]; then
-	ClashMode="$(cat "${run_path}/.lastClashMode")"
-fi
-
-switchMode(){
-	local sta="$(status; echo $?)"
-	if [ $1 = 0 ]; then # disconnect, on CellularNetwork
-		if [ "${sta}" = "1" ]; then
-			start_core
-			sleep 3
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			switchMode $@
-		fi
-	else # connect, on WiFi
-		if [ "${sta}" = "0" ]; then
-			stop_core
-			sleep 3
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			switchMode $@
-		fi
-	fi
+log_msg() {
+    if [ "$log_enabled" = "true" ]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $log_file
+    fi
 }
 
-selectMode(){
-	local sta="$(status; echo $?)"
-	if [ $1 = 0 ]; then # disconnect, on CellularNetwork
-		if [ "${sta}" = 0 ]; then
-			local target="${default_outbound}"
-			if [ -n "${Outbound}" ]; then
-				target="${Outbound}"
-			fi
-			if [ -n "${proxy_outbound}" ]; then
-				target="${proxy_outbound}"
-			fi
-			setOutbound "${select_outbound}" "${target}"
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			selectMode $@
-		fi
-	else # connect, on WiFi
-		if [ "${sta}" = 0 ]; then
-			local target
-			if [ "${use_custom_direct}" = "true" ]; then
-				local ssid=`ssid`
-				target=`getTarget "${direct_outbound_list}" "${ssid}"`
-			else
-				target="${direct_outbound}"
-			fi
-			getNowOutbound > "${run_path}/.lastOutbound"
-			setOutbound "${select_outbound}" "${direct_outbound}"
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			selectMode $@
-		fi
-	fi
-}
+sleep 3
 
-clashMode(){
-	local sta="$(status; echo $?)"
-	if [ $1 = 0 ]; then # disconnect, on CellularNetwork
-		if [ "${sta}" = 0 ]; then
-			local target
-			target="${default_clash_mode}"
-			if [ -n "${ClashMode}" ]; then
-				target="${ClashMode}"
-			fi
-			if [ -n "${proxy_clash_mode}" ]; then
-				target="${proxy_clash_mode}"
-			fi
-			setMode "${target}"
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			clashMode $@
-		fi
-	else # connect, on WiFi
-		if [ "${sta}" = 0 ]; then
-			local target
-			if [ "${use_custom_direct}" = "true" ]; then
-				local ssid=`ssid`
-				target=`getTarget "${direct_clash_mode_list}" "${ssid}"`
-			else
-				target="${direct_clash_mode}"
-			fi
-			getNowMode > "${run_path}/.lastClashMode"
-			setMode "${target}"
-		elif [ "${sta}" = 2 ] || [ "${sta}" = 3 ]; then
-			sleep 1
-			clashMode $@
-		fi
-	fi
-}
+current_time=$(date +%s)
 
-if [ -f "${module_dir}/disable" ]; then
-	exit
+last_check_time=0
+if [ -f "$last_check_file" ]; then
+    last_check_time=$(cat $last_check_file)
 fi
 
-WiFiStatus=0
-if connected; then
-	WiFiStatus=1
+time_diff=$((current_time - last_check_time))
+if [ "$time_diff" -lt 10 ]; then
+    log_msg "跳过检查：距离上次时间过短（${time_diff}秒）"
+    return
 fi
 
-case ${ctr_mode} in
-	switch)
-		switchMode ${WiFiStatus};;
-	selector)
-		selectMode ${WiFiStatus};;
-	mode)
-		clashMode ${WiFiStatus};;
-esac
+echo $current_time > $last_check_file
+
+wifi_status=$(is_wifi_connected)
+ssid=$(get_current_ssid)
+
+# log_msg "当前WiFi状态: ${wifi_status}, SSID: ${ssid}"
+
+get_current_ip() {
+    ip addr show wlan0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1
+}
+
+check_module_service() {
+    if [ "$enable_network_service_control" = "true" ]; then
+        current_state="disabled"
+        if [ -f "$state_file" ]; then
+            current_state=$(cat $state_file)
+        fi
+
+        last_ssid=""
+        last_ip=""
+        if [ -f "$last_wifi_state_file" ]; then
+            last_ssid=$(grep 'ssid:' $last_wifi_state_file | cut -d: -f2)
+            last_ip=$(grep 'ip:' $last_wifi_state_file | cut -d: -f2)
+        fi
+
+        if [ "$wifi_status" = "wifi" ] && [ -n "$ssid" ]; then
+            if [ "$ssid" != "$last_ssid" ]; then
+                log_msg "WiFi已连接: ${ssid}"
+            fi
+            sleep 5
+            current_ip=$(get_current_ip)
+            
+            if [ -n "$current_ip" ]; then
+                if [ "$current_ip" != "$last_ip" ]; then
+                    log_msg "IP地址: ${current_ip}"
+                fi
+
+                if [ "$use_module_on_wifi" = "false" ]; then
+                    if [ "$current_state" != "disabled" ];then
+                        touch /data/adb/modules/Surfing/disable
+                        echo "disabled" > $state_file
+                        log_msg "因WiFi连接且配置为禁用，模块服务已禁用"
+                    else
+                        log_msg "WiFi连接但模块已是禁用，无需操作"
+                    fi
+                else
+                    if [ "$use_ssid_matching" = "true" ]; then
+                        log_msg "白名单模式：已启用"
+                        log_msg "白名单列表: ${allowed_wifi_ssids}"
+                        if is_allowed_wifi "$ssid" "$allowed_wifi_ssids"; then
+                            if [ "$current_state" != "enabled" ]; then
+                                rm /data/adb/modules/Surfing/disable 2>/dev/null
+                                echo "enabled" > $state_file
+                                log_msg "因WiFi连接且配置为启用，模块服务已启用"
+                            else
+                                log_msg "当前模块服务已是启用，无需操作"
+                            fi
+                        else
+                            if [ "$current_state" != "disabled" ]; then
+                                touch /data/adb/modules/Surfing/disable
+                                echo "disabled" > $state_file
+                                log_msg "不在白名单列表中，已禁用模块服务"
+                            else
+                                log_msg "不在白名单列表中，模块当前已是禁用，无需操作"
+                            fi
+                        fi
+                    else
+                        log_msg "白名单模式已禁用，使用常规WiFi模块设置"
+                        if [ "$current_state" != "enabled" ]; then
+                            rm /data/adb/modules/Surfing/disable 2>/dev/null
+                            echo "enabled" > $state_file
+                            log_msg "因WiFi连接且配置为启用，模块服务已启用"
+                        else
+                            log_msg "因WiFi连接但模块已是启用，无需操作"
+                        fi
+                    fi
+                fi
+            else
+                log_msg "未获取到有效的IP地址，视为WiFi连接失败"
+            fi
+
+            echo "ssid:${ssid}" > "$last_wifi_state_file"
+            echo "ip:${current_ip}" >> "$last_wifi_state_file"
+            
+        elif [ "$wifi_status" = "not_wifi" ]; then
+            log_msg "WiFi已断开"
+            if [ "$use_module_on_wifi_disconnect" = "true" ];then
+                if [ "$current_state" != "enabled" ]; then
+                    rm /data/adb/modules/Surfing/disable 2>/dev/null
+                    echo "enabled" > $state_file
+                    log_msg "根据配置为启用，模块服务已启用"
+                else
+                    log_msg "当前模块已是启用，无需操作"
+                fi
+            else
+                if [ "$current_state" != "disabled" ]; then
+                    touch /data/adb/modules/Surfing/disable
+                    echo "disabled" > $state_file
+                    log_msg "根据配置为禁用，模块服务已禁用"
+                else
+                    log_msg "当前模块已是禁用，无需操作"
+                fi
+            fi
+        fi
+    else
+        log_msg "网络控制模块服务已停用！"
+    fi
+}
+
+check_module_service
