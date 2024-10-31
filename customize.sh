@@ -5,6 +5,9 @@ ASH_STANDALONE=1
 
 SURFING_PATH="/data/adb/modules/Surfing/"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
+NET_PATH="/data/misc/net"
+CTR_PATH="/data/misc/net/rt_tables"
+
 
 if [ "$BOOTMODE" != true ]; then
   abort "Error: 请在 Magisk Manager / KernelSU Manager / APatch 中安装"
@@ -102,3 +105,5 @@ fi
 done
 mkdir -p "$SURFING_PATH"
 nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+nohup inotifyd "${SCRIPTS_PATH}net.inotify" "$NET_PATH" > /dev/null 2>&1 &
+nohup inotifyd "${SCRIPTS_PATH}ctr.inotify" "$CTR_PATH" > /dev/null 2>&1 &
