@@ -8,6 +8,8 @@ fi
 SURFING_PATH="/data/adb/modules/Surfing/"
 MODULE_PROP="${SURFING_PATH}module.prop"
 GXSURFING_PATH="/data/adb/modules_update/Surfing"
+NET_PATH="/data/misc/net"
+CTR_PATH="/data/misc/net/rt_tables"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 BOX_PATH="/data/adb/box_bll/scripts/box.config"
 CONFIG_PATH="/data/adb/box_bll/clash/config.yaml"
@@ -201,6 +203,8 @@ update_module() {
         fi
     done
     nohup inotifyd "${SCRIPTS_PATH}box.inotify" "$SURFING_PATH" > /dev/null 2>&1 &
+    nohup inotifyd "${SCRIPTS_PATH}net.inotify" "$NET_PATH" > /dev/null 2>&1 &
+nohup inotifyd "${SCRIPTS_PATH}ctr.inotify" "$CTR_PATH" > /dev/null 2>&1 &
     if [ "$module_installed" = false ]; then
         echo "安装成功✓"
     else
@@ -309,7 +313,7 @@ check_module_installed() {
 }
 check_update_status() {
     ensure_var_path
-    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status"
     if [ -f "$UPDATE_STATUS_FILE" ]; then
         echo "↴" 
         echo "当前客户端状态：更新已禁用"
@@ -320,7 +324,7 @@ check_update_status() {
 }
 disable_updates() {
     ensure_var_path
-    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status"
     MODULE_PROP="${MODULE_PROP}"
     if grep -q "^updateJson=" "$MODULE_PROP"; then
         echo "↴" 
@@ -343,7 +347,7 @@ disable_updates() {
 }
 enable_updates() {
     ensure_var_path
-    UPDATE_STATUS_FILE="${VAR_PATH}/update_status.txt"
+    UPDATE_STATUS_FILE="${VAR_PATH}/update_status"
     MODULE_PROP="${MODULE_PROP}"
     if [ -f "$UPDATE_STATUS_FILE" ]; then
         echo "↴" 
@@ -406,7 +410,7 @@ clear_cache() {
     fi
     echo "↴"
     ensure_var_path
-    CACHE_CLEAR_TIMESTAMP="${VAR_PATH}last_cache_update.txt" 
+    CACHE_CLEAR_TIMESTAMP="${VAR_PATH}last_cache_update" 
     if [ -f "$CACHE_CLEAR_TIMESTAMP" ]; then
         last_clear=$(date -d "@$(cat $CACHE_CLEAR_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
         echo "距离上次清空缓存是: $last_clear" 
@@ -444,7 +448,7 @@ update_geo_database() {
     fi
     echo "↴"  
     ensure_var_path
-    GEO_DATABASE_VERSION_FILE="${VAR_PATH}geo_database_update.txt"
+    GEO_DATABASE_VERSION_FILE="${VAR_PATH}geo_database_update"
     if [ -f "$GEO_DATABASE_VERSION_FILE" ]; then
         last_version=$(cat "$GEO_DATABASE_VERSION_FILE")
         echo "距离上次更新的版本号是: $last_version"
@@ -507,7 +511,7 @@ update_rules() {
     fi
     echo "↴"
     ensure_var_path
-    RULES_UPDATE_TIMESTAMP="${VAR_PATH}last_rules_update.txt"    
+    RULES_UPDATE_TIMESTAMP="${VAR_PATH}last_rules_update"    
     if [ -f "$RULES_UPDATE_TIMESTAMP" ]; then
         last_update=$(date -d "@$(cat $RULES_UPDATE_TIMESTAMP)" +"%Y-%m-%d %H:%M:%S")
         echo "距离上次更新是: $last_update"
@@ -604,7 +608,7 @@ update_web_panel() {
     fi
     echo "↴"
     ensure_var_path
-    WEB_PANEL_TIMESTAMP="${VAR_PATH}last_web_panel_update.txt"
+    WEB_PANEL_TIMESTAMP="${VAR_PATH}last_web_panel_update"
     last_meta_version=""
     last_yacd_version=""
     if [ -f "$WEB_PANEL_TIMESTAMP" ]; then
@@ -770,7 +774,7 @@ update_core() {
     fi
     echo "↴"
     ensure_var_path
-    CORE_TIMESTAMP="${VAR_PATH}last_core_update.txt"
+    CORE_TIMESTAMP="${VAR_PATH}last_core_update"
     if [ -f "$CORE_TIMESTAMP" ]; then
         last_update=$(cat "$CORE_TIMESTAMP")
         echo "距离上次更新的版本号是: $last_update"
