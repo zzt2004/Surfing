@@ -100,7 +100,7 @@ check_module_service() {
             done
 
             if [ -n "$current_ip" ]; then
-                log_msg "网络发生变化！"
+                log_msg "网络波动？网络发生变化！"
                 log_msg "WiFi已连接: ${ssid}"
                 log_msg "IP地址：${current_ip}"
                 echo "ssid:${ssid}" > "$last_wifi_state_file"
@@ -158,7 +158,7 @@ check_module_service() {
             fi
 
         elif [ "$wifi_status" = "not_wifi" ]; then
-            log_msg "网络发生变化！"
+            log_msg "网络波动？网络发生变化！"
             log_msg "当前WiFi已断开！"
             if [ "$use_module_on_wifi_disconnect" = "true" ]; then
                 if [ "$current_state" != "enabled" ]; then
@@ -183,6 +183,7 @@ check_module_service() {
             fi
         fi
     else
+        log_msg "网络波动？网络发生变化！"
         log_msg "网络控制模块服务已停用！"
         return
     fi
