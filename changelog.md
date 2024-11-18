@@ -1,3 +1,9 @@
+## v6.8.16
+- 添加：UpdateScript.sh 同步最新提交
+- 支持：WiFi / SSID 控制服务启停(box.config)
+- 优化：安装逻辑提取并备份订阅地址 
+- 默认使用透明代理
+
 ## v6.8.15
 - Update the configuration file (config.yaml)
 - SyncUpstrea Updates
