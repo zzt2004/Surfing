@@ -7,7 +7,8 @@ SURFING_PATH="/data/adb/modules/Surfing/"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 NET_PATH="/data/misc/net"
 CTR_PATH="/data/misc/net/rt_tables"
-
+CONFIG_FILE="/data/adb/box_bll/clash/config.yaml"
+BACKUP_FILE="/data/adb/box_bll/clash/subscribe_urls_backup.txt"
 
 if [ "$BOOTMODE" != true ]; then
   abort "Error: 请在 Magisk Manager / KernelSU Manager / APatch 中安装"
@@ -23,6 +24,20 @@ fi
 
 if [ ! -d "$service_dir" ]; then
   mkdir -p "$service_dir"
+fi
+
+extract_subscribe_urls() {
+  if [ -f "$CONFIG_FILE" ]; then
+    #echo "提取订阅地址并备份到 $BACKUP_FILE"
+    awk '/proxy-providers:/,/^proxies:/' "$CONFIG_FILE" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+    #echo "订阅地址备份完成"
+  else
+    echo "文件不存在，无法提取订阅地址"
+  fi
+}
+
+if [ -d /data/adb/box_bll/clash ]; then
+  extract_subscribe_urls
 fi
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d "$MODPATH"
@@ -55,10 +70,11 @@ if [ -d /data/adb/box_bll ]; then
 
   ui_print "- Updating..."
   ui_print "- ————————————————"
-  ui_print "- 配置文件 config.yaml 已备份 bak："
+  ui_print "- 配置文件 config.yaml 已备份 bak"
+  ui_print "- 提取 proxy-providers 订阅地址 已备份"
   ui_print "- 如更新订阅需重新添加订阅链接！"
   ui_print "- ————————————————"
-  ui_print "- 用户配置 box.config 已备份 bak："
+  ui_print "- 用户配置 box.config 已备份 bak"
   ui_print "- 可自行选择重新配置或使用默认！"
   ui_print "- ————————————————"
   ui_print "- 更新无需重启设备..."
@@ -82,8 +98,6 @@ fi
 
 mkdir -p /data/adb/box_bll/bin/
 mkdir -p /data/adb/box_bll/run/
-
-
 
 rm -f customize.sh
 
