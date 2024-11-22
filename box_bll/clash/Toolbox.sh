@@ -259,7 +259,7 @@ show_menu() {
         echo "4. 更新Geo数据库"
         echo "5. 更新Apps路由规则"
         echo "6. 更新Clash核心"
-        echo "7. 进入Telegran频道"
+        echo "7. 进入Telegram频道"
         echo "8. Web面板访问入口整合"
         echo "9. 整合Magisk更新状态"
         echo "10. 禁用/启用 更新模块"
