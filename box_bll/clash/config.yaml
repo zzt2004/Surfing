@@ -79,13 +79,12 @@ dns:
     - "+.lan"
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
-  nameserver-policy:
-   "geosite:category-ads-all": rcode://success
   nameserver:
     - tls://223.5.5.5
     - tls://223.6.6.6
     - tls://1.12.12.12
-    - tls://120.53.53.53  
+    - tls://120.53.53.53
+    - tls://119.29.29.29
 
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
@@ -102,7 +101,7 @@ proxy-providers:
     
   2.备用地址:
     <<: *p
-    url: "引入您的Clash订阅链接地址"
+    url: "https://qslink.yeahfast.com/verival/qsy/lod?token=iNRzCUaMQLrjzgG0"
     path: ./proxy_providers/subscribe2.yaml
     
 proxies:
