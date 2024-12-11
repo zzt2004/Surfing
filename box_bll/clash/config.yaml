@@ -83,12 +83,11 @@ dns:
     - 119.29.29.29
     - 223.6.6.6
   nameserver:
-    - QUIC://223.5.5.5
-    - QUIC://dns.adguard-dns.com
+    - https://dns.google/dns-query
     - https://sm2.doh.pub/dns-query
     - https://dns.alidns.com/dns-query
-    - https://[2400:3200::1]/dns-query
-    
+    - https://[2400:3200::1]/dns-query#skip-cert-verify=true
+
   p: &p
     {type: http, interval: 86400, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
   u: &u
