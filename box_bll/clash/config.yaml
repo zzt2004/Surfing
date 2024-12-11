@@ -83,9 +83,8 @@ dns:
     - 119.29.29.29
     - 223.6.6.6
   nameserver:
-    - https://dns.google/dns-query
+    - QUIC://dns.alidns.com/dns-query
     - https://sm2.doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
     - https://[2400:3200::1]/dns-query#skip-cert-verify=true
 
   p: &p
