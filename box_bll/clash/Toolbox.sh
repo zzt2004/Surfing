@@ -44,7 +44,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v10.8"
+CURRENT_VERSION="v10.9"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -171,17 +171,15 @@ update_module() {
             echo "文件不存在，无法提取订阅地址"
         fi
     }
+    
     restore_subscribe_urls() {
         if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
-            local url=$(cat "$BACKUP_FILE")
-            if [ -f "$CONFIG_PATH" ]; then
-                sed -i "/p: &p/ a\  url: \"$url\"" "$CONFIG_PATH"
-                echo "原订阅地址已插入到新文件中！"
-            else
-                echo "新配置文件不存在，无法恢复 URL"
-            fi
+            URL=$(cat "$BACKUP_FILE" | tr -d '\n' | tr -d '\r')
+            ESCAPED_URL=$(printf '%s\n' "$URL" | sed 's/[&/]/\\&/g')
+            sed -i -E "/p: &p/{N;s|url: \".*\"|url: \"$ESCAPED_URL\"|}" "$CONFIG_PATH"
+            echo "- 原订阅地址已插入到新文件中！"
         else
-            echo "备份文件不存在或为空，无法恢复 URL"
+            echo "- 备份文件不存在或为空，无法恢复订阅地址。"
         fi
     }
 
