@@ -16,7 +16,6 @@
     </a>
 </div>
 
-#
 
 [English](./README.md) | **简体中文**
 
@@ -86,7 +85,6 @@
 
 </details>
 
-#
 
 <details>
 <summary>2. 控制运行</summary>
@@ -112,7 +110,6 @@
 
 </details>
 
-#
 
 <details>
 <summary>3. Geo 数据库</summary>
@@ -123,7 +120,6 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 </details>
 
-#
 
 <details>
 <summary>4. 后续更新</summary>
@@ -143,7 +139,6 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 
 </details>
 
-#
 
 <details>
 <summary>5. 使用问题</summary>
@@ -201,7 +196,6 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
     <br>
     <strong>CHIZI-0618</strong>
   </p>
-</a>
 
 <div align="center">
   <a href="https://github.com/MetaCubeX"><strong>MetaCubeX</strong></a>
