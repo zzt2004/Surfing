@@ -44,7 +44,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v10.7"
+CURRENT_VERSION="v10.8"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -167,11 +167,27 @@ update_module() {
 
     extract_subscribe_urls() {
         if [ -f "$CONFIG_PATH" ]; then
-            echo "提取 proxy-providers 订阅地址 已备份 >>> $BACKUP_FILE"
-            awk '/proxy-providers:/,/^proxies:/' "$CONFIG_PATH" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
-            echo "订阅地址备份完成✓"
+            awk '/p: &p/,/^$/' "$CONFIG_PATH" | grep -Eo 'url: ".*"' | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+            if [ -s "$BACKUP_FILE" ]; then
+                echo "提取订阅地址 URL 已备份到 $BACKUP_FILE"
+            else
+                echo "未找到目标 URL，请检查配置文件格式"
+            fi
         else
             echo "文件不存在，无法提取订阅地址"
+        fi
+    }
+    restore_subscribe_urls() {
+        if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
+            local url=$(cat "$BACKUP_FILE")
+            if [ -f "$CONFIG_PATH" ]; then
+                sed -i "/p: &p/ a\  url: \"$url\"" "$CONFIG_PATH"
+                echo "原订阅地址已插入到新文件中！"
+            else
+                echo "新配置文件不存在，无法恢复 URL"
+            fi
+        else
+            echo "备份文件不存在或为空，无法恢复 URL"
         fi
     }
 
@@ -207,14 +223,14 @@ update_module() {
 
         mv "$TEMP_DIR/box_bll/scripts/"* "$SCRIPTS_PATH"
         mv "$TEMP_DIR/box_bll/clash/config.yaml" "$COREE_PATH"
-        mv "$TEMP_DIR/box_bll/clash/enhanced_config.yaml" "$COREE_PATH"
-        mv "$TEMP_DIR/box_bll/clash/Toolbox.sh" "$COREE_PATH"
 
         find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
 
         if [ -d "$TEMP_DIR/webroot" ]; then
             cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
         fi
+
+        restore_subscribe_urls
     else
         mkdir -p "$SURFING_PATH"
         mv "$TEMP_DIR/box_bll" "/data/adb/"
@@ -259,7 +275,7 @@ show_menu() {
         echo "4. 更新Geo数据库"
         echo "5. 更新Apps路由规则"
         echo "6. 更新Clash核心"
-        echo "7. 进入Telegram频道"
+        echo "7. 进入Telegran频道"
         echo "8. Web面板访问入口整合"
         echo "9. 整合Magisk更新状态"
         echo "10. 禁用/启用 更新模块"
