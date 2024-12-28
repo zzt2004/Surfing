@@ -146,23 +146,17 @@ update_module() {
 
     echo "↴"
     echo "正在下载文件中..."
-    curl -L -o "$TEMP_FILE" "$download_url"
-    if [ $? -ne 0 ]; then
+    if ! curl -L -o "$TEMP_FILE" "$download_url"; then
         echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
-        exit 1
+        return
     fi
 
-    if [ "$module_installed" = false ]; then
-        echo "文件效验通过，开始进行安装..."
-    else
-        echo "文件效验通过，开始进行更新..."
-    fi
-
+    echo "文件效验通过，开始处理..."
     mkdir -p "$TEMP_DIR"
-    unzip -qo "$TEMP_FILE" -d "$TEMP_DIR"
-    if [ $? -ne 0 ]; then
+    if ! unzip -qo "$TEMP_FILE" -d "$TEMP_DIR"; then
         echo "解压失败，文件异常！"
-        exit 1
+        rm -rf "$TEMP_FILE" "$TEMP_DIR"
+        return
     fi
 
     extract_subscribe_urls() {
@@ -201,10 +195,7 @@ update_module() {
         SERVICE_PATH="/data/adb/service.d"
     fi
 
-    if [ ! -d "$SERVICE_PATH" ]; then
-        mkdir -p "$SERVICE_PATH"
-    fi
-
+    mkdir -p "$SERVICE_PATH"
     mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH"
     chmod 0700 "${SERVICE_PATH}/Surfing_service.sh"
 
@@ -214,21 +205,15 @@ update_module() {
         mkdir -p "$SURFING_PATH"
         mkdir -p "$SURFING_PATH/webroot"
 
-        if [ -f "$CONFIG_PATH" ]; then
-            mv "$CONFIG_PATH" "${CONFIG_PATH}.bak"
-        fi
-        if [ -f "$BOX_PATH" ]; then
-            mv "$BOX_PATH" "${BOX_PATH}.bak"
-        fi
+        [ -f "$CONFIG_PATH" ] && mv "$CONFIG_PATH" "${CONFIG_PATH}.bak"
+        [ -f "$BOX_PATH" ] && mv "$BOX_PATH" "${BOX_PATH}.bak"
 
         mv "$TEMP_DIR/box_bll/scripts/"* "$SCRIPTS_PATH"
         mv "$TEMP_DIR/box_bll/clash/config.yaml" "$COREE_PATH"
 
         find "$TEMP_DIR" -mindepth 1 -maxdepth 1 ! -name "README.md" ! -name "Surfing_service.sh" ! -name "customize.sh" ! -name "box_bll" ! -name "META-INF" -exec cp -r {} "$SURFING_PATH" \;
 
-        if [ -d "$TEMP_DIR/webroot" ]; then
-            cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
-        fi
+        [ -d "$TEMP_DIR/webroot" ] && cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
 
         restore_subscribe_urls
     else
@@ -243,6 +228,7 @@ update_module() {
     find /data/adb/box_bll/ -type f -exec chmod 644 {} \;
     chmod -R 711 /data/adb/box_bll/scripts/
     chmod -R 700 /data/adb/box_bll/bin/
+
     rm -rf "$TEMP_FILE" "$TEMP_DIR"
 
     for pid in $(pidof inotifyd); do
