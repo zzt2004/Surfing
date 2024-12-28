@@ -3,7 +3,6 @@ redir-port: 7891
 tproxy-port: 1536
 mode: Rule
 allow-lan: true
-disable-keep-alive: true
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
@@ -85,7 +84,7 @@ dns:
     - 223.6.6.6
   nameserver:
     - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query#skip-cert-verify=true
+    - https://dns.alidns.com/dns-query
 
 # 订阅地址
 p: &p
@@ -131,32 +130,21 @@ proxy-providers:
 proxy-groups:
   - {name: 🎯 总模式, type: select, proxies: [🚀 节点选择, ♻️ 延迟最低, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 延迟最低,🌎 全球直连], use: [All]}
-
   - {name: ♻️ 延迟最低, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [All]}
-  
   - {name: ♻️ 手动切换1, type: select, proxies: [🚀 节点选择,🌎 全球直连], use: [All]}
-
-
   - {name: 📲 电报信息, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 🤖 OpenAI, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 🎬 油管媒体, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  
   - {name: 📸 TikTok, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 📱 脸书社交, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  
-  
   - {name: 📹 奈飞媒体, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 📢 谷歌服务, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
   - {name: 🎮 Discord, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-  
   - {name: Ⓜ️ 微软服务, type: select, proxies: [🌎 全球直连, 🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点]}   
   - {name: 🍎 苹果服务, type: select, proxies: [🌎 全球直连, 🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点]}
-
   - {name: 🎹 网易音乐, type: select, proxies: [🌎 全球直连], use: [Neteasemusic]}
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT, 🌎 全球直连]}
   - {name: 🐋 漏网之鱼, type: select, proxies: [🎯 总模式, ♻️ 延迟最低, 🚀 节点选择, ♻️ 手动切换1, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌎 全球直连]}
-
-
   - {name: 🇭🇰 香港节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [HongKong]}
   - {name: 🇯🇵 日本节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [Japan]}
   - {name: 🇺🇲 美国节点, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 700, use: [America]}
@@ -172,70 +160,70 @@ rule-providers:
     behavior: classical
     format: yaml
     path: ./rule/TikTok.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/TikTok.yaml"
     interval: 86400
   Facebook:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Facebook.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Facebook.yaml"
     interval: 86400
   Telegram:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Telegram.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Telegram.yaml"
     interval: 86400
   YouTube:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/YouTube.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/YouTube.yaml"
     interval: 86400
   Google:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Google.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Google.yaml"
     interval: 86400
   Microsoft:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Microsoft.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Microsoft.yaml"
     interval: 86400
   Apple:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Apple.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Apple.yaml"
     interval: 86400
   OpenAI:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/OpenAI.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/OpenAI.yaml"
     interval: 86400
   Netflix:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Netflix.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Netflix.yaml"
     interval: 86400
   Discord:
     type: http
     behavior: classical
     format: yaml
     path: ./rule/Discord.yaml
-    url: "https://v1.mk/8YyDjrc"
+    url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
     interval: 86400
 rules:
   - DST-PORT,53,DNS_Hijack
