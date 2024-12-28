@@ -32,7 +32,7 @@ extract_subscribe_urls() {
   if [ -f "$CONFIG_FILE" ]; then
     awk '/p: &p/,/}/' "$CONFIG_FILE" | grep -Eo 'url: ".*"' | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
     if [ -s "$BACKUP_FILE" ]; then
-      echo "- 提取订阅地址 URL 已备份到 $BACKUP_FILE"
+      echo "- 订阅地址 URL 已备份 txt"
     else
       echo "- 未找到目标 URL，请检查配置文件格式"
     fi
@@ -43,11 +43,12 @@ extract_subscribe_urls() {
 
 restore_subscribe_urls() {
   if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
-    URL=$(cat "$BACKUP_FILE")
-    sed -i "/p: &p/,/}/s|url: \".*\"|url: \"$URL\"|" "$CONFIG_FILE"
-    echo "- 原订阅地址已插入最新文件中！"
+    URL=$(cat "$BACKUP_FILE" | tr -d '\n' | tr -d '\r')
+    ESCAPED_URL=$(printf '%s\n' "$URL" | sed 's/[&/]/\\&/g')
+    sed -i -E "/p: &p/{N;s|url: \".*\"|url: \"$ESCAPED_URL\"|}" "$CONFIG_FILE"
+    echo "- 订阅地址已恢复至新文件中！"
   else
-    echo "- 备份文件不存在或为空，无法恢复 URL"
+    echo "- 备份文件不存在或为空，无法恢复订阅地址。"
   fi
 }
 
