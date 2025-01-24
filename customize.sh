@@ -64,6 +64,7 @@ if [ -d /data/adb/box_bll ]; then
   ui_print "- 配置文件 config.yaml 已备份 bak"
   ui_print "- 用户配置 box.config 已备份 bak"
 
+  rm -f "/data/adb/box_bll/clash/UpdateScript.sh"
   rm -f "/data/adb/box_bll/clash/Gui Yacd: 获取面板.sh"
   rm -f "/data/adb/box_bll/clash/Gui Meta: 获取面板.sh"
   rm -f "/data/adb/box_bll/clash/Telegram chat.sh"
