@@ -7,7 +7,8 @@
 3. 双击 `mihomo.start.vbs` 运行即可。  
 4. 控制台地址: 
    ```text
-   http://localhost:9090/ui
+   http://localhost:9090/ui    
+   ```
 5. 默认密码: 9090，可在 **config.yaml** 中设置
 
 # 开机自启动
