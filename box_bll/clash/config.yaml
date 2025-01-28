@@ -88,6 +88,7 @@ dns:
     - https://dns.alidns.com/dns-query
 
 # 订阅地址
+# 如有多个地址请使用订阅转换工具合并
 p: &p
   {type: http, url: "引号内填写你的订阅地址", interval: 21600, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
 
