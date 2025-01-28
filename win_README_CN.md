@@ -9,7 +9,7 @@
    ```text
    http://localhost:9090/ui    
    ```
-5. 默认密码: 9090，可在 **config.yaml** 中设置
+5. 默认密码: 无，可在 **config.yaml** 中的 `secret` 值设置
 
 # 开机自启动
 
