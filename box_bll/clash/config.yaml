@@ -79,6 +79,7 @@ dns:
     - "+.lan"
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
+    - "com.miui.weather2"
   default-nameserver:
     - 119.29.29.29
     - 223.6.6.6
