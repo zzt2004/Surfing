@@ -1,6 +1,6 @@
 # 此为 **Windows** 平台开箱即用指南  
 
-1. 下载 [zip]() 并解压至桌面。  
+1. 下载 [zip](https://github.com/MoGuangYu/Surfing/releases/download/v6.8.17/mihomo-windows-amd64-v1.19.1.zip) 并解压至桌面。  
 2. 在 `mihomo-windows-amd64.exe` 上右键 -> **属性** -> **兼容性**，勾选“以管理员权限运行此程序”  
    - **tips**：Tun 模式需要管理员权限运行。  
 3. 编辑 **config.yaml** 填入订阅，使用方法与 **Android** 相同 ，并且检查控制面板**路径**是否正确指向 **Meta** 文件夹
