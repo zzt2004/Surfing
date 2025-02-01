@@ -89,6 +89,7 @@ dns:
 
 # 订阅地址
 # 如有多个地址请使用订阅转换工具合并
+# 请至控制面板手动刷新更新
 p: &p
   {type: http, url: "引号内填写你的订阅地址", interval: 21600, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
 
