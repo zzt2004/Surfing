@@ -25,8 +25,7 @@ fi
 if [ ! -d "$service_dir" ]; then
   mkdir -p "$service_dir"
 fi
-ui_print "- Updating..."
-ui_print "- ————————————————"
+
 
 extract_subscribe_urls() {
   if [ -f "$CONFIG_FILE" ]; then
@@ -46,13 +45,15 @@ restore_subscribe_urls() {
     URL=$(cat "$BACKUP_FILE" | tr -d '\n' | tr -d '\r')
     ESCAPED_URL=$(printf '%s\n' "$URL" | sed 's/[&/]/\\&/g')
     sed -i -E "/p: &p/{N;s|url: \".*\"|url: \"$ESCAPED_URL\"|}" "$CONFIG_FILE"
-    echo "- 订阅地址已恢复至新文件中！"
+    echo "- 订阅地址已恢复 >> 新配置中！"
   else
     echo "- 备份文件不存在或为空，无法恢复订阅地址。"
   fi
 }
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d "$MODPATH"
+ui_print "- Updating..."
+ui_print "- ————————————————"
 if [ -d /data/adb/box_bll ]; then
   if [ -d /data/adb/box_bll/clash ]; then
     extract_subscribe_urls
@@ -92,6 +93,7 @@ else
   ui_print "- 安装完成 工作目录"
   ui_print "- data/adb/box_bll/"
   ui_print "- 安装无需重启设备..."
+  ui_print "- 首次安装需重启模块服务"
 fi
 
 if [ "$KSU" = true ]; then
