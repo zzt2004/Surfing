@@ -27,6 +27,11 @@ if [ "$events" != "w" ]; then
 fi
 
 source ${scripts_dir}/box.config
+
+if [ "$enable_network_service_control" != "true" ]; then
+    exit 0
+fi
+
 source ${scripts_dir}/ctr.utils
 
 log_msg() {
