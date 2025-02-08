@@ -47,7 +47,7 @@ sniffer:
 
 tun:
   enable: true #true 开 #false 关
-  device: tun0
+  device: meta
   stack: system
   dns-hijack:
     - any:53
