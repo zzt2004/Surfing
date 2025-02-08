@@ -44,7 +44,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11"
+CURRENT_VERSION="v11.1"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -632,7 +632,7 @@ show_web_panel_menu() {
 open_telegram_group() {
     echo "↴"
     echo "正在跳转到 Surfing..."
-    am start -a android.intent.action.VIEW -d "https://t.me/Surfingbox"
+    am start -a android.intent.action.VIEW -d "https://t.me/+vvlXyWYl6HowMTBl"
     echo "ok"
 }
 update_web_panel() {
