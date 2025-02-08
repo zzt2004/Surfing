@@ -27,6 +27,9 @@ METAA_URL="https://api.github.com/repos/metacubex/metacubexd/releases/latest"
 YACD_DIR="${PANEL_DIR}Yacd/"
 YACD_URL="https://github.com/MetaCubeX/yacd/archive/gh-pages.zip"
 YACDD_URL="https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest"
+ZASH_DIR="${PANEL_DIR}Zash/"
+ZASH_URL="https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
+ZASHD_URL="https://api.github.com/repos/Zephyruso/zashboard/releases/latest"
 BACKUP_FILE="$COREE_PATH/subscribe_urls_backup.txt"
 TEMP_FILE="/data/local/tmp/Surfing_update.zip"
 TEMP_DIR="/data/local/tmp/Surfing_update"
@@ -44,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.1"
+CURRENT_VERSION="v11.2"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -593,8 +596,9 @@ show_web_panel_menu() {
         echo "选择图形面板："
         echo "1. HTTPS Gui Meta"
         echo "2. HTTPS Gui Yacd"
-        echo "3. 本地端口 >>> 127.0.0.1:9090/ui"
-        echo "4. 返回上一级菜单"
+        echo "3. HTTPS Gui Zash"
+        echo "4. 本地端口 >>> 127.0.0.1:9090/ui"
+        echo "5. 返回上一级菜单"
         read -r web_choice
         case $web_choice in
             1)
@@ -613,19 +617,26 @@ show_web_panel_menu() {
                 ;;
             3)
                 echo "↴"
+                echo "正在跳转到 Gui Zash..."
+                am start -a android.intent.action.VIEW -d "https://board.zash.run.place/"
+                echo "ok"
+                echo ""
+                ;;
+            4)
+                echo "↴"
                 echo "正在跳转到本地端口..."
                 am start -a android.intent.action.VIEW -d "http://127.0.0.1:9090/ui/#/"
                 echo "ok"
                 echo ""
                 ;;
-            4)
+            5)
                 echo "↴"
                 return
                 ;;
             *)
                 echo "↴"
                 echo "无效的选择！"
-                ;;
+               ;;
         esac
     done
 }
@@ -646,30 +657,37 @@ update_web_panel() {
     WEB_PANEL_TIMESTAMP="${VAR_PATH}last_web_panel_update"
     last_meta_version=""
     last_yacd_version=""
+    last_zash_version=""
     if [ -f "$WEB_PANEL_TIMESTAMP" ]; then
         last_update=$(cat "$WEB_PANEL_TIMESTAMP")
         last_meta_version=$(echo $last_update | cut -d ' ' -f 1)
         last_yacd_version=$(echo $last_update | cut -d ' ' -f 2)
+        last_zash_version=$(echo $last_update | cut -d ' ' -f 3)
         echo "距离上次更新的 Meta 版本号是: $last_meta_version"
         echo "距离上次更新的 Yacd 版本号是: $last_yacd_version"
+        echo "距离上次更新的 Zash 版本号是: $last_zash_version"
     fi
     echo "正在获取服务器中..."
     meta_release=$(curl -s "$METAA_URL")
     meta_version=$(echo "$meta_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     yacd_release=$(curl -s "$YACDD_URL")
     yacd_version=$(echo "$yacd_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-    if [ -z "$meta_version" ] || [ -z "$yacd_version" ]; then
+    zash_release=$(curl -s "$ZASHD_URL")
+    zash_version=$(echo "$zash_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+
+    if [ -z "$meta_version" ] || [ -z "$yacd_version" ] || [ -z "$zash_version" ]; then
         echo "获取服务器失败！"
         echo "错误：请确保网络能正常访问 GitHub！"
-      
         return
     fi  
     echo "获取成功！"   
     echo "Meta 当前最新版本号: $meta_version"
     echo "Yacd 当前最新版本号: $yacd_version"
+    echo "Zash 当前最新版本号: $zash_version"
 
     meta_update_needed=false
     yacd_update_needed=false
+    zash_update_needed=false
 
     if [ "$last_meta_version" != "$meta_version" ]; then
         meta_update_needed=true
@@ -679,7 +697,11 @@ update_web_panel() {
         yacd_update_needed=true
     fi
 
-    if [ "$meta_update_needed" = false ] && [ "$yacd_update_needed" = false ]; then
+    if [ "$last_zash_version" != "$zash_version" ]; then
+        zash_update_needed=true
+    fi
+
+    if [ "$meta_update_needed" = false ] && [ "$yacd_update_needed" = false ] && [ "$zash_update_needed" = false ]; then
         echo "当前已是最新版本！"
         return
     fi
@@ -760,7 +782,6 @@ update_web_panel() {
                     mv "$TEMP_DIR/Yacd-meta-gh-pages/"* "$YACD_DIR"
                     rm -rf "$TEMP_FILE" "$TEMP_DIR"
                     echo "$([ "$new_install" = true ] && echo "安装成功✓" || echo "更新成功✓")"
-                    #echo ""
                 else
                     echo "解压失败，文件异常！"
                 fi
@@ -771,7 +792,45 @@ update_web_panel() {
             echo "拉取下载失败！"
         fi 
     fi 
-   # echo "建议重载配置..."
+    if [ "$zash_update_needed" = true ]; then
+        echo "↴"
+        echo "正在更新：Zash"
+        new_install=false
+        if [ ! -d "$ZASH_DIR" ]; then
+            echo "面板不存在，正在自动安装..."
+            mkdir -p "$ZASH_DIR"
+            if [ $? -ne 0 ]; then
+                echo "创建失败，请检查权限！"
+                return
+            fi
+            new_install=true
+        fi
+        echo "正在拉取最新的代码..."
+        curl -L -o "$TEMP_FILE" "$ZASH_URL"
+        if [ $? -eq 0 ]; then
+            echo "下载成功，正在效验文件..."
+            if [ -s "$TEMP_FILE" ]; then
+                echo "文件有效，开始进行$([ "$new_install" = true ] && echo "安装" || echo "更新")..."
+                unzip -qo "$TEMP_FILE" -d "$TEMP_DIR"
+                if [ $? -eq 0 ]; then
+                    rm -rf "${ZASH_DIR:?}"/*
+                    if [ $? -ne 0 ]; then
+                        echo "操作失败，请检查权限！"
+                        return
+                    fi
+                    mv "$TEMP_DIR/dist/"* "$ZASH_DIR"
+                    rm -rf "$TEMP_FILE" "$TEMP_DIR"
+                    echo "$([ "$new_install" = true ] && echo "安装成功✓" || echo "更新成功✓")"
+                else
+                    echo "解压失败，文件异常！"
+                fi
+            else
+                echo "下载的文件为空或无效！"
+            fi
+        else
+            echo "拉取下载失败！"
+        fi 
+    fi
     chown -R root:net_admin "$PANEL_DIR"
     find "$PANEL_DIR" -type d -exec chmod 0755 {} \;
     find "$PANEL_DIR" -type f -exec chmod 0666 {} \;
@@ -779,7 +838,7 @@ update_web_panel() {
         echo "设置文件权限失败！"
         return
     fi
-    echo "$meta_version $yacd_version" > "$WEB_PANEL_TIMESTAMP"
+    echo "$meta_version $yacd_version $zash_version" > "$WEB_PANEL_TIMESTAMP"
 }
 reload_configuration() {
     if [ ! -f "$MODULE_PROP" ]; then
