@@ -17,7 +17,7 @@ find-process-mode: always
 global-client-fingerprint: chrome
 external-controller: 0.0.0.0:9090
 #面板默认 Meta 可选 Yacd / Zash 重启模块即可加载
-external-ui: /data/adb/box_bll/panel/Zash/
+external-ui: /data/adb/box_bll/panel/Meta/
 secret: ""
 
 #####################
