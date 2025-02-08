@@ -87,14 +87,14 @@ dns:
     - https://dns.alidns.com/dns-query
 
 # 订阅地址
-# 如有多个地址请使用订阅转换工具合并
+# 如有多个地址请使用订阅转换工具合并，具体Google
 # 请至控制面板手动刷新更新
 p: &p
   {type: http, url: "引号内填写你的订阅地址", interval: 21600, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
 
 proxies:
   - {name: 🌎 全球直连, type: direct, udp: true}
-  - {name: DNS_Hijack, type: dns}
+  - {name: 🌐 DNS_Hijack, type: dns}
 proxy-providers:
   HongKong:
     <<: *p
@@ -228,7 +228,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/Discord.yaml"
     interval: 86400
 rules:
-  - DST-PORT,53,DNS_Hijack
+  - DST-PORT,53,🌐 DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
   - PROCESS-NAME,com.netease.cloudmusic,🎹 网易音乐
