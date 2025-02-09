@@ -93,10 +93,10 @@
 <details>
 <summary>2. 控制运行</summary>
 
-1. 可通过 **WiFi SDID** 网络控制启停
-  - `/data/adb/box_bll/scripts/box.config`
-2. 可通过模块开关进行 关闭/开启 控制运行服务实时生效
-3. 可向系统状态栏添加模块的控制开关  
+- 可通过 **WiFi SDID** 网络控制启停
+  - `box.config`
+- 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+- 可向系统状态栏添加模块的控制开关  
   
 <img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
 
@@ -135,11 +135,11 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 - 如果你全部使用默认配置，更新将是无感
 - 支持在客户端中在线更新模块，更新后无须重启，模块开关控制 启用/关闭 ~~会临时失效，仍需重启~~ 亦或使用 Toolbox 更新
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
-   - `/data/adb/box_bll/clash/config.yaml.bak`
+   - `config.yaml.bak`
 - 更新时会备份旧文件用户配置，至
-   - `/data/adb/box_bll/scripts/box.config.bak`
+   - `box.config.bak`
 - 更新时会自动提取你的订阅地址并备份，至
-   - `/data/adb/box_bll/clash/subscribe_urls_backup.txt`
+   - `subscribe_urls_backup.txt`
    - 自动提取备份并恢复至新配置中，适用于使用默认配置文件的
 - 更新模块时不包含：
    - Geo数据库文件
