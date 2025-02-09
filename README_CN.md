@@ -93,8 +93,10 @@
 <details>
 <summary>2. 控制运行</summary>
 
-- 可通过模块开关进行 关闭/开启 控制运行服务实时生效
-- 可向系统状态栏添加模块的控制开关  
+1. 可通过 **WiFi SDID** 网络控制启停
+  - `/data/adb/box_bll/scripts/box.config`
+2. 可通过模块开关进行 关闭/开启 控制运行服务实时生效
+3. 可向系统状态栏添加模块的控制开关  
   
 <img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
 
@@ -117,11 +119,11 @@
 #
 
 <details>
-<summary>3. Geo 数据库</summary>
+<summary>3. 路由规则</summary>
 
 GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  [Wiki](https://github.com/MetaCubeX/meta-rules-dat)  
 
-> 用于路由规则匹配，实现精准分流，更新会一直指向最新版本，因此每个月只需更新一次文件即可
+> 路由规则全使用在线链接，24小时自动更新
 
 </details>
 
@@ -131,11 +133,14 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 <summary>4. 后续更新</summary>
 
 - 如果你全部使用默认配置，更新将是无感
-- 支持在客户端中在线更新模块，更新后无须重启，模块开关控制 启用/关闭 ~~会临时失效，仍需重启~~ 建议使用 Toolbox 更新
+- 支持在客户端中在线更新模块，更新后无须重启，模块开关控制 启用/关闭 ~~会临时失效，仍需重启~~ 亦或使用 Toolbox 更新
 - 更新时 Clash.Meta config.yaml 配置文件会备份至
    - `/data/adb/box_bll/clash/config.yaml.bak`
 - 更新时会备份旧文件用户配置，至
    - `/data/adb/box_bll/scripts/box.config.bak`
+- 更新时会自动提取你的订阅地址并备份，至
+   - `/data/adb/box_bll/clash/subscribe_urls_backup.txt`
+   - 自动提取备份并恢复至新配置中，适用于使用默认配置文件的
 - 更新模块时不包含：
    - Geo数据库文件
    - bin文件
@@ -168,11 +173,11 @@ GitHub Actions 北京时间每天早上 6 点自动构建，保证规则最新  
 二、Tun模式
 - 默认开启
 
-> WiFi下推荐开启，如非特殊需要可不开启，使用该模式前请勿使用黑白名单
+> 推荐开启，如非特殊需要可不开启，使用该模式前请勿使用黑白名单
 
 三、路由规则
 - 为大陆饶行
-- 规则由本人亲自维护的，基本能满足大多数使用需求
+- 基本能满足大多数使用需求
 
 > 如非特别严格的要求，黑白名单意义不大，使用模块自带配置即可
 
