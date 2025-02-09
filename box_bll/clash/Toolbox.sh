@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.2"
+CURRENT_VERSION="v11.3"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -163,24 +163,33 @@ update_module() {
     fi
 
     extract_subscribe_urls() {
-        if [ -f "$CONFIG_PATH" ]; then
-            awk '/p: &p/,/^$/' "$CONFIG_PATH" | grep -Eo 'url: ".*"' | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+        if [ -f "$CONFIG_FILE" ]; then
+            awk '/proxy-providers:/,/^proxies:/' "$CONFIG_FILE" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+            
             if [ -s "$BACKUP_FILE" ]; then
-                echo "提取订阅地址 URL 已备份到 $BACKUP_FILE"
+                echo "- 订阅地址已备份到 $BACKUP_FILE"
             else
-                echo "未找到目标 URL，请检查配置文件格式"
+                echo "- 未找到目标 URL，请检查配置文件格式"
             fi
         else
-            echo "文件不存在，无法提取订阅地址"
+            echo "- 配置文件不存在，无法提取订阅地址"
         fi
     }
-    
+
     restore_subscribe_urls() {
         if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
-            URL=$(cat "$BACKUP_FILE" | tr -d '\n' | tr -d '\r')
-            ESCAPED_URL=$(printf '%s\n' "$URL" | sed 's/[&/]/\\&/g')
-            sed -i -E "/p: &p/{N;s|url: \".*\"|url: \"$ESCAPED_URL\"|}" "$CONFIG_PATH"
-            echo "- 原订阅地址已插入到新文件中！"
+            awk 'NR==FNR {
+                   urls[++n] = $0; 
+                   next 
+                 }
+                 /proxy-providers:/ { inBlock = 1 }
+                 inBlock && /url: / {
+                   sub(/url: ".*"/, "url: \"" urls[++i] "\"")
+                 }
+                 /proxies:/ { inBlock = 0 }
+                 { print }
+                ' "$BACKUP_FILE" "$CONFIG_FILE" > "$CONFIG_FILE.tmp" && mv "$CONFIG_FILE.tmp" "$CONFIG_FILE"
+            echo "- 订阅地址已恢复 >> 新配置中！"
         else
             echo "- 备份文件不存在或为空，无法恢复订阅地址。"
         fi
@@ -259,8 +268,8 @@ show_menu() {
         echo "1. 重载配置"
         echo "2. 清空数据库缓存"
         echo "3. 更新Web面板"
-        echo "4. 更新Geo数据库"
-        echo "5. 更新Apps路由规则"
+        #echo "4. 更新Geo数据库"
+        #echo "5. 更新Apps路由规则"
         echo "6. 更新Clash核心"
         echo "7. 进入Telegran频道"
         echo "8. Web面板访问入口整合"
@@ -279,13 +288,13 @@ show_menu() {
                 ;;
             3)
                 update_web_panel
-                ;;
-            4)
-                update_geo_database
-                ;;
-            5)
-                update_rules
-                ;;
+                ;;  
+#            4)
+#                update_geo_database
+#                ;;
+#            5)
+#                update_rules
+#                ;;
             6)
                 update_core
                 ;;
