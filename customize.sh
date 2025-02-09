@@ -60,9 +60,9 @@ restore_subscribe_urls() {
 }
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d "$MODPATH"
+if [ -d /data/adb/box_bll ]; then
 ui_print "- Updating..."
 ui_print "- ————————————————"
-if [ -d /data/adb/box_bll ]; then
   if [ -d /data/adb/box_bll/clash ]; then
     extract_subscribe_urls
     cp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak
