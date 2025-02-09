@@ -88,10 +88,11 @@ Please decide whether to use the Surfing module only after clearly understanding
 #
 
 <details>
-<summary>2. Control Operation</summary>
+<summary>2. Controlling Operation</summary>  
 
-- The service can be controlled in real-time through the module switch to turn it on/off.
-- You can add a control switch for the module to the system status bar.  
+- Can be controlled via **WiFi SSID** network toggling  
+- Use the module switch to enable/disable the service in real time  
+- Add a control switch to the system status bar
   
 <img src="./folder/KAKJFS.jpg" alt="KJFS" width="300">
 
@@ -114,31 +115,34 @@ Please decide whether to use the Surfing module only after clearly understanding
 #
 
 <details>
-<summary>3. Geo Database</summary>
+<summary>3. Routing Rules</summary>  
 
-GitHub Actions automatically build daily at 6 AM Beijing time, ensuring the latest rules. [Wiki](https://github.com/MetaCubeX/meta-rules-dat)
+GitHub Actions automatically builds updates at 6 AM Beijing time every day to ensure the latest rules. [Wiki](https://github.com/MetaCubeX/meta-rules-dat)  
 
-> Used for routing rule matching to achieve accurate diversion. Updates will always point to the latest version, so you only need to update the file once a month.
+> Routing rules use online links and update automatically every 24 hours.
 
 </details>
 
 #
 
 <details>
-<summary>4. Subsequent Updates</summary>
+<summary>4. Future Updates</summary>  
 
-- If you use all default configurations, the updates will be seamless
-- Supports online module updates within the client, no reboot required after updates; however, module switch control for enabling/disabling will ~~temporarily fail~~, still requiring a reboot. It is recommended to use Toolbox for updates
-- During the update, the Clash.Meta config.yaml file will be backed up to
-   - `/data/adb/box_bll/clash/config.yaml.bak`
-- During the update, old user configuration files will be backed up to
-   - `/data/adb/box_bll/scripts/box.config.bak`
-- The following are not included in module updates:
-   - Geo database files
-   - Bin files
-   - Web resources
+- If you use all the default configurations, updates will be seamless.  
+- The module supports online updates within the client. After updating, no reboot is required; however, the module switch's enable/disable control ~~may temporarily not work and still require a reboot~~ or can be updated via Toolbox.  
+- During updates, the Clash.Meta `config.yaml` configuration file will be backed up to:  
+   - `config.yaml.bak`  
+- During updates, the old user configuration files will be backed up to:  
+   - `box.config.bak`  
+- During updates, your subscription URLs will be automatically extracted and backed up to:  
+   - `subscribe_urls_backup.txt`  
+   - The backup will be automatically extracted and restored into the new configuration, applicable when using the default configuration file.  
+- The module update does NOT include:  
+   - Geo database files  
+   - Binary files  
+   - Web resources  
 
-> Ps: Mainly follows upstream updates and distributes some configurations
+> Note: Updates mainly follow upstream changes and distribute some configurations.
 
 </details>
 
@@ -165,11 +169,11 @@ Android user group ID identifiers:
 2. Tun Mode
 - Enabled by default
 
-> Recommended to enable under WiFi. If not necessary, it can be disabled. Do not use black/whitelist before enabling this mode.
+> It is recommended to keep it enabled. It can be disabled if not needed, but do not use black/white lists when this mode is enabled.
 
 3. Routing Rules
 - Bypass mainland China
-- The rules are maintained by the developer and can satisfy most usage needs.
+- It basically meets the needs of most users.
 
 > Black/whitelist is not significant unless strictly required. The module's built-in configuration is sufficient.
 
