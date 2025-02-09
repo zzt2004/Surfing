@@ -29,9 +29,10 @@ fi
 
 extract_subscribe_urls() {
   if [ -f "$CONFIG_FILE" ]; then
-    awk '/p: &p/,/}/' "$CONFIG_FILE" | grep -Eo 'url: ".*"' | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+    awk '/proxy-providers:/,/^proxies:/' "$CONFIG_FILE" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+    
     if [ -s "$BACKUP_FILE" ]; then
-      echo "- 订阅地址 URL 已备份 txt"
+      echo "- 订阅地址已备份到 $BACKUP_FILE"
     else
       echo "- 未找到目标 URL，请检查配置文件格式"
     fi
@@ -39,12 +40,19 @@ extract_subscribe_urls() {
     echo "- 配置文件不存在，无法提取订阅地址"
   fi
 }
-
 restore_subscribe_urls() {
   if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
-    URL=$(cat "$BACKUP_FILE" | tr -d '\n' | tr -d '\r')
-    ESCAPED_URL=$(printf '%s\n' "$URL" | sed 's/[&/]/\\&/g')
-    sed -i -E "/p: &p/{N;s|url: \".*\"|url: \"$ESCAPED_URL\"|}" "$CONFIG_FILE"
+    awk 'NR==FNR {
+           urls[++n] = $0; 
+           next 
+         }
+         /proxy-providers:/ { inBlock = 1 }
+         inBlock && /url: / {
+           sub(/url: ".*"/, "url: \"" urls[++i] "\"")
+         }
+         /proxies:/ { inBlock = 0 }
+         { print }
+        ' "$BACKUP_FILE" "$CONFIG_FILE" > "$CONFIG_FILE.tmp" && mv "$CONFIG_FILE.tmp" "$CONFIG_FILE"
     echo "- 订阅地址已恢复 >> 新配置中！"
   else
     echo "- 备份文件不存在或为空，无法恢复订阅地址。"
@@ -65,19 +73,6 @@ if [ -d /data/adb/box_bll ]; then
   ui_print "- 配置文件 config.yaml 已备份 bak"
   ui_print "- 用户配置 box.config 已备份 bak"
 
-  rm -f "/data/adb/box_bll/clash/UpdateScript.sh"
-  rm -f "/data/adb/box_bll/clash/Gui Yacd: 获取面板.sh"
-  rm -f "/data/adb/box_bll/clash/Gui Meta: 获取面板.sh"
-  rm -f "/data/adb/box_bll/clash/Telegram chat.sh"
-  rm -f "/data/adb/box_bll/clash/country.mmdb"
-  rm -f "/data/adb/box_bll/clash/UpdateGeo.sh"
-  rm -f "/data/adb/box_bll/clash/ASN.mmdb"
-  rm -f "/data/adb/box_bll/clash/Update: 数据库.sh"
-  rm -f "/data/adb/box_bll/clash/Telegram: 聊天组.sh"
-  rm -f "/data/adb/box_bll/clash/Gui Meta: 在线面板.sh"
-  rm -f "/data/adb/box_bll/clash/Gui Yacd: 在线面板.sh"
-  rm -rf /data/adb/box_bll/clash/ui
-  rm -rf /data/adb/box_bll/clash/dashboard
   cp -f "$MODPATH/box_bll/clash/config.yaml" /data/adb/box_bll/clash/
   cp -f "$MODPATH/box_bll/clash/enhanced_config.yaml" /data/adb/box_bll/clash/
   cp -f "$MODPATH/box_bll/clash/Toolbox.sh"
@@ -104,7 +99,6 @@ if [ "$APATCH" = true ]; then
   sed -i 's/name=Surfingmagisk/name=SurfingAPatch/g' "$MODPATH/module.prop"
 fi
 
-# 设置权限
 mkdir -p /data/adb/box_bll/bin/
 mkdir -p /data/adb/box_bll/run/
 
@@ -119,7 +113,6 @@ set_perm "$service_dir/Surfing_service.sh" 0 0 0700
 
 chmod ugo+x /data/adb/box_bll/scripts/*
 
-# 启动监控服务
 for pid in $(pidof inotifyd); do
   if grep -q box.inotify /proc/${pid}/cmdline; then
     kill ${pid}
