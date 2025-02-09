@@ -130,7 +130,7 @@ GitHub Actions automatically builds updates at 6 AM Beijing time every day to en
 
 - If you use all the default configurations, updates will be seamless.  
 - The module supports online updates within the client. After updating, no reboot is required; however, the module switch's enable/disable control ~~may temporarily not work and still require a reboot~~ or can be updated via Toolbox.  
-- During updates, the Clash.Meta `config.yaml` configuration file will be backed up to:  
+- During updates, the configuration file will be backed up to:  
    - `config.yaml.bak`  
 - During updates, the old user configuration files will be backed up to:  
    - `box.config.bak`  
