@@ -139,7 +139,7 @@ apps_proxies: &apps_proxies
     type: select
     proxies:
       - 🎯 总模式
-      - 🚀 节点选择
+      - 🌎 全球直连
       - ♻️ 手动切换1
       - ♻️ 延迟最低
       - ♻️ 故障转移
