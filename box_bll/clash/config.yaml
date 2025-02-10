@@ -1,4 +1,3 @@
-# Android_v1.0
 # 基础设置
 mixed-port: 7890
 redir-port: 7891
@@ -117,7 +116,7 @@ All: &All
   - 2.备用地址
   - 3.额外地址
   
-proxy-providers: # 此为模块更新备份恢复订阅变量 此函数位置请勿变动！上
+proxy-providers: # 此函数位置请勿变动！此为模块更新时备份恢复订阅变量范围 ↓
   1.主要地址:
     <<: *p
     url: "引入您的Clash订阅链接地址"
@@ -131,12 +130,29 @@ proxy-providers: # 此为模块更新备份恢复订阅变量 此函数位置请
     url: "引入您的Clash订阅链接地址"
 # —————————
 
-proxies: # 此为模块更新备份恢复订阅变量 此函数位置请勿变动！下
+proxies: # 此函数位置请勿变动！此为模块更新时备份恢复订阅变量范围 ↑
   - {name: 🌎 全球直连, type: direct, udp: true}
   - {name: 🚫 拒绝连接, type: reject}
   - {name: 🌐 DNS_Hijack, type: dns}
 
-name_proxies: &name_proxies
+apps_proxies: &apps_proxies
+    type: select
+    proxies:
+      - 🎯 总模式
+      - 🚀 节点选择
+      - ♻️ 手动切换1
+      - ♻️ 延迟最低
+      - ♻️ 故障转移
+      - ♻️ 负载均衡
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🌍 其它地区
+# —————————
+proxy-groups:
+  - name: 🎯 总模式
     type: select
     proxies:
       - 🚀 节点选择
@@ -152,10 +168,6 @@ name_proxies: &name_proxies
       - 🌍 其它地区
       - 🌎 全球直连
 # —————————
-
-proxy-groups:
-  - name: 🎯 总模式
-    <<: *name_proxies
 
   - name: 🚀 节点选择
     type: select
@@ -185,40 +197,37 @@ proxy-groups:
     <<: *A
 
   - name: 📲 电报信息
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🤖 OpenAI
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🎬 油管媒体
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 📸 TikTok
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 📱 脸书社交
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 📹 奈飞媒体
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 📢 谷歌服务
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 📣 谷歌推送
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🎮 Discord
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: Ⓜ️ 微软服务
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🍎 苹果服务
-    <<: *name_proxies
-
-  - name: 🎹 网易音乐
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🛑 广告拦截
     type: select
@@ -227,7 +236,7 @@ proxy-groups:
       - 🌎 全球直连
 
   - name: 🐋 漏网之鱼
-    <<: *name_proxies
+    <<: *apps_proxies
 
   - name: 🇭🇰 香港节点
     filter: "^(?=.*(港|HK|hk|Hong Kong|HongKong|hongkong)).*$"
@@ -323,17 +332,12 @@ rule-providers:
   Discord:
     <<: *RuleDefault
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Discord/Discord.list"
-
-  NetEaseMusic:
-    <<: *RuleDefault
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/NetEaseMusic/NetEaseMusic.list"
 # —————————
 
 rules:
   - DST-PORT,53,🌐 DNS_Hijack
   - AND,((PROCESS-NAME,mihomo),(NOT,((IN-TYPE,inner)))),REJECT
   - AND,((PROCESS-NAME,clash),(NOT,((IN-TYPE,inner)))),REJECT
-  - RULE-SET,NetEaseMusic,🎹 网易音乐
   - RULE-SET,Discord,🎮 Discord
   - RULE-SET,TikTok,📸 TikTok
   - RULE-SET,YouTube,🎬 油管媒体
