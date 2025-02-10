@@ -88,7 +88,7 @@ else
   ui_print "- 安装完成 工作目录"
   ui_print "- data/adb/box_bll/"
   ui_print "- 安装无需重启设备..."
-  ui_print "- 首次安装需重启模块服务"
+  ui_print "- 首次安装需通过模块开关重启模块服务"
 fi
 
 if [ "$KSU" = true ]; then
