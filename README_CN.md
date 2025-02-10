@@ -11,8 +11,8 @@
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v7.1# ">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v7.1/total?label=Download@v7.1&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v7.2">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v7.2/total?label=Download@v7.2&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
@@ -78,8 +78,8 @@
 <summary>1. 首次使用</summary>
 
 - 安装模块后无需重启设备，可使用`Toolbox`整合并刷新客户端的更新状态
-- 于`config.yaml`添加订阅地址，重载一下配置
-- 可能因网络原因不会自动下载完全部规则，请手动 更新/下载 规则文件
+- 首次安装完成后，于`config.yaml`添加你的订阅地址，并通过开关重启一下模块服务
+- 可能因网络原因不会自动下载完全部 **规则**/**订阅**，请至面板手动刷新一下
   - 如上述失败，并确保你的网络环境正常
 - Web App：[Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [查看源码](./folder/main.lua)
   - 仅为图形辅助工具，用于便携浏览及管理后台路由数据，并无其它多余用途

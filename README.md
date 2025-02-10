@@ -11,8 +11,8 @@
     <a href="https://github.com/MoGuangYu/Surfing/releases/tag/Prerelease-Alpha">
         <img alt="Android" src="https://img.shields.io/badge/Module Latestsnapshot-F05033.svg?logo=android&logoColor=white">
     </a>
-    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v7.1">
-        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v7.1/total?label=Download@v7.1&labelColor=00b56a&logo=git&logoColor=white">
+    <a href="https://github.com/MoGuangYu/Surfing/releases/tag/v7.2">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/MoGuangYu/Surfing/v7.2/total?label=Download@v7.2&labelColor=00b56a&logo=git&logoColor=white">
     </a>
 </div>
 
@@ -74,14 +74,14 @@ Please decide whether to use the Surfing module only after clearly understanding
 <details>
 <summary>1. First Use</summary>
 
-- After installing the module, you don't need to restart the device. You can use the `Toolbox` integration to refresh the update status of the client
-- Add the subscription address in `config.yaml` and reload the configuration.
-- Due to network reasons, all rules may not be downloaded automatically. Please manually update/download the rule files.
+- After installing the module, no need to restart the device. You can use `Toolbox` to integrate and refresh the client update status.
+- After installation is complete, add your subscription address to `config.yaml` and restart the module service via the switch.
+- Due to network reasons, all **rules**/**subscriptions** may not be downloaded automatically. Please manually refresh in the panel.
   - If the above fails, ensure your network environment is normal.
-- Web App: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source Code](./folder/main.lua)
-  - This is a graphical auxiliary tool for convenient browsing and managing backend routing data, with no additional purposes.
+- Web App: [Download](https://github.com/MoGuangYu/Surfing/raw/main/folder/Web_v5.5_release.apk) | [View Source](./folder/main.lua)
+  - It is only a graphical auxiliary tool used for portable browsing and managing the backend route data, with no other unnecessary uses.
 
-> The module has a built-in GUI that can be accessed locally via a browser or used online with the app, with no essential difference between the two.
+> The module has a built-in GUI that can be accessed locally via a browser or used online via the app. There is essentially no difference between the two.
 
 </details>
 
