@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.3"
+CURRENT_VERSION="v11.5"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -121,7 +121,7 @@ update_module() {
         echo "错误：请确保网络能正常访问 GitHub！"
         return
     fi
-    download_url=$(echo "$module_release" | grep '"browser_download_url"' | sed -E 's/.*"([^"]+)".*/\1/')
+    download_url=$(echo "$module_release" | grep '"browser_download_url".*release' | sed -E 's/.*"([^"]+)".*/\1/')
     echo "获取成功！"
     echo "当前最新版本号: $module_version"
 
@@ -163,8 +163,8 @@ update_module() {
     fi
 
     extract_subscribe_urls() {
-        if [ -f "$CONFIG_FILE" ]; then
-            awk '/proxy-providers:/,/^proxies:/' "$CONFIG_FILE" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+        if [ -f "$CONFIG_PATH" ]; then
+            awk '/proxy-providers:/,/^proxies:/' "$CONFIG_PATH" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
             
             if [ -s "$BACKUP_FILE" ]; then
                 echo "- 订阅地址已备份到 $BACKUP_FILE"
@@ -188,7 +188,7 @@ update_module() {
                  }
                  /proxies:/ { inBlock = 0 }
                  { print }
-                ' "$BACKUP_FILE" "$CONFIG_FILE" > "$CONFIG_FILE.tmp" && mv "$CONFIG_FILE.tmp" "$CONFIG_FILE"
+                ' "$BACKUP_FILE" "$CONFIG_PATH" > "$CONFIG_PATH.tmp" && mv "$CONFIG_PATH.tmp" "$CONFIG_PATH"
             echo "- 订阅地址已恢复 >> 新配置中！"
         else
             echo "- 备份文件不存在或为空，无法恢复订阅地址。"
