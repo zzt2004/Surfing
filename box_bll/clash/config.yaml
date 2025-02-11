@@ -19,7 +19,7 @@ external-ui: /data/adb/box_bll/panel/Meta/
 secret: ""
 # —————————
 #####################
-#修改配置文件保存时，建议重启模块服务/重载配置.
+#修改配置文件保存时，建议重启服务/重载配置.
 #####################
 
 # 节点记忆
@@ -63,7 +63,7 @@ tun:
   route-exclude-address:
   - 192.168.0.0/16
   - fc00::/7
-  exclude-package: # 游戏卡顿可添加包名
+  exclude-package: # 游戏卡顿可添加包名 仅Android
     #- com.tencent.tmgp.sgame
 # —————————
 
@@ -184,11 +184,11 @@ proxy-groups:
   - name: ♻️ 延迟最低
     type: url-test
     <<: *A
-  
+
   - name: ♻️ 故障转移
     type: fallback
     <<: *A
-  
+
   - name: ♻️ 负载均衡
     type: load-balance
     strategy: round-robin
@@ -200,25 +200,25 @@ proxy-groups:
   - name: 🤖 OpenAI
     <<: *apps_proxies
 
-  - name: 🎬 油管媒体
+  - name: 🎮 Discord
     <<: *apps_proxies
 
   - name: 📸 TikTok
     <<: *apps_proxies
 
-  - name: 📱 脸书社交
+  - name: 🎬 油管媒体
     <<: *apps_proxies
 
   - name: 📹 奈飞媒体
     <<: *apps_proxies
 
-  - name: 📢 谷歌服务
+  - name: 📱 脸书社交
     <<: *apps_proxies
 
   - name: 📣 谷歌推送
     <<: *apps_proxies
 
-  - name: 🎮 Discord
+  - name: 📢 谷歌服务
     <<: *apps_proxies
 
   - name: Ⓜ️ 微软服务
@@ -274,7 +274,7 @@ rule-providers:
   CN_IP:
     <<: *IP
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
-    
+
   private_Lan:
     <<: *IP
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
@@ -342,8 +342,8 @@ rules:
   - RULE-SET,Netflix,📹 奈飞媒体
   - RULE-SET,Facebook,📱 脸书社交
   - RULE-SET,OpenAI,🤖 OpenAI
-  - RULE-SET,Google,📢 谷歌服务
   - RULE-SET,GoogleFCM,📣 谷歌推送
+  - RULE-SET,Google,📢 谷歌服务
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
   - RULE-SET,Telegram,📲 电报信息
