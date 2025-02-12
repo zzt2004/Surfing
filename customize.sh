@@ -3,6 +3,8 @@
 SKIPUNZIP=1
 ASH_STANDALONE=1
 
+CLASH_RELOAD_URL="http://127.0.0.1:9090/configs"
+CLASH_RELOAD_PATH="/data/adb/box_bll/clash/config.yaml"
 SURFING_PATH="/data/adb/modules/Surfing/"
 SCRIPTS_PATH="/data/adb/box_bll/scripts/"
 NET_PATH="/data/misc/net"
@@ -32,7 +34,8 @@ extract_subscribe_urls() {
     awk '/proxy-providers:/,/^proxies:/' "$CONFIG_FILE" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
     
     if [ -s "$BACKUP_FILE" ]; then
-      echo "- 订阅地址已备份到 $BACKUP_FILE"
+      echo "- 提取订阅地址已备份到"
+      echo "- $BACKUP_FILE"
     else
       echo "- 未找到目标 URL，请检查配置文件格式"
     fi
@@ -58,6 +61,22 @@ restore_subscribe_urls() {
     echo "- 备份文件不存在或为空，无法恢复订阅地址。"
   fi
 }
+reload_configuration() {
+    if [ -f "/data/adb/modules/Surfing/disable" ]; then
+        echo "↴" 
+        echo "服务未运行，重载操作失败！"
+        return
+    fi
+    echo "↴"
+    echo "正在重载 Clash 配置..."
+    sleep 3
+    curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
+    if [ $? -eq 0 ]; then
+        echo "- 成功！"
+    else
+        echo "- 失败！"
+    fi
+}
 
 unzip -qo "${ZIPFILE}" -x 'META-INF/*' -d "$MODPATH"
 if [ -d /data/adb/box_bll ]; then
@@ -81,6 +100,7 @@ ui_print "- ————————————————"
   
   restore_subscribe_urls
   ui_print "- 更新无需重启设备..."
+  reload_configuration
 else
   mv "$MODPATH/box_bll" /data/adb/
   ui_print "- Installing..."
