@@ -4,12 +4,12 @@ redir-port: 7891
 tproxy-port: 1536
 mode: Rule
 allow-lan: true
-geodata-mode: false
-geo-auto-update: false
+geo-auto-update: true
 geo-update-interval: 24
+geox-url:
+  ASN.mmdb: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
 unified-delay: true
 tcp-concurrent: true
-enable-process: true
 log-level: silent
 find-process-mode: always
 global-client-fingerprint: chrome
@@ -58,7 +58,7 @@ tun:
   udp-timeout: 300
   auto-route: true
   strict-route: true
-  auto-redirect: false
+  auto-redirect: true
   auto-detect-interface: true
   route-exclude-address:
   - 192.168.0.0/16
@@ -80,13 +80,19 @@ dns:
     - "+.lan"
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
-    - "*.market.xiaomi.com"
-  default-nameserver:
+    - "+.market.xiaomi.com"
+  direct-nameserver:
     - 119.29.29.29
+    - 1.12.12.12
+    - 223.5.5.5
     - 223.6.6.6
+  nameserver-policy:
+    "RULE-SET:CN_域名":
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
   nameserver:
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
 # —————————
 
 # 健康检查
@@ -113,7 +119,7 @@ All: &All
   - 1.主要地址
   - 2.备用地址
   - 3.额外地址
-  
+
 proxy-providers: # 此函数位置请勿变动！此为模块更新时备份恢复订阅变量范围 ↓
   1.主要地址:
     <<: *p
@@ -130,15 +136,14 @@ proxy-providers: # 此函数位置请勿变动！此为模块更新时备份恢�
 
 proxies: # 此函数位置请勿变动！此为模块更新时备份恢复订阅变量范围 ↑
   - {name: 🌎 全球直连, type: direct, udp: true}
-  - {name: 🚫 拒绝连接, type: reject}
+  - {name: ⛔️ 拒绝连接, type: reject}
   - {name: 🌐 DNS_Hijack, type: dns}
 
-apps_proxies: &apps_proxies
+proxy_groups: &proxy_groups
     type: select
     proxies:
       - 🎯 总模式
-      - 🌎 全球直连
-      - ♻️ 手动切换1
+      - ⛔️ 拒绝连接
       - ♻️ 延迟最低
       - ♻️ 故障转移
       - ♻️ 负载均衡
@@ -148,13 +153,13 @@ apps_proxies: &apps_proxies
       - 🇯🇵 日本节点
       - 🇺🇲 美国节点
       - 🌍 其它地区
+      - 🌎 全球直连
+    <<: *A
 # —————————
 proxy-groups:
   - name: 🎯 总模式
     type: select
     proxies:
-      - 🚀 节点选择
-      - ♻️ 手动切换1
       - ♻️ 延迟最低
       - ♻️ 故障转移
       - ♻️ 负载均衡
@@ -166,20 +171,6 @@ proxy-groups:
       - 🌍 其它地区
       - 🌎 全球直连
 # —————————
-
-  - name: 🚀 节点选择
-    type: select
-    proxies:
-      - ♻️ 延迟最低
-      - 🌎 全球直连
-    <<: *A
-
-  - name: ♻️ 手动切换1
-    type: select
-    proxies:
-      - ♻️ 延迟最低
-      - 🌎 全球直连
-    <<: *A
 
   - name: ♻️ 延迟最低
     type: url-test
@@ -195,46 +186,46 @@ proxy-groups:
     <<: *A
 
   - name: 📲 电报信息
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🤖 OpenAI
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🎮 Discord
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 📸 TikTok
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🎬 油管媒体
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 📹 奈飞媒体
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 📱 脸书社交
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 📣 谷歌推送
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 📢 谷歌服务
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: Ⓜ️ 微软服务
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🍎 苹果服务
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🛑 广告拦截
     type: select
     proxies:
-      - 🚫 拒绝连接
-      - 🌎 全球直连
+      - ⛔️ 拒绝连接
+      - PASS #匹配规则
 
   - name: 🐋 漏网之鱼
-    <<: *apps_proxies
+    <<: *proxy_groups
 
   - name: 🇭🇰 香港节点
     filter: "^(?=.*(港|HK|hk|Hong Kong|HongKong|hongkong)).*$"
