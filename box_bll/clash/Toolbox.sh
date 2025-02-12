@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.5"
+CURRENT_VERSION="v11.6"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 get_remote_version() {
@@ -167,7 +167,8 @@ update_module() {
             awk '/proxy-providers:/,/^proxies:/' "$CONFIG_PATH" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
             
             if [ -s "$BACKUP_FILE" ]; then
-                echo "- 订阅地址已备份到 $BACKUP_FILE"
+                echo "- 订阅地址已备份到"
+                echo "- $BACKUP_FILE"
             else
                 echo "- 未找到目标 URL，请检查配置文件格式"
             fi
@@ -194,6 +195,27 @@ update_module() {
             echo "- 备份文件不存在或为空，无法恢复订阅地址。"
         fi
     }
+    
+    reload_configuration() {
+       if [ ! -f "$MODULE_PROP" ]; then
+          echo "↴" 
+          echo "当前未安装模块！"
+          return
+       fi
+       if [ -f "/data/adb/modules/Surfing/disable" ]; then
+          echo "↴" 
+          echo "服务未运行，重载操作失败！"
+          return
+       fi
+          echo "↴"
+          echo "正在重载 Clash 配置..."
+          curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
+       if [ $? -eq 0 ]; then
+          echo "ok"
+       else
+          echo "重载失败！"
+       fi
+    }
 
     if [ -d /data/adb/box_bll/clash ]; then
         extract_subscribe_urls
@@ -204,7 +226,6 @@ update_module() {
     else 
         SERVICE_PATH="/data/adb/service.d"
     fi
-
     mkdir -p "$SERVICE_PATH"
     mv "$TEMP_DIR/Surfing_service.sh" "$SERVICE_PATH"
     chmod 0700 "${SERVICE_PATH}/Surfing_service.sh"
@@ -226,6 +247,7 @@ update_module() {
         [ -d "$TEMP_DIR/webroot" ] && cp -r "$TEMP_DIR/webroot/"* "$SURFING_PATH/webroot/"
 
         restore_subscribe_urls
+        reload_configuration
     else
         mkdir -p "$SURFING_PATH"
         mv "$TEMP_DIR/box_bll" "/data/adb/"
@@ -256,8 +278,8 @@ update_module() {
     else
         echo "更新成功✓"
     fi
-
     echo "无需重启设备..."
+
 }
 update_module
 show_menu() {
@@ -289,12 +311,12 @@ show_menu() {
             3)
                 update_web_panel
                 ;;  
-#            4)
-#                update_geo_database
-#                ;;
-#            5)
-#                update_rules
-#                ;;
+            4)
+                update_geo_database
+                ;;
+            5)
+                update_rules
+                ;;
             6)
                 update_core
                 ;;
