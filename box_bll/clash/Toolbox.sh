@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.7"
+CURRENT_VERSION="v11.8"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 
@@ -72,8 +72,9 @@ check_version() {
         return
     fi
     if [ "$(echo "$remote_version" | cut -d'v' -f2)" != "$(echo "$CURRENT_VERSION" | cut -d'v' -f2)" ]; then
-        echo "当前脚本版本: $CURRENT_VERSION"
-        echo "最新脚本版本: $remote_version"
+        echo "Toolbox"
+        echo "当前版本版本: $CURRENT_VERSION"
+        echo "远程最新版本: $remote_version"
         echo "是否更新脚本？回复y/n"
         read -r update_confirmation
         if [ "$update_confirmation" = "y" ]; then
@@ -107,7 +108,7 @@ extract_subscribe_urls() {
             echo "$BACKUP_FILE"
         else
             echo "未找到目标 URL，请检查配置文件格式"
-            rm -f "$BACKUP_FILE"  # 删除空备份
+            rm -f "$BACKUP_FILE"
         fi
     else
         echo "配置文件不存在，无法提取订阅地址"
