@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v12"
+CURRENT_VERSION="v12.0"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 
@@ -58,7 +58,7 @@ get_remote_version() {
         echo "无法连接到 GitHub！"
         return 1
     fi
-    remote_version=$(echo "$remote_content" | grep -Eo 'CURRENT_VERSION="v[0-9]+\.[0-9]+"' | head -1 | cut -d'=' -f2 | tr -d '"')
+    remote_version=$(echo "$remote_content" | grep -Eo 'CURRENT_VERSION="v[0-9]+(\.[0-9]+)?"' | head -1 | cut -d'=' -f2 | tr -d '"')
     if [ -z "$remote_version" ]; then
         echo "无法获取远程版本信息！"
         return 1
