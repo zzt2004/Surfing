@@ -47,7 +47,7 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.8"
+CURRENT_VERSION="v11.9"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
 
@@ -86,7 +86,7 @@ check_version() {
                 exit 1
             fi
             chmod 0644 "$TOOLBOX_FILE"
-            echo "正在运行最新版本的脚本..."
+            echo "正在运行最新版本的脚本！"
             exec sh "$TOOLBOX_FILE"
             exit 0
         else
@@ -526,7 +526,7 @@ show_menu() {
         echo ""
         echo "6. 更新核心"
         echo ""
-        echo "7. 进入频道"
+        echo "7. 少儿频道"
         echo ""
         echo "8. 控制台面板入口"
         echo ""
