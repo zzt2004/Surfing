@@ -47,9 +47,11 @@ GIT_URL="https://api.github.com/repos/MoGuangYu/Surfing/releases/latest"
 RULES_URL_PREFIX="https://raw.githubusercontent.com/MoGuangYu/rules/main/Home/"
 RULES=("YouTube.yaml" "TikTok.yaml" "Telegram.yaml" "OpenAI.yaml" "Netflix.yaml" "Microsoft.yaml" "Google.yaml" "Facebook.yaml" "Discord.yaml" "Apple.yaml")
 
-CURRENT_VERSION="v11.6"
+CURRENT_VERSION="v11.7"
 TOOLBOX_URL="https://raw.githubusercontent.com/MoGuangYu/Surfing/main/box_bll/clash/Toolbox.sh"
 TOOLBOX_FILE="/data/adb/box_bll/clash/Toolbox.sh"
+
+
 get_remote_version() {
     remote_content=$(curl -s --connect-timeout 3 "$TOOLBOX_URL")
     if [ $? -ne 0 ]; then
@@ -77,7 +79,7 @@ check_version() {
         if [ "$update_confirmation" = "y" ]; then
             echo "↴" 
             echo "正在从 GitHub 下载最新版本..."
-            curl -L -o "$TOOLBOX_FILE" "$TOOLBOX_URL"
+            curl -sS -L -o "$TOOLBOX_FILE" "$TOOLBOX_URL"
             if [ $? -ne 0 ]; then
                 echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
                 exit 1
@@ -94,6 +96,71 @@ check_version() {
     fi
 }
 check_version
+
+extract_subscribe_urls() {
+    if [ -f "$CONFIG_PATH" ]; then
+        echo "正在提取订阅地址..."
+        awk '/proxy-providers:/,/^proxies:/' "$CONFIG_PATH" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
+        
+        if [ -s "$BACKUP_FILE" ]; then
+            echo "订阅地址已备份到:"
+            echo "$BACKUP_FILE"
+        else
+            echo "未找到目标 URL，请检查配置文件格式"
+            rm -f "$BACKUP_FILE"  # 删除空备份
+        fi
+    else
+        echo "配置文件不存在，无法提取订阅地址"
+    fi
+}
+restore_subscribe_urls() {
+    if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
+        echo "正在恢复订阅地址..."
+        awk -v backup="$BACKUP_FILE" '
+            BEGIN {
+                while ((getline url < backup) > 0) {
+                    urls[++n] = url
+                }
+                close(backup)
+                i = 0
+            }
+            /proxy-providers:/ { in_provider = 1 }
+            in_provider && /url:/ {
+                if (++i <= n) {
+                    sub(/url: ".*"/, "url: \"" urls[i] "\"")
+                }
+            }
+            /proxies:/ { in_provider = 0 }
+            { print }
+        ' "$CONFIG_PATH" > "$CONFIG_PATH.tmp" && \
+        mv "$CONFIG_PATH.tmp" "$CONFIG_PATH"
+
+        echo "订阅地址已恢复 >> 新配置中！"
+    else
+        echo "配置文件不存在，无法提取订阅地址"
+    fi
+}
+reload_configuration() {
+       if [ ! -f "$MODULE_PROP" ]; then
+          echo "↴" 
+          echo "当前未安装模块！"
+          return
+       fi
+       if [ -f "/data/adb/modules/Surfing/disable" ]; then
+          echo "↴" 
+          echo "服务未运行，重载操作失败！"
+          return
+       fi
+          echo "↴"
+          echo "正在重载 Clash 配置..."
+          curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
+       if [ $? -eq 0 ]; then
+          echo "ok"
+       else
+          echo "重载失败！"
+       fi
+    }
+
 update_module() {
     echo "↴"
     module_installed=true
@@ -118,7 +185,7 @@ update_module() {
     module_version=$(echo "$module_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$module_version" ]; then
         echo "获取服务器失败！"
-        echo "错误：请确保网络能正常访问 GitHub！"
+        echo "错误：API 速率受限 / 网络异常 ！"
         return
     fi
     download_url=$(echo "$module_release" | grep '"browser_download_url".*release' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -149,7 +216,7 @@ update_module() {
 
     echo "↴"
     echo "正在下载文件中..."
-    if ! curl -L -o "$TEMP_FILE" "$download_url"; then
+    if ! curl -sS -L -o "$TEMP_FILE" "$download_url"; then
         echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
         return
     fi
@@ -161,61 +228,6 @@ update_module() {
         rm -rf "$TEMP_FILE" "$TEMP_DIR"
         return
     fi
-
-    extract_subscribe_urls() {
-        if [ -f "$CONFIG_PATH" ]; then
-            awk '/proxy-providers:/,/^proxies:/' "$CONFIG_PATH" | grep -Eo "url: \".*\"" | sed -E 's/url: "(.*)"/\1/' > "$BACKUP_FILE"
-            
-            if [ -s "$BACKUP_FILE" ]; then
-                echo "- 订阅地址已备份到"
-                echo "- $BACKUP_FILE"
-            else
-                echo "- 未找到目标 URL，请检查配置文件格式"
-            fi
-        else
-            echo "- 配置文件不存在，无法提取订阅地址"
-        fi
-    }
-
-    restore_subscribe_urls() {
-        if [ -f "$BACKUP_FILE" ] && [ -s "$BACKUP_FILE" ]; then
-            awk 'NR==FNR {
-                   urls[++n] = $0; 
-                   next 
-                 }
-                 /proxy-providers:/ { inBlock = 1 }
-                 inBlock && /url: / {
-                   sub(/url: ".*"/, "url: \"" urls[++i] "\"")
-                 }
-                 /proxies:/ { inBlock = 0 }
-                 { print }
-                ' "$BACKUP_FILE" "$CONFIG_PATH" > "$CONFIG_PATH.tmp" && mv "$CONFIG_PATH.tmp" "$CONFIG_PATH"
-            echo "- 订阅地址已恢复 >> 新配置中！"
-        else
-            echo "- 备份文件不存在或为空，无法恢复订阅地址。"
-        fi
-    }
-    
-    reload_configuration() {
-       if [ ! -f "$MODULE_PROP" ]; then
-          echo "↴" 
-          echo "当前未安装模块！"
-          return
-       fi
-       if [ -f "/data/adb/modules/Surfing/disable" ]; then
-          echo "↴" 
-          echo "服务未运行，重载操作失败！"
-          return
-       fi
-          echo "↴"
-          echo "正在重载 Clash 配置..."
-          curl -X PUT "$CLASH_RELOAD_URL" -d "{\"path\":\"$CLASH_RELOAD_PATH\"}"
-       if [ $? -eq 0 ]; then
-          echo "ok"
-       else
-          echo "重载失败！"
-       fi
-    }
 
     if [ -d /data/adb/box_bll/clash ]; then
         extract_subscribe_urls
@@ -282,22 +294,247 @@ update_module() {
 
 }
 update_module
+
+
+GITHUB_REPO="MoGuangYu/Surfing"
+SCRIPTS_PATH="box_bll/scripts"
+CLASH_PATH="box_bll/clash"
+LOCAL_SCRIPTS_DIR="/data/adb/box_bll/scripts"
+LOCAL_CLASH_DIR="/data/adb/box_bll/clash"
+CONFIG_PATH="$LOCAL_CLASH_DIR/config.yaml"
+BACKUP_FILE="$LOCAL_CLASH_DIR/subscribe_urls_backup.txt"
+LOCAL_SHA_DIR="/data/adb/box_bll/variab/sha_cache"
+
+all_up_to_date=true
+rate_limit_exceeded=false
+net_error=false
+
+echo ""
+echo "↴"
+echo "正在获取 MoGuangYu/Surfing 仓库最新提交："
+echo ""
+
+if [ ! -d "$LOCAL_SHA_DIR" ]; then
+    echo "↴"
+    echo "警告："
+    echo "检测到你是第一次获取"
+    echo "需执行遍历更新获取文件Sha值缓存"
+    echo ""
+fi
+
+FILES=(
+    "$SCRIPTS_PATH/box.config|$LOCAL_SCRIPTS_DIR/box.config|backup"
+    "$SCRIPTS_PATH/box.inotify|$LOCAL_SCRIPTS_DIR/box.inotify"
+    "$SCRIPTS_PATH/box.service|$LOCAL_SCRIPTS_DIR/box.service"
+    "$SCRIPTS_PATH/box.tproxy|$LOCAL_SCRIPTS_DIR/box.tproxy"
+    "$SCRIPTS_PATH/ctr.inotify|$LOCAL_SCRIPTS_DIR/ctr.inotify"
+    "$SCRIPTS_PATH/ctr.utils|$LOCAL_SCRIPTS_DIR/ctr.utils"
+    "$SCRIPTS_PATH/net.inotify|$LOCAL_SCRIPTS_DIR/net.inotify"
+    "$SCRIPTS_PATH/start.sh|$LOCAL_SCRIPTS_DIR/start.sh"
+    "$CLASH_PATH/config.yaml|$LOCAL_CLASH_DIR/config.yaml|backup"
+)
+
+get_file_commit_info() {
+    file_path="$1"
+    commit_info=$(curl -s "https://api.github.com/repos/$GITHUB_REPO/commits?path=$file_path" | grep -E '"message":' | head -1 | cut -d '"' -f4)
+    if [ -z "$commit_info" ]; then
+        echo "无法获取Git $file_path 的提交信息！"
+        return 1
+    fi
+    echo "$commit_info"
+    return 0
+}
+
+get_file_commit_sha() {
+    file_path="$1"
+ 
+    http_status=$(curl -s -I -o /dev/null -w "%{http_code}" "https://api.github.com/repos/$GITHUB_REPO/commits?path=$file_path")
+    curl_status=$?
+
+    if [ $curl_status -ne 0 ]; then
+        echo "无法连接到GitHub，请检查网络连接！"
+        return 3
+    fi
+
+    if [ "$http_status" = "403" ]; then
+        rate_limit_exceeded=true
+        all_up_to_date=false
+        return 2
+    elif [ "$http_status" != "200" ]; then
+        echo "无法获取Git $file_path 的最新提交信息！HTTP 状态码: $http_status"
+        return 1
+    fi
+
+    latest_sha=$(curl -s "https://api.github.com/repos/$GITHUB_REPO/commits?path=$file_path" | grep '"sha"' | head -1 | cut -d '"' -f4)
+    if [ $? -ne 0 ]; then
+        echo "获取SHA时发生网络错误！"
+        return 4
+    fi
+
+    if [ -z "$latest_sha" ]; then
+        echo "无法获取Git $file_path 的最新提交信息！"
+        return 1
+    fi
+    echo "$latest_sha"
+    return 0
+}
+
+backup_file() {
+    local_file="$1"
+    if [ -f "$local_file" ]; then
+        backup_file="${local_file}.bak"
+        cp "$local_file" "$backup_file"
+        echo "↴"
+        echo "Backup >>> $backup_file"
+    fi
+}
+
+check_and_update_files() {
+    for file_entry in "${FILES[@]}"; do
+        if $rate_limit_exceeded || $net_error; then
+            break
+        fi
+        
+        IFS='|' read -r file_path local_path need_backup <<< "$file_entry"
+        local_sha_file="$LOCAL_SHA_DIR/$(basename "$local_path")_sha"
+
+        latest_sha=$(get_file_commit_sha "$file_path")
+        ret=$?
+
+        if [ $ret -eq 3 ] || [ $ret -eq 4 ]; then
+            echo "网络连接异常，终止更新！"
+            net_error=true
+            break
+
+        elif [ $ret -eq 2 ]; then
+            rate_limit_exceeded=true
+            all_up_to_date=false
+            break
+        elif [ $ret -ne 0 ]; then
+            continue
+        fi
+        
+        if [ -f "$local_sha_file" ]; then
+            current_sha=$(cat "$local_sha_file")
+            if [ "$latest_sha" = "$current_sha" ]; then
+                continue
+            fi
+        fi
+
+        all_up_to_date=false
+
+        echo "GitMain >>> $(basename "$local_path") "
+        commit_info=$(get_file_commit_info "$file_path")
+        echo ""
+        echo "提交信息: "
+        echo "$commit_info"
+        echo "——————————"
+
+        while true; do
+            echo "是否同步更新？(y/n/x)"
+            read -r user_response
+            case "$user_response" in
+                y|Y|n|N|x|X)
+                    break
+                    ;;
+                *)
+                    echo "无效选项！"
+                    ;;
+            esac
+        done
+
+        if [ "$user_response" = "x" ] || [ "$user_response" = "X" ]; then
+            echo "↴"
+            echo "跳过此次所有检测"
+            break
+        elif [ "$user_response" = "n" ] || [ "$user_response" = "N" ]; then
+            echo "↴"
+            echo "跳过此"
+            echo ""
+            continue
+        fi
+        
+        if [ "$need_backup" = "backup" ]; then
+            backup_file "$local_path"
+            if [ "$local_path" = "$CONFIG_PATH" ]; then
+                extract_subscribe_urls
+            fi
+        fi
+
+        echo "↴"
+        echo "下载中..."
+        if [ ! -d "$LOCAL_SHA_DIR" ]; then
+            mkdir -p "$LOCAL_SHA_DIR" || {
+                echo "无法创建目录: $LOCAL_SHA_DIR"
+                exit 1
+            }
+        fi
+        
+        if ! curl -sS -L -o "$local_path" "https://raw.githubusercontent.com/$GITHUB_REPO/main/$file_path"; then
+            echo "下载失败，请检查网络连接！"
+            net_error=true
+            break
+        else
+            echo "更新完成 ✓"
+
+            if [ "$local_path" = "$CONFIG_PATH" ]; then
+                restore_subscribe_urls
+                reload_configuration
+            fi
+            echo "$latest_sha" > "$local_sha_file"
+        fi
+        echo ""
+    done
+}
+check_and_update_files
+
+if $net_error; then
+    echo "警告："
+    echo "网络连接失败"
+    echo "请检查网络连接后重试！"
+elif $rate_limit_exceeded; then
+    echo "警告："
+    echo "GitHub API 速率限制已用尽！"
+    echo "当前 IP 请求次数过多，请更换 IP 或等待 1 小时后重试！"
+elif $all_up_to_date; then
+    echo "获取成功！"
+    echo "当前所有文件已是最新"
+else
+    if [ -d "$LOCAL_SHA_DIR" ] && [ -n "$(find "$LOCAL_SHA_DIR" -type f)" ]; then
+        echo "↴"
+        echo "部分文件已是更新"
+    fi
+fi
+echo ""
+echo "检测已结束..."
+
 show_menu() {
     while true; do
         echo "=========="
-        echo "$CURRENT_VERSION" 
-        echo "Menu Bar："
+        echo "Menu：$CURRENT_VERSION"
+        echo ""
         echo "1. 重载配置"
+        echo ""
         echo "2. 清空数据库缓存"
-        echo "3. 更新Web面板"
-        #echo "4. 更新Geo数据库"
-        #echo "5. 更新Apps路由规则"
-        echo "6. 更新Clash核心"
-        echo "7. 进入Telegran频道"
-        echo "8. Web面板访问入口整合"
-        echo "9. 整合Magisk更新状态"
+        echo ""
+        echo "3. 更新控制台面板"
+        echo ""
+        echo "4. 更新数据库"
+        echo ""
+        echo "5. 更新路由规则"
+        echo ""
+        echo "6. 更新核心"
+        echo ""
+        echo "7. 进入频道"
+        echo ""
+        echo "8. 控制台面板入口"
+        echo ""
+        echo "9. 整合客户端更新状态"
+        echo ""
         echo "10. 禁用/启用 更新模块"
+        echo ""
         echo "11. 项目地址"
+        echo ""
         echo "12. Exit"
         echo "——————"
         read -r choice
@@ -363,6 +600,7 @@ show_menu() {
         esac
     done
 }
+NO_UPDATE_ENABLED=true
 ensure_var_path() {
     if [ ! -d "$VAR_PATH" ]; then
         mkdir -p "$VAR_PATH"
@@ -510,6 +748,12 @@ clear_cache() {
     date +%s > "$CACHE_CLEAR_TIMESTAMP"
 }
 update_geo_database() {
+    if [ "$NO_UPDATE_ENABLED" = "true" ]; then
+        echo "↴"
+        echo "当前是禁用状态，不允许执行该选项！"
+        return
+    fi
+    
     if [ ! -f "$MODULE_PROP" ]; then
         echo "↴" 
         echo "当前未安装模块！"
@@ -527,7 +771,7 @@ update_geo_database() {
     geo_version=$(echo "$geo_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$geo_version" ]; then
         echo "获取服务器失败！"
-        echo "错误：请确保网络能正常访问 GitHub！"
+        echo "错误：API 速率受限 / 网络异常 ！"
         return
     fi       
     echo "获取成功！"
@@ -573,6 +817,12 @@ update_geo_database() {
     echo "$geo_version" > "$GEO_DATABASE_VERSION_FILE"
 }
 update_rules() {
+    if [ "$NO_UPDATE_ENABLED" = "true" ]; then
+        echo "↴"
+        echo "当前是禁用状态，不允许执行该选项！"
+        return
+    fi
+    
     if [ ! -f "$MODULE_PROP" ]; then
         echo "↴" 
         echo "当前未安装模块！"
@@ -708,7 +958,7 @@ update_web_panel() {
 
     if [ -z "$meta_version" ] || [ -z "$yacd_version" ] || [ -z "$zash_version" ]; then
         echo "获取服务器失败！"
-        echo "错误：请确保网络能正常访问 GitHub！"
+        echo "错误：API 速率受限 / 网络异常 ！"
         return
     fi  
     echo "获取成功！"   
@@ -744,6 +994,7 @@ update_web_panel() {
         echo "操作取消！"
         return
     fi    
+    
     if [ "$meta_update_needed" = true ]; then
         echo "↴"
         echo "正在更新：Meta"
@@ -758,7 +1009,7 @@ update_web_panel() {
             new_install=true
         fi
         echo "正在拉取最新的代码..."
-        curl -L -o "$TEMP_FILE" "$META_URL"
+        curl -sS -L -o "$TEMP_FILE" "$META_URL"
         if [ $? -eq 0 ]; then
             echo "下载成功，正在效验文件..."
             if [ -s "$TEMP_FILE" ]; then
@@ -784,6 +1035,7 @@ update_web_panel() {
             echo "拉取下载失败！"
         fi   
     fi
+    
     if [ "$yacd_update_needed" = true ]; then
         echo "↴"
         echo "正在更新：Yacd"
@@ -798,7 +1050,7 @@ update_web_panel() {
             new_install=true
         fi
         echo "正在拉取最新的面板代码..."
-        curl -L -o "$TEMP_FILE" "$YACD_URL"
+        curl -sS -L -o "$TEMP_FILE" "$YACD_URL"
         if [ $? -eq 0 ]; then
             echo "下载成功，正在效验文件..."
             if [ -s "$TEMP_FILE" ]; then
@@ -813,6 +1065,7 @@ update_web_panel() {
                     mv "$TEMP_DIR/Yacd-meta-gh-pages/"* "$YACD_DIR"
                     rm -rf "$TEMP_FILE" "$TEMP_DIR"
                     echo "$([ "$new_install" = true ] && echo "安装成功✓" || echo "更新成功✓")"
+                    echo ""
                 else
                     echo "解压失败，文件异常！"
                 fi
@@ -823,6 +1076,7 @@ update_web_panel() {
             echo "拉取下载失败！"
         fi 
     fi 
+    
     if [ "$zash_update_needed" = true ]; then
         echo "↴"
         echo "正在更新：Zash"
@@ -837,7 +1091,7 @@ update_web_panel() {
             new_install=true
         fi
         echo "正在拉取最新的代码..."
-        curl -L -o "$TEMP_FILE" "$ZASH_URL"
+        curl -sS -L -o "$TEMP_FILE" "$ZASH_URL"
         if [ $? -eq 0 ]; then
             echo "下载成功，正在效验文件..."
             if [ -s "$TEMP_FILE" ]; then
@@ -862,6 +1116,7 @@ update_web_panel() {
             echo "拉取下载失败！"
         fi 
     fi
+    
     chown -R root:net_admin "$PANEL_DIR"
     find "$PANEL_DIR" -type d -exec chmod 0755 {} \;
     find "$PANEL_DIR" -type f -exec chmod 0666 {} \;
@@ -911,7 +1166,7 @@ update_core() {
     latest_version=$(echo "$latest_release" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     if [ -z "$latest_version" ]; then
         echo "获取服务器失败！"
-        echo "错误：请确保网络能正常访问 GitHub！"
+        echo "错误：API 速率受限 / 网络异常 ！"
         return
     fi
     download_url="${BASEE_URL}${latest_version}/${RELEASE_PATH}-${latest_version}.gz"
@@ -931,7 +1186,7 @@ update_core() {
     fi
     echo "↴"
     echo "正在下载文件中..."
-    curl -L -o "$TEMP_FILE" "$download_url"
+    curl -sS -L -o "$TEMP_FILE" "$download_url"
     if [ $? -ne 0 ]; then
         echo "下载失败，请检查网络连接是否能正常访问 GitHub！"
         exit 1
